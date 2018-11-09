@@ -71,8 +71,31 @@ class BoardManager implements Serializable {
         }
         tiles.remove(numTiles - 1);
         tiles.add(new Tile(numTiles, R.drawable.tile_blank));
-        Collections.shuffle(tiles);
+        boolean isValidBoard = false;
+        while(!isValidBoard){
+            Collections.shuffle(tiles);
+            isValidBoard = checkValid(tiles);
+        }
         this.board = new Board(tiles);
+    }
+
+
+    /**
+     * Checks if sliding tiles board is solvable.
+     *
+     * @param listT list of tiles for a new board
+     * @return true iff inversion total is even
+     */
+    private boolean checkValid(List<Tile> listT){
+        int totalInversions = 0;
+        for (int i = 0; i < listT.size(); i++){
+            for (int j = i; j < listT.size();j++){
+                if (listT.get(i).getId() > listT.get(j).getId()
+                        && listT.get(i).getId() != listT.size()
+                        && listT.get(j).getId() != listT.size()){totalInversions++;}
+            }
+        }
+        return totalInversions%2 == 0;
     }
 
     /**
