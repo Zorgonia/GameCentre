@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">SlidingTiles</string>
+    <string name="saveTitle">Save Games Inc</string>
+    <string name="save">Save</string>
+    <string name="saveOne">Save 1</string>
+    <string name="saveTwo">Save 2</string>
+    <string name="saveThree">Save 3</string>
+    <string name="loadTitle">Load Games Inc</string>
+    <string name="loadOne">Load 1</string>
+    <string name="load">Load</string>
+    <string name="loadTwo">Load 2</string>
+    <string name="loadThree">Load 3</string>
+    <string name="loadFour">Auto-load</string>
+    <string name="undo">Undo</string>
+    <string name="signUp">Sign Up</string>
+    <string name="signIn">Sign In</string>
+    <string name="usernameField">Username</string>
+    <string name="passwordField">Password</string>
+    <string name="newUsernameField">New Username</string>
+    <string name="newPasswordField">New Password</string>
+    <string name="welcomeText">Welcome to the Game Centre!</string>
+    <string name="complexity">Complexity</string>
+    <string name="newGame">New Game</string>
+    <string name="loadGame">Load Saved Game</string>
+    <string name="personalScore">== PERSONAL BESTS ==</string>
+    <string name="allTimeScore">== LEADERBOARDS ==</string>
+    <string name="gameText">Welcome To Sliding Tiles \n A Puzzle Game where you must arrange the numbers in the correct order</string>
+    <string name="saveGame">Save Game</string>
+    <string name="defaultComplex">Complexity will be : 3 x 3</string>
+    <string name="subtract">Subtract</string>
+    <string name="add">Add</string>
+    <string name="defaultUndoNum">Undo limit will be: 3</string>
+    <string name="toggleUndoLimit">Toggle Limit</string>
+    <string name="UndoUnlimited">Undo limit will be: unlimited</string>
+    <string name="displayScore">Score: </string>
+</resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fall2018.csc2017.slidingtiles.StartingActivity">
+
+    <TextView
+        android:id="@+id/GameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="219dp"
+        android:gravity="center"
+        android:text="@string/gameText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <Button
+        android:id="@+id/StartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GameText"
+        android:layout_centerHorizontal="true"
+        android:text="@string/newGame" />
+
+    <Button
+        android:id="@+id/LoadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GameText"
+        android:layout_toStartOf="@+id/StartButton"
+        android:text="@string/loadGame" />
+
+    <Button
+        android:id="@+id/SaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GameText"
+        android:layout_toEndOf="@+id/StartButton"
+        android:text="@string/saveGame" />
+
+    <Button
+        android:id="@+id/ScoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GameText"
+        android:layout_marginStart="-126dp"
+        android:layout_marginTop="69dp"
+        android:layout_toEndOf="@+id/StartButton"
+        android:text="@string/allTimeScore" />
+
+    <Button
+        android:id="@+id/PersonalScoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GameText"
+        android:layout_marginStart="-131dp"
+        android:layout_marginTop="127dp"
+        android:layout_toEndOf="@+id/StartButton"
+        android:text="@string/personalScore" />
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="150dp"
+        android:layout_height="47dp"
+        android:layout_alignEnd="@+id/ScoreButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="160dp"
+        android:max="2"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seekBar2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-17dp"
+        android:text="@string/defaultComplex" />
+
+    <Button
+        android:id="@+id/UndoSubtractButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="103dp"
+        android:layout_marginBottom="72dp"
+        android:text="@string/subtract" />
+
+    <Button
+        android:id="@+id/UndoAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="72dp"
+        android:text="@string/add" />
+
+    <TextView
+        android:id="@+id/undoLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/UndoSubtractButton"
+        android:layout_alignEnd="@+id/StartButton"
+        android:layout_marginTop="-76dp"
+        android:layout_marginEnd="-17dp"
+        android:text="@string/defaultUndoNum" />
+
+    <Button
+        android:id="@+id/ToggleUndoLimitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/undoLimit"
+        android:layout_alignEnd="@+id/undoLimit"
+        android:text="@string/toggleUndoLimit" />
+
+</RelativeLayout>

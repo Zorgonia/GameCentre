@@ -1,0 +1,163 @@
+package fall2018.csc2017.slidingtiles;
+
+import android.support.annotation.NonNull;
+
+import java.util.Observable;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * The sliding tiles board.
+ */
+public class Board extends Observable implements Serializable, Iterable<Tile> {
+
+    /**
+     * The number of rows.
+     */
+    static int NUM_ROWS = 3;
+
+    /**
+     * The number of rows.
+     */
+    static int NUM_COLS = 3;
+
+    /**
+     * The tiles on the board in row-major order.
+     */
+
+    private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
+
+    /**
+     * A new board of tiles in row-major order.
+     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
+     *
+     * @param tiles the tiles for the board
+     */
+    Board(List<Tile> tiles) {
+        Iterator<Tile> iter = tiles.iterator();
+
+        for (int row = 0; row != Board.NUM_ROWS; row++) {
+            for (int col = 0; col != Board.NUM_COLS; col++) {
+                this.tiles[row][col] = iter.next();
+            }
+        }
+    }
+
+    /**
+     * Return the number of tiles on the board.
+     *
+     * @return the number of tiles on the board
+     */
+    int numTiles() {
+        return NUM_COLS * NUM_ROWS;
+    }
+
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+    Tile getTile(int row, int col) {
+        return tiles[row][col];
+    }
+
+    /**
+     * Swap the tiles as specified by move
+     *
+     * @param move the Move specifying which tiles to swap
+     */
+    void swapTiles(Move move) {
+        // Need something to hold a Tile
+        Tile tempTile = new Tile(this.tiles[move.getRow1()][move.getCol1()].getId(),
+                this.tiles[move.getRow1()][move.getCol1()].getBackground());
+
+        this.tiles[move.getRow1()][move.getCol1()] = this.tiles[move.getRow2()][move.getCol2()];
+        this.tiles[move.getRow2()][move.getCol2()] = tempTile;
+
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * Gets the number of columns in board
+     *
+     * @return number of columns in board
+     */
+    static int getNumCols() {
+        return NUM_COLS;
+    }
+
+    /**
+     * Sets number of columns in board to numCols, if 3, 4, or 5
+     *
+     * @param numCols number of columns wanted to set to
+     */
+    static void setNumCols(int numCols) {
+        if (3 <= numCols && numCols <= 5) {
+            NUM_COLS = numCols;
+        }
+    }
+
+
+    /**
+     * Get number of rows for board
+     *
+     * @return the number of rows in board
+     */
+    static int getNumRows() {
+        return NUM_ROWS;
+    }
+
+    /**
+     * Setter for number of rows in board, if numRows is 3, 4, or 5
+     *
+     * @param numRows number of rows wanted to set to
+     */
+    static void setNumRows(int numRows) {
+        if (3 <= numRows && numRows <= 5) {
+            NUM_ROWS = numRows;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "tiles=" + Arrays.toString(tiles) +
+                '}';
+    }
+
+    @NonNull
+    @Override
+    public Iterator<Tile> iterator() {
+        return new BoardIterator();
+
+
+    }
+
+    /**
+     * The Iterator for this class
+     */
+    private class BoardIterator implements Iterator<Tile> {
+        /**
+         * The number of the next tile to be iterated over
+         */
+        int nextTile = 0;
+
+        @Override
+        public boolean hasNext() {
+            return nextTile < numTiles();
+        }
+
+        @Override
+        public Tile next() {
+            Tile toReturn = tiles[nextTile / NUM_ROWS][nextTile % NUM_COLS];
+            nextTile++;
+            return toReturn;
+        }
+    }
+}
