@@ -83,6 +83,8 @@ class BoardManager implements Serializable {
     /**
      * Checks if sliding tiles board is solvable.
      *
+     * Algorithm source: https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
+     *
      * @param listT list of tiles for a new board
      * @return true iff inversion total is even
      */
