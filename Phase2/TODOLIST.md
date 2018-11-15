@@ -33,3 +33,13 @@ Gameactivity: leave it mostly as it is and modify boardmanager to be used differ
 Keep move as it is, maybe extend for checkers
 Tile: Abstract Class (Constructor empty)
 Undostack: Leave as it is for all others. Extend for checkers.
+
+Kevin's thoughts on some of the remaining classes not discussed yet/things to think about
+Save/Load Activity, only 1 and extracted out of the package or multiple instances for each separate game?
+So for example SlidingSave CheckersSave ... vs all in one file (like right now) that switches depending on the game you're currently in
+probably the second is better in my opinion
+Account -> we're pulling this out probably? AccountActivity is like the home screen under my understanding
+starting activity/game home screen -> abstract class because implementation should be relatively similar for each activity
+the only things are specifically implementing certain things such as the complexity slider for slidingtiles (not in the parent) 
+Pulling forgetactivity out because it's not tied to a specific game
+The other classes like movement controller and custom adapter not too sure about as of now.
