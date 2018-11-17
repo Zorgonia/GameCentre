@@ -39,7 +39,7 @@ public class Board extends AbstractBoard implements Serializable, Iterable<Tile>
      * @param tiles the tiles for the board
      */
     Board(List<Tile> tiles) {
-        super(tiles, 3, 3);
+        super(tiles);
     }
 
 //    /**

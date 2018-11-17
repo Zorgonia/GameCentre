@@ -19,12 +19,12 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
     /**
      * The number of rows.
      */
-    protected static int NUM_ROWS;
+    protected static int NUM_ROWS = 3;
 
     /**
      * The number of rows.
      */
-    protected static int NUM_COLS;
+    protected static int NUM_COLS = 3;
 
     /**
      * The tiles on the board in row-major order.
@@ -38,10 +38,8 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
      *
      * @param tiles the tiles for the board
      */
-    public AbstractBoard(List<Tile> tiles, int numRows, int numCols) {
+    public AbstractBoard(List<Tile> tiles) {
         Iterator<Tile> iter = tiles.iterator();
-        NUM_ROWS = numRows;
-        NUM_COLS = numCols;
         this.tiles = new Tile[NUM_ROWS][NUM_COLS];
         for (int row = 0; row != AbstractBoard.NUM_ROWS; row++) {
             for (int col = 0; col != AbstractBoard.NUM_COLS; col++) {
