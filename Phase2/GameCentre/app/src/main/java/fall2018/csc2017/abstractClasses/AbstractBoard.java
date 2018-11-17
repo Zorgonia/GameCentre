@@ -69,23 +69,6 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
     public Tile getTile(int row, int col) {
         return tiles[row][col];
     }
-//
-//    /**
-//     * Swap the tiles as specified by move
-//     *
-//     * @param move the Move specifying which tiles to swap
-//     */
-//    void swapTiles(Move move) {
-//        // Need something to hold a Tile
-//        Tile tempTile = new Tile(this.tiles[move.getRow1()][move.getCol1()].getId(),
-//                this.tiles[move.getRow1()][move.getCol1()].getBackground());
-//
-//        this.tiles[move.getRow1()][move.getCol1()] = this.tiles[move.getRow2()][move.getCol2()];
-//        this.tiles[move.getRow2()][move.getCol2()] = tempTile;
-//
-//        setChanged();
-//        notifyObservers();
-//    }
 
     /**
      * Gets the number of columns in board
@@ -96,18 +79,6 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
         return NUM_COLS;
     }
 
-//    /**
-//     * Sets number of columns in board to numCols, if 3, 4, or 5
-//     *
-//     * @param numCols number of columns wanted to set to
-//     */
-//    static void setNumCols(int numCols) {
-//        if (3 <= numCols && numCols <= 5) {
-//            NUM_COLS = numCols;
-//        }
-//    }
-
-
     /**
      * Get number of rows for board
      *
@@ -117,16 +88,6 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
         return NUM_ROWS;
     }
 
-//    /**
-//     * Setter for number of rows in board, if numRows is 3, 4, or 5
-//     *
-//     * @param numRows number of rows wanted to set to
-//     */
-//    static void setNumRows(int numRows) {
-//        if (3 <= numRows && numRows <= 5) {
-//            NUM_ROWS = numRows;
-//        }
-//    }
 
     @Override
     public String toString() {
