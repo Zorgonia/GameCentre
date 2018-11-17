@@ -1,5 +1,6 @@
 package fall2018.csc2017.abstractClasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +12,7 @@ import fall2018.csc2017.slidingtiles.Score;
 import fall2018.csc2017.slidingtiles.Tile;
 import fall2018.csc2017.slidingtiles.UndoStack;
 
-public abstract class AbstractBoardManager {
+public abstract class AbstractBoardManager implements Serializable {
 
     /**
      * The board being managed.
