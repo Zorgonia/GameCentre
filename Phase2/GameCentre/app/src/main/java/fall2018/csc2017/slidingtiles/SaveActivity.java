@@ -19,7 +19,7 @@ public class SaveActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
-    private String username = AccountActivity.username;
+    private String username;
 //    public final String SAVE_FILENAME1 = "save_file1" + username + ".ser";
 //    public final String SAVE_FILENAME2 = "save_file2" + username + ".ser";
 //    public final String SAVE_FILENAME3 = "save_file3" + username + ".ser";
@@ -39,6 +39,7 @@ public class SaveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
         saveToFile(TEMP_SAVE_FILENAME);
+        username = AccountActivity.username;
 
         setContentView(R.layout.activity_save_);
         addSaveButtonListener("save_file1" + username + ".ser", R.id.SaveButton1);

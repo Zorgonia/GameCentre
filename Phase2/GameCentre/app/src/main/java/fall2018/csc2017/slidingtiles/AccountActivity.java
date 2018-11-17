@@ -82,7 +82,8 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View v) {
                 Account a = findAccount(Username.getText().toString());
-                if (Username.getText().toString().equals("") ||
+                username = Username.getText().toString();
+                if (username.equals("") ||
                         Password.getText().toString().equals("")){
                     makeToast("Enter Valid Username and Password");
                 }
