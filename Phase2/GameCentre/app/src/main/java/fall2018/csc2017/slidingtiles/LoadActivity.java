@@ -56,10 +56,14 @@ public class LoadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadFromFile(temp);
-                saveToFile(TEMP_SAVE_FILENAME);
-                makeToastLoadText();
-                boardManager.setComplexity(boardManager.getComplex());
-                switchToGame();
+                if (boardManager.getBoard() != null) {
+                    saveToFile(TEMP_SAVE_FILENAME);
+                    makeToast("Successfully Loaded Game");
+                    boardManager.setComplexity(boardManager.getComplex());
+                    switchToGame();
+                } else {
+                    makeToast("Empty Load! Save something first");
+                }
             }
         });
     }
@@ -67,8 +71,8 @@ public class LoadActivity extends AppCompatActivity {
     /**
      * Provides a popup that load was successful.
      */
-    private void makeToastLoadText() {
-        Toast.makeText(this, "Successfully Loaded Game", Toast.LENGTH_SHORT).show();
+    private void makeToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     /**

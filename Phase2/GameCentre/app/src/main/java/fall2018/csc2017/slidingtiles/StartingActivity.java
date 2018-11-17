@@ -28,7 +28,7 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private BoardManager boardManager = null;
 
     int move = 0;
 
@@ -42,7 +42,7 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = new BoardManager();
+//        boardManager = new BoardManager();
         tempSaveToFile();
 
         setContentView(R.layout.activity_starting_);
@@ -127,7 +127,12 @@ public class StartingActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToSaveActivity();
+                tempLoadFromFile();
+                if (boardManager != null) {
+                    switchToSaveActivity();
+                } else {
+                    makeToast("You have no active games right now!");
+                }
             }
         });
     }
@@ -146,7 +151,7 @@ public class StartingActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                makeToastComplexity();
+                makeToast("Move the slider to change the complexity of the game");
             }
 
             @Override
@@ -238,9 +243,11 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * Makes a toast about how the seek bar changes complexity.
      */
-    private void makeToastComplexity() {
-        Toast.makeText(this, "Move the slider to change the complexity of the game", Toast.LENGTH_SHORT).show();
+    private void makeToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+
+
 
     /**
      * Switch the game to the load screen
