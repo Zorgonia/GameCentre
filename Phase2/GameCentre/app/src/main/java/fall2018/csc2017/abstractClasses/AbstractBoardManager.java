@@ -133,7 +133,7 @@ public abstract class AbstractBoardManager {
     /**
      * sets board activeStatus to false
      */
-    protected void setBoardToInactive(){
+    public void setBoardToInactive(){
         activeStatus = false;
     }
 

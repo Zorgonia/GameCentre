@@ -287,7 +287,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * when puzzle is solved
      */
     private void saveFinalScore() {
-        if (boardManager.puzzleSolved()) {
+        if (boardManager.gameFinished()) {
             boardManager.setBoardToInactive();
 
             // updates account's score/exp and then updates it to allAccounts
