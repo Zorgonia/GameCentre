@@ -1,7 +1,9 @@
-package fall2018.csc2017.twentyfortyeight.;
+package fall2018.csc2017.twentyfortyeight;
 
 import android.support.annotation.NonNull;
 import java.io.Serializable;
+
+import fall2018.csc2017.slidingtiles.R;
 
 public class Tile2048 implements Comparable<Tile2048>, Serializable {
 
@@ -33,20 +35,29 @@ public class Tile2048 implements Comparable<Tile2048>, Serializable {
         return value;
     }
 
-
+    /**
+     * A tile2048 with value and background
+     *
+     * @param value      the value
+     * @param background the background
+     */
     Tile2048(int value, int background){
         this.value = value;
         this.background = background;
     }
 
+    /**
+     * A tile2048 with a background id; looks up and set the background
+     *
+     * @param backgroundID the background id
+     */
     Tile2048(int backgroundID){
-        Integer[] tileIds = {R.drawable.tile_1, R.drawable.tile_2, R.drawable.tile_3,
-                R.drawable.tile_4, R.drawable.tile_5, R.drawable.tile_6, R.drawable.tile_7,
-                R.drawable.tile_8, R.drawable.tile_9, R.drawable.tile_10, R.drawable.tile_11,
-                R.drawable.tile_12, R.drawable.tile_13, R.drawable.tile_14, R.drawable.tile_15,
-                R.drawable.tile_16, R.drawable.tile_17, R.drawable.tile_18, R.drawable.tile_19,
-                R.drawable.tile_20, R.drawable.tile_21, R.drawable.tile_22, R.drawable.tile_23,
-                R.drawable.tile_24, R.drawable.tile_blank};
+        value = (int) Math.pow(2,(double) (backgroundID + 1));
+        Integer[] tileIds = {R.drawable.tile2048_2, R.drawable.tile2048_4, R.drawable.tile2048_8,
+                R.drawable.tile2048_16, R.drawable.tile2048_32, R.drawable.tile2048_64,
+                R.drawable.tile2048_128, R.drawable.tile2048_256, R.drawable.tile2048_512,
+                R.drawable.tile2048_1024, R.drawable.tile2048_2048};
+        background = tileIds[backgroundID];
     }
 
     @Override
