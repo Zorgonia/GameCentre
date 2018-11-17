@@ -52,11 +52,15 @@ public class Tile2048 implements Comparable<Tile2048>, Serializable {
      * @param backgroundID the background id
      */
     Tile2048(int backgroundID){
-        value = (int) Math.pow(2,(double) (backgroundID + 1));
+        if (backgroundID != 11) {
+            value = (int) Math.pow(2, (double) (backgroundID + 1));
+        } else {
+            value = 0;
+        }
         Integer[] tileIds = {R.drawable.tile2048_2, R.drawable.tile2048_4, R.drawable.tile2048_8,
                 R.drawable.tile2048_16, R.drawable.tile2048_32, R.drawable.tile2048_64,
                 R.drawable.tile2048_128, R.drawable.tile2048_256, R.drawable.tile2048_512,
-                R.drawable.tile2048_1024, R.drawable.tile2048_2048};
+                R.drawable.tile2048_1024, R.drawable.tile2048_2048, R.drawable.tile_blank};
         background = tileIds[backgroundID];
     }
 
