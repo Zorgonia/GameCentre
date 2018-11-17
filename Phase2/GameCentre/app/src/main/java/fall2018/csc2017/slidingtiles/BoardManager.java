@@ -5,17 +5,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import fall2018.csc2017.abstractClasses.AbstractBoardManager;
+
 /**
  * Manage a board, including swapping tiles, undoing swaps, checking for a win, and managing taps.
  */
 
-class BoardManager implements Serializable {
+class BoardManager extends AbstractBoardManager implements Serializable {
 
-    /**
-     * The board being managed.
-     */
-    private Board board;
-
+//    /**
+//     * The board being managed.
+//     */
+//    private Board board;
+//
     /**
      * The stack of moves to be called when undo is requested
      */
@@ -25,25 +27,25 @@ class BoardManager implements Serializable {
      * Complexity of current board instance, 3 + complex is numRows=numCols
      */
     private int complex = 0;
+//
+//    /**
+//     * Score of the current board in terms of moves made
+//     */
+//    private Score score = new Score(0);
 
-    /**
-     * Score of the current board in terms of moves made
-     */
-    private Score score = new Score(0);
-
-    /**
-     * false indicates game is solved and board isn't active any longer
-     */
-    private boolean activeStatus = true;
+//    /**
+//     * false indicates game is solved and board isn't active any longer
+//     */
+//    private boolean activeStatus = true;
 
     /**
      * Manage a board that has been pre-populated.
      *
      * @param board the board
      */
-    BoardManager(Board board) {
-        this.board = board;
-    }
+//    BoardManager(Board board) {
+//        this.board = board;
+//    }
 
     /**
      * Return the current board.
@@ -56,14 +58,13 @@ class BoardManager implements Serializable {
      * Manage a new shuffled board.
      */
     BoardManager() {
-        refreshBoard();
+        super();
         undoStack = new UndoStack();
     }
-
     /**
      * Refreshes the tile set of the board (for a new game)
      */
-    void refreshBoard() {
+    public void refreshBoard() {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Board.getNumRows() * Board.getNumCols();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -88,7 +89,7 @@ class BoardManager implements Serializable {
      * @param listT list of tiles for a new board
      * @return true iff inversion total is even
      */
-    private boolean checkValid(List<Tile> listT){
+     protected boolean checkValid(List<Tile> listT){
         int totalInversions = 0;
         for (int i = 0; i < listT.size(); i++){
             for (int j = i; j < listT.size();j++){
@@ -124,7 +125,7 @@ class BoardManager implements Serializable {
      *
      * @return the Score of the board
      */
-    Score getBoardScore() {
+    protected Score getBoardScore() {
         return score;
     }
 
@@ -133,7 +134,7 @@ class BoardManager implements Serializable {
      *
      * @return whether the tiles are in row-major order
      */
-    boolean puzzleSolved() {
+    protected boolean gameFinished() {
         boolean solved = true;
         int count = 1;
         for (Tile t : getBoard()) {
@@ -151,7 +152,7 @@ class BoardManager implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    boolean isValidTap(int position) {
+    protected boolean isValidTap(int position) {
 
         int row = position / Board.getNumRows();
         int col = position % Board.getNumCols();
@@ -173,7 +174,7 @@ class BoardManager implements Serializable {
      *
      * @param position the position
      */
-    void touchMove(int position) {
+    protected void touchMove(int position) {
         Move move = null;
 
         // instances provided, to determine row/col of the tile tapped
@@ -239,18 +240,18 @@ class BoardManager implements Serializable {
         return complex;
     }
 
-    /**
-     * sets board activeStatus to false
-     */
-    void setBoardToInactive(){
-        activeStatus = false;
-    }
-
-    /**
-     * returns the board's active status
-     * @return activeStatus: boolean
-     */
-    boolean getBoardStatus(){
-        return activeStatus;
-    }
+//    /**
+//     * sets board activeStatus to false
+//     */
+//    void setBoardToInactive(){
+//        activeStatus = false;
+//    }
+//
+//    /**
+//     * returns the board's active status
+//     * @return activeStatus: boolean
+//     */
+//    boolean getBoardStatus(){
+//        return activeStatus;
+//    }
 }

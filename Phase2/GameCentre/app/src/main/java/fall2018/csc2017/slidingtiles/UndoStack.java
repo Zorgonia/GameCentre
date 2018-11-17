@@ -21,7 +21,7 @@ public class UndoStack implements Serializable {
     /**
      * Initialize a new stack.
      */
-    UndoStack() {
+    public UndoStack() {
         stack = new ArrayList<>();
     }
 
@@ -53,7 +53,7 @@ public class UndoStack implements Serializable {
      *
      * @param increment: Value to add to size
      */
-    void incrementSize(int increment) {
+    public void incrementSize(int increment) {
         size += increment;
     }
 

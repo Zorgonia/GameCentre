@@ -18,7 +18,7 @@ public class MovementController {
     public void processTapMovement(Context context, int position, boolean display) {
         if (boardManager.isValidTap(position)) {
             boardManager.touchMove(position);
-            if (boardManager.puzzleSolved()) {
+            if (boardManager.gameFinished()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
             }
         } else if (!this.boardManager.getBoardStatus()){

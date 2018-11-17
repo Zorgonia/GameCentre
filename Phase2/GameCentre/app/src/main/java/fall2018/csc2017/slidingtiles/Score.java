@@ -12,7 +12,7 @@ public class Score implements Serializable, Comparable<Score> {
     /**
      * A new score with a score of value
      */
-    Score(int value){
+    public Score(int value){
         this.score = value;
     }
 
