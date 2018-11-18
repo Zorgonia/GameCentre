@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.ManageableBoard;
-import fall2018.csc2017.abstractClasses.AbstractBoardManager;
 
 /**
  * Manage a board, including swapping tiles, undoing swaps, checking for a win, and managing taps.
