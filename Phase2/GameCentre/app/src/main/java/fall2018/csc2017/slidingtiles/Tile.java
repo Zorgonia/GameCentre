@@ -8,13 +8,18 @@ import java.io.Serializable;
  * A Tile in a sliding tiles puzzle.
  */
 public class Tile extends AbstractTile implements Comparable<AbstractTile>, Serializable {
+
+
+    Tile(int id, int background) {
+        super(id, background);
+    }
     /**
      * A tile with a background id; look up and set the id.
      *
      * @param backgroundId the background id
      */
      Tile(int backgroundId) {
-        super(backgroundId + 1, backgroundId);
+        super(backgroundId + 1);
         //Array for tile Ids
         Integer[] tileIds = {R.drawable.tile_1, R.drawable.tile_2, R.drawable.tile_3,
                 R.drawable.tile_4, R.drawable.tile_5, R.drawable.tile_6, R.drawable.tile_7,
