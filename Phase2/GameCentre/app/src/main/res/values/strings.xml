@@ -35,4 +35,8 @@
     <string name="displayScore">Score: </string>
     <string name="gameSelect">Click on a game to play!</string>
     <string name="checkersTitle">CHECKERS!</string>
+    <string name="checkersNewGame">NEW GAME</string>
+    <string name="checkersLoadGame">LOAD GAME</string>
+    <string name="checkersLeaderboard">==LEADERBOARDS==</string>
+    <string name="checkersPersonalBests">==PERSONAL BESTS==</string>
 </resources>
