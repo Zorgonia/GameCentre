@@ -56,7 +56,7 @@ public class LoadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadFromFile(temp);
-                if (boardManager.getBoard() != null) {
+                if (boardManager != null) {
                     saveToFile(TEMP_SAVE_FILENAME);
                     makeToast("Successfully Loaded Game");
                     switchToGame();
@@ -99,6 +99,7 @@ public class LoadActivity extends AppCompatActivity {
             }
         } catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
+            boardManager = null;
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
