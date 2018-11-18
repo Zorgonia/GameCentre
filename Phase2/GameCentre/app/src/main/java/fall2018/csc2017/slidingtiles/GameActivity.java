@@ -91,7 +91,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         boardManager.getBoardScore().decreaseScore();
 
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(Board.getNumCols());
+        gridView.setNumColumns(boardManager.getBoard().getNumCols());
         gridView.setBoardManager(boardManager);
         boardManager.getBoard().addObserver(this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -103,8 +103,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / Board.getNumCols();
-                        columnHeight = displayHeight / Board.getNumRows();
+                        columnWidth = displayWidth / (boardManager.getComplex() + 3);
+                        columnHeight = displayHeight / (boardManager.getComplex() + 3);
                         display();
                     }
                 });
@@ -125,8 +125,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void createTileButtons(Context context) {
         Board board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != Board.getNumRows(); row++) {
-            for (int col = 0; col != Board.getNumCols(); col++) {
+        for (int row = 0; row != board.getNumRows(); row++) {
+            for (int col = 0; col != board.getNumCols(); col++) {
                 Button tmp = new Button(context);
                 tmp.setBackgroundResource(board.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
@@ -141,8 +141,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         Board board = boardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / Board.getNumRows();
-            int col = nextPos % Board.getNumCols();
+            int row = nextPos / board.getNumRows();
+            int col = nextPos % board.getNumCols();
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }

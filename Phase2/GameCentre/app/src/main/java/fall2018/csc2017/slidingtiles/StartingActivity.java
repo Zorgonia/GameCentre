@@ -92,8 +92,8 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager();
-                boardManager.setComplexity(move);
+                boardManager = new BoardManager(move);
+//                boardManager.setComplexity(move);
                 boardManager.incrementUndo(undoLimitChange);
                 boardManager.setLimited(undoLimited);
                 boardManager.refreshBoard();
@@ -302,6 +302,7 @@ public class StartingActivity extends AppCompatActivity {
         tempSaveToFile();
         startActivity(tmp);
     }
+
 
     /**
      * Load the board manager from the temp save fileName.

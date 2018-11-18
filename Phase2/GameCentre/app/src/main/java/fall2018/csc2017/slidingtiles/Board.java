@@ -2,6 +2,7 @@ package fall2018.csc2017.slidingtiles;
 
 import android.support.annotation.NonNull;
 
+import java.sql.SQLOutput;
 import java.util.Observable;
 
 import java.io.Serializable;
@@ -38,8 +39,8 @@ public class Board extends AbstractBoard implements Serializable, Iterable<Tile>
      *
      * @param tiles the tiles for the board
      */
-    Board(List<Tile> tiles) {
-        super(tiles);
+    Board(List<Tile> tiles, int row, int col) {
+        super(tiles, row, col);
     }
 
 //    /**
@@ -88,17 +89,6 @@ public class Board extends AbstractBoard implements Serializable, Iterable<Tile>
 //        return NUM_COLS;
 //    }
 
-    /**
-     * Sets number of columns in board to numCols, if 3, 4, or 5
-     *
-     * @param numCols number of columns wanted to set to
-     */
-    static void setNumCols(int numCols) {
-        if (3 <= numCols && numCols <= 5) {
-            NUM_COLS = numCols;
-        }
-    }
-
 
 //    /**
 //     * Get number of rows for board
@@ -109,16 +99,6 @@ public class Board extends AbstractBoard implements Serializable, Iterable<Tile>
 //        return NUM_ROWS;
 //    }
 
-    /**
-     * Setter for number of rows in board, if numRows is 3, 4, or 5
-     *
-     * @param numRows number of rows wanted to set to
-     */
-    static void setNumRows(int numRows) {
-        if (3 <= numRows && numRows <= 5) {
-            NUM_ROWS = numRows;
-        }
-    }
 
     @Override
     public String toString() {
@@ -131,8 +111,6 @@ public class Board extends AbstractBoard implements Serializable, Iterable<Tile>
     @Override
     public Iterator<Tile> iterator() {
         return new BoardIterator();
-
-
     }
 
     /**

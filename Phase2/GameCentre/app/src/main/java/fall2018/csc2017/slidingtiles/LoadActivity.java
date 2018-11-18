@@ -59,7 +59,6 @@ public class LoadActivity extends AppCompatActivity {
                 if (boardManager.getBoard() != null) {
                     saveToFile(TEMP_SAVE_FILENAME);
                     makeToast("Successfully Loaded Game");
-                    boardManager.setComplexity(boardManager.getComplex());
                     switchToGame();
                 } else {
                     makeToast("Empty Load! Save something first");

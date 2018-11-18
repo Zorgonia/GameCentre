@@ -30,6 +30,11 @@ public abstract class AbstractBoardManager implements Serializable {
 //    protected int complex = 0;
 
     /**
+     * Complexity of current board instance, 3 + complex is numRows=numCols
+     */
+    protected int complex;
+
+    /**
      * Score of the current board in terms of moves made
      */
     protected Score score = new Score(0);
@@ -49,7 +54,8 @@ public abstract class AbstractBoardManager implements Serializable {
     /**
      * Manage a new shuffled board.
      */
-    protected AbstractBoardManager() {
+    protected AbstractBoardManager(int complexity) {
+        complex = complexity;
         refreshBoard();
     }
 

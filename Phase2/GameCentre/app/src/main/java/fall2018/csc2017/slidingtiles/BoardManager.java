@@ -23,10 +23,6 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      */
     private UndoStack undoStack;
 
-    /**
-     * Complexity of current board instance, 3 + complex is numRows=numCols
-     */
-    private int complex = 0;
 //
 //    /**
 //     * Score of the current board in terms of moves made
@@ -57,8 +53,8 @@ class BoardManager extends AbstractBoardManager implements Serializable {
     /**
      * Manage a new shuffled board.
      */
-    BoardManager() {
-        super();
+    BoardManager(int complexity) {
+        super(complexity);
         undoStack = new UndoStack();
     }
     /**
@@ -66,7 +62,7 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      */
     public void refreshBoard() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.getNumRows() * Board.getNumCols();
+        final int numTiles = (int) Math.pow((complex + 3), 2);
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum));
         }
@@ -77,7 +73,8 @@ class BoardManager extends AbstractBoardManager implements Serializable {
             Collections.shuffle(tiles);
             isValidBoard = checkValid(tiles);
         }
-        this.board = new Board(tiles);
+        board = new Board(tiles, complex + 3, complex + 3);
+
     }
 
 
@@ -101,24 +98,16 @@ class BoardManager extends AbstractBoardManager implements Serializable {
         return totalInversions%2 == 0;
     }
 
-    /**
-     * Sets the columns and rows of board according to current complexity of board manager
-     *
-     * @param complexity desired complexity to be set to
-     */
-    public void setComplexity(int complexity) {
-        complex = complexity;
-        if (complexity == 2) {
-            Board.setNumCols(5);
-            Board.setNumRows(5);
-        } else if (complexity == 1) {
-            Board.setNumCols(4);
-            Board.setNumRows(4);
-        } else {
-            Board.setNumCols(3);
-            Board.setNumRows(3);
-        }
-    }
+//    /**
+//     * Sets the columns and rows of board according to current complexity of board manager
+//     *
+//     * @param complexity desired complexity to be set to
+//     */
+//    public void setComplexity(int complexity) {
+//        complex = complexity;
+//        board.setNumCols(complexity + 3);
+//        board.setNumRows(complexity + 3);
+//    }
 
     /**
      * Get score of the board in terms of number of moves
@@ -154,14 +143,14 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      */
     protected boolean isValidTap(int position) {
 
-        int row = position / Board.getNumRows();
-        int col = position % Board.getNumCols();
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
         int blankId = board.numTiles();
         // Are any of the 4 the blank tile?
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == Board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
+        Tile below = row == board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
         Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == Board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
+        Tile right = col == board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -178,15 +167,15 @@ class BoardManager extends AbstractBoardManager implements Serializable {
         Move move = null;
 
         // instances provided, to determine row/col of the tile tapped
-        int row = position / Board.getNumRows();
-        int col = position % Board.getNumCols();
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
         int blankId = board.numTiles();
 
         // The tiles surrounding the tapped tile
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == Board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
+        Tile below = row == board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
         Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == Board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
+        Tile right = col == board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
 
         // For whichever one around is empty, swap with that one.
         if (below != null && below.getId() == blankId) {

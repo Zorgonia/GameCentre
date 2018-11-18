@@ -19,12 +19,12 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
     /**
      * The number of rows.
      */
-    protected static int NUM_ROWS = 3;
+    protected int NUM_ROWS;
 
     /**
      * The number of rows.
      */
-    protected static int NUM_COLS = 3;
+    protected int NUM_COLS;
 
     /**
      * The tiles on the board in row-major order.
@@ -38,11 +38,13 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
      *
      * @param tiles the tiles for the board
      */
-    public AbstractBoard(List<Tile> tiles) {
+    public AbstractBoard(List<Tile> tiles, int numRow, int numCol) {
         Iterator<Tile> iter = tiles.iterator();
+        NUM_ROWS = numRow;
+        NUM_COLS = numCol;
         this.tiles = new Tile[NUM_ROWS][NUM_COLS];
-        for (int row = 0; row != AbstractBoard.NUM_ROWS; row++) {
-            for (int col = 0; col != AbstractBoard.NUM_COLS; col++) {
+        for (int row = 0; row != NUM_ROWS; row++) {
+            for (int col = 0; col != NUM_COLS; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -68,12 +70,13 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
         return tiles[row][col];
     }
 
+
     /**
      * Gets the number of columns in board
      *
      * @return number of columns in board
      */
-    public static int getNumCols() {
+    public int getNumCols() {
         return NUM_COLS;
     }
 
@@ -82,9 +85,31 @@ abstract public class AbstractBoard extends Observable implements Serializable, 
      *
      * @return the number of rows in board
      */
-    public static int getNumRows() {
+    public int getNumRows() {
         return NUM_ROWS;
     }
+    //TODO: PENDING. SETNUMCOLS AND SETNUMROWS are not necessary as constructor sets them
+//    /**
+//     * Sets number of columns in board to numCols, if 3, 4, or 5
+//     *
+//     * @param numCols number of columns wanted to set to
+//    //     */
+//    public void setNumCols(int numCols) {
+//        if (3 <= numCols && numCols <= 5) {
+//            NUM_COLS = numCols;
+//        }
+//    }
+//
+//    /**
+//     * Setter for number of rows in board, if numRows is 3, 4, or 5
+//     *
+//     * @param numRows number of rows wanted to set to
+//     */
+//    public void setNumRows(int numRows) {
+//        if (3 <= numRows && numRows <= 5) {
+//            NUM_ROWS = numRows;
+//        }
+//    }
 
 
     @Override
