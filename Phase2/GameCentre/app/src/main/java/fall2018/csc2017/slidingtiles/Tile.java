@@ -9,7 +9,12 @@ import java.io.Serializable;
  */
 public class Tile extends AbstractTile implements Comparable<AbstractTile>, Serializable {
 
-
+    /**
+     * A Tile with id and background. The background may not have a corresponding image.
+     *
+     * @param id         the id
+     * @param background the background
+     */
     Tile(int id, int background) {
         super(id, background);
     }
@@ -18,7 +23,7 @@ public class Tile extends AbstractTile implements Comparable<AbstractTile>, Seri
      *
      * @param backgroundId the background id
      */
-     Tile(int backgroundId) {
+    Tile(int backgroundId) {
         super(backgroundId + 1);
         //Array for tile Ids
         Integer[] tileIds = {R.drawable.tile_1, R.drawable.tile_2, R.drawable.tile_3,
