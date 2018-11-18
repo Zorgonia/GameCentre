@@ -3,6 +3,7 @@ package fall2018.csc2017.slidingtiles;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import fall2018.csc2017.GameSelectActivity;
 
 public class AccountActivity extends AppCompatActivity implements Serializable {
     /**
@@ -48,7 +51,7 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
     }
 
     private void switchToForgetPassword() {
-        Intent tmp = new Intent(this, ForgetActivity.class);
+        Intent tmp = new Intent(this, GameSelectActivity.class);
         startActivity(tmp);
     }
 
