@@ -74,7 +74,7 @@ class BoardManager implements ManageableBoard, Serializable {
             tiles.add(new Tile(tileNum));
         }
         tiles.remove(numTiles - 1);
-        tiles.add(new Tile(numTiles, R.drawable.tile_blank));
+        tiles.add(new Tile(24));
         boolean isValidBoard = false;
         while(!isValidBoard){
             Collections.shuffle(tiles);

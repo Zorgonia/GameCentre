@@ -70,8 +70,7 @@ public class Board extends AbstractBoard implements Serializable, Iterable<Tile>
      */
     void swapTiles(Move move) {
         // Need something to hold a Tile
-        Tile tempTile = new Tile(this.tiles[move.getRow1()][move.getCol1()].getId(),
-                this.tiles[move.getRow1()][move.getCol1()].getBackground());
+        Tile tempTile = new Tile(this.tiles[move.getRow1()][move.getCol1()].getId() - 1);
 
         this.tiles[move.getRow1()][move.getCol1()] = this.tiles[move.getRow2()][move.getCol2()];
         this.tiles[move.getRow2()][move.getCol2()] = tempTile;

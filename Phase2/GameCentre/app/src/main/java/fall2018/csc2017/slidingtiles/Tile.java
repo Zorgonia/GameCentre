@@ -8,7 +8,6 @@ import java.io.Serializable;
  * A Tile in a sliding tiles puzzle.
  */
 public class Tile extends AbstractTile implements Comparable<AbstractTile>, Serializable {
-
     /**
      * A tile with a background id; look up and set the id.
      *
