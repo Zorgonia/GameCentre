@@ -5,34 +5,40 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import fall2018.csc2017.Interfaces.ManageableBoard;
 import fall2018.csc2017.abstractClasses.AbstractBoardManager;
 
 /**
  * Manage a board, including swapping tiles, undoing swaps, checking for a win, and managing taps.
  */
 
-class BoardManager extends AbstractBoardManager implements Serializable {
+class BoardManager implements ManageableBoard, Serializable {
 
-//    /**
-//     * The board being managed.
-//     */
-//    private Board board;
-//
+    /**
+     * The board being managed.
+     */
+    private Board board;
+
     /**
      * The stack of moves to be called when undo is requested
      */
     private UndoStack undoStack;
 
-//
-//    /**
-//     * Score of the current board in terms of moves made
-//     */
-//    private Score score = new Score(0);
+    /**
+     * Complexity of current board instance, 3 + complex is numRows=numCols
+     */
+    protected int complex;
 
-//    /**
-//     * false indicates game is solved and board isn't active any longer
-//     */
-//    private boolean activeStatus = true;
+
+    /**
+     * Score of the current board in terms of moves made
+     */
+    private Score score = new Score(0);
+
+    /**
+     * false indicates game is solved and board isn't active any longer
+     */
+    private boolean activeStatus = true;
 
     /**
      * Manage a board that has been pre-populated.
@@ -46,7 +52,7 @@ class BoardManager extends AbstractBoardManager implements Serializable {
     /**
      * Return the current board.
      */
-    Board getBoard() {
+    public Board getBoard() {
         return board;
     }
 
@@ -54,7 +60,8 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      * Manage a new shuffled board.
      */
     BoardManager(int complexity) {
-        super(complexity);
+        complex = complexity;
+        refreshBoard();
         undoStack = new UndoStack();
     }
     /**
@@ -86,7 +93,7 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      * @param listT list of tiles for a new board
      * @return true iff inversion total is even
      */
-     protected boolean checkValid(List<Tile> listT){
+     public boolean checkValid(List<Tile> listT){
         int totalInversions = 0;
         for (int i = 0; i < listT.size(); i++){
             for (int j = i; j < listT.size();j++){
@@ -114,7 +121,7 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      *
      * @return the Score of the board
      */
-    protected Score getBoardScore() {
+    public Score getBoardScore() {
         return score;
     }
 
@@ -123,7 +130,7 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      *
      * @return whether the tiles are in row-major order
      */
-    protected boolean gameFinished() {
+    public boolean gameFinished() {
         boolean solved = true;
         int count = 1;
         for (Tile t : getBoard()) {
@@ -141,7 +148,7 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    protected boolean isValidTap(int position) {
+    public boolean isValidTap(int position) {
 
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
@@ -163,7 +170,7 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      *
      * @param position the position
      */
-    protected void touchMove(int position) {
+    public void touchMove(int position) {
         Move move = null;
 
         // instances provided, to determine row/col of the tile tapped
@@ -227,6 +234,20 @@ class BoardManager extends AbstractBoardManager implements Serializable {
      */
     int getComplex() {
         return complex;
+    }
+    /**
+     * sets board activeStatus to false
+     */
+    public void setBoardToInactive(){
+        activeStatus = false;
+    }
+
+    /**
+     * returns the board's active status
+     * @return activeStatus: boolean
+     */
+    public boolean getBoardStatus(){
+        return activeStatus;
     }
 
 //    /**
