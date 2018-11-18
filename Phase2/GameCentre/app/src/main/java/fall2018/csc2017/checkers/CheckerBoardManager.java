@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.ManageableBoard;
+import fall2018.csc2017.slidingtiles.Board;
 import fall2018.csc2017.slidingtiles.Score;
 import fall2018.csc2017.slidingtiles.Tile;
 
 
 public class CheckerBoardManager implements Serializable, ManageableBoard {
 
-    private CheckerBoard board;
+    private Board board;
 
     public CheckerBoardManager(){
         refreshBoard();
@@ -18,10 +19,6 @@ public class CheckerBoardManager implements Serializable, ManageableBoard {
 
     public void refreshBoard(){
 
-    }
-
-    public boolean checkValid(){
-        return false;
     }
 
     public boolean gameFinished(){
@@ -32,7 +29,7 @@ public class CheckerBoardManager implements Serializable, ManageableBoard {
         return false;
     }
 
-    public CheckerBoard getBoard(){
+    public Board getBoard(){
         return null;
     }
 

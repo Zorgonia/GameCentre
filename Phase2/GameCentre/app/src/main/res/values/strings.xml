@@ -34,4 +34,5 @@
     <string name="UndoUnlimited">Undo limit will be: unlimited</string>
     <string name="displayScore">Score: </string>
     <string name="gameSelect">Click on a game to play!</string>
+    <string name="checkersTitle">CHECKERS!</string>
 </resources>
