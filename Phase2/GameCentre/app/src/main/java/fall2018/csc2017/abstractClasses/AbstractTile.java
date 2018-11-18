@@ -17,6 +17,10 @@ public abstract class AbstractTile implements Comparable<AbstractTile>, Serializ
         this.background = background;
     }
 
+    public AbstractTile(int id){
+        this.id = id;
+    }
+
     /**
      * Return id of a tile.
      * @return id of tile.

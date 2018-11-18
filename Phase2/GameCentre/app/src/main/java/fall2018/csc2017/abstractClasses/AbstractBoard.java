@@ -14,7 +14,7 @@ import fall2018.csc2017.slidingtiles.Tile;
 /**
  * The sliding tiles board.
  */
-abstract public class AbstractBoard extends Observable implements Serializable, Iterable<Tile> {
+public class AbstractBoard extends Observable implements Serializable, Iterable<Tile> {
 
     /**
      * The number of rows.
