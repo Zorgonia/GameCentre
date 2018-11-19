@@ -19,18 +19,44 @@ import fall2018.csc2017.slidingtiles.R;
  * https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
  */
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomViewHolder> {
+    /**
+     * Data to be displayed on recycler view
+     */
     public List<String> dataSet;
 
+    /**
+     * An onclick listener
+     */
     private OnItemClickListener clickListener;
+
+    /**
+     * An interface for the onclick listener that requires the method on item click
+     */
     public interface OnItemClickListener {
         void onItemClick(View itemView, int position);
     }
+
+    /**
+     * Method that sets the onclick listener
+     * @param listener the listener to bind it to
+     */
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.clickListener = listener;
     }
+
+    /**
+     * A view holder class that stores
+     */
     public class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        /**
+         * The text view component to use
+         */
         public TextView myTextView;
 
+        /**
+         * The constructor
+         * @param view the view for the view holder
+         */
         public CustomViewHolder(final View view) {
             super(view);
             myTextView = view.findViewById(R.id.myText);
@@ -57,6 +83,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomVi
         }
     }
 
+    /**
+     * The constructor for the adapter
+     * @param dataSet the data to adapt
+     */
     public RecycleAdapter(List<String> dataSet) {
         this.dataSet = dataSet;
     }

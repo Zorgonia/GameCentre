@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import fall2018.csc2017.slidingtiles.R;
 
+/**
+ * The main game activity for 2048
+ */
 public class GameActivity2048 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

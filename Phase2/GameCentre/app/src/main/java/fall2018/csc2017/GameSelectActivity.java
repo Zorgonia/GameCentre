@@ -50,6 +50,10 @@ public class GameSelectActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * A method that switches the current screen to a game home screen
+     * @param position the position of the click on the recycler view
+     */
     public void switchToGame(int position) {
         Intent tmp = new Intent(this, SaveActivity.class);
         if (position == 0) {
