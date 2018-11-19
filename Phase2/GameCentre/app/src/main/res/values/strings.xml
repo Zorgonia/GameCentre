@@ -39,4 +39,5 @@
     <string name="checkersLoadGame">LOAD GAME</string>
     <string name="checkersLeaderboard">==LEADERBOARDS==</string>
     <string name="checkersPersonalBests">==PERSONAL BESTS==</string>
+    <string name="title2048">2048</string>
 </resources>
