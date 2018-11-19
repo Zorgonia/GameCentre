@@ -19,16 +19,6 @@ public interface Manageable {
     void refreshBoard();
 
     /**
-     * Checks if sliding tiles board is solvable.
-     *
-     * Algorithm source: https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
-     *
-     * @param listT list of tiles for a new board
-     * @return true iff inversion total is even
-     */
-     boolean checkValid(List<Tile> listT);
-
-    /**
      * Get score of the board in terms of number of moves
      *
      * @return the Score of the board
