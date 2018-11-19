@@ -7,7 +7,7 @@ import fall2018.csc2017.slidingtiles.Board;
 import fall2018.csc2017.slidingtiles.Score;
 import fall2018.csc2017.slidingtiles.Tile;
 
-public interface ManageableBoard {
+public interface Manageable {
     /**
      * Return the current board.
      */

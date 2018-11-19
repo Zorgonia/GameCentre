@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import fall2018.csc2017.Interfaces.ManageableBoard;
+import fall2018.csc2017.Interfaces.Manageable;
 
 /**
  * Manage a board, including swapping tiles, undoing swaps, checking for a win, and managing taps.
  */
 
-class BoardManager implements ManageableBoard, Serializable {
+class BoardManager implements Manageable, Serializable {
 
     /**
      * The board being managed.
