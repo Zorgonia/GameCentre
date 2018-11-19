@@ -51,7 +51,7 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
     }
 
     private void switchToForgetPassword() {
-        Intent tmp = new Intent(this, GameSelectActivity.class);
+        Intent tmp = new Intent(this, ForgetActivity.class);
         startActivity(tmp);
     }
 
@@ -125,7 +125,7 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
     }
 
     private void switchToStartingActivity() {
-        Intent tmp = new Intent(this, StartingActivity.class);
+        Intent tmp = new Intent(this, GameSelectActivity.class);
         startActivity(tmp);
     }
 

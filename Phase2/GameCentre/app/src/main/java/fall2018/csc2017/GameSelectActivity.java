@@ -17,6 +17,7 @@ import fall2018.csc2017.slidingtiles.LoadActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SaveActivity;
 import fall2018.csc2017.slidingtiles.StartingActivity;
+import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
 
 /**
  * An Activity to select games
@@ -30,10 +31,10 @@ public class GameSelectActivity extends AppCompatActivity {
 
         ArrayList<String> gameList = new ArrayList<>();
         gameList.add("Sliding Tiles");
-        gameList.add("Monkey Business");
-        gameList.add("Eating cheese on a monday afternoon");
+        gameList.add("Goes to Load Activity");
+        gameList.add("Goes to forget activity");
         gameList.add("twenty forty eight");
-        gameList.add("check(mate)ers");
+        gameList.add("goes to save activity");
         RecyclerView rv = findViewById(R.id.RecyclerGame);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL );
         rv.addItemDecoration(itemDecoration);
@@ -57,6 +58,8 @@ public class GameSelectActivity extends AppCompatActivity {
             tmp = new Intent(this, LoadActivity.class);
         } else if (position == 2) {
             tmp = new Intent(this, ForgetActivity.class);
+        } else if (position == 3) {
+            tmp = new Intent(this, MenuActivity2048.class);
         }
         startActivity(tmp);
     }
