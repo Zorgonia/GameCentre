@@ -3,13 +3,13 @@ package fall2018.csc2017.checkers;
 import java.io.Serializable;
 import java.util.List;
 
-import fall2018.csc2017.Interfaces.ManageableBoard;
+import fall2018.csc2017.Interfaces.Manageable;
 import fall2018.csc2017.slidingtiles.Board;
 import fall2018.csc2017.slidingtiles.Score;
 import fall2018.csc2017.slidingtiles.Tile;
 
 
-public class CheckerBoardManager implements Serializable, ManageableBoard {
+public class CheckerBoardManager implements Serializable, Manageable {
 
     private Board board;
 
