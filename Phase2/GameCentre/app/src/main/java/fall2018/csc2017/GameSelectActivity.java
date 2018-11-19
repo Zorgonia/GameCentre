@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import fall2018.csc2017.checkers.CheckerMenuActivity;
 import fall2018.csc2017.slidingtiles.ForgetActivity;
 import fall2018.csc2017.slidingtiles.LoadActivity;
 import fall2018.csc2017.slidingtiles.R;
@@ -31,7 +32,7 @@ public class GameSelectActivity extends AppCompatActivity {
 
         ArrayList<String> gameList = new ArrayList<>();
         gameList.add("Sliding Tiles");
-        gameList.add("Goes to Load Activity");
+        gameList.add("Checkers???");
         gameList.add("Goes to forget activity");
         gameList.add("twenty forty eight");
         gameList.add("goes to save activity");
@@ -59,7 +60,7 @@ public class GameSelectActivity extends AppCompatActivity {
         if (position == 0) {
             tmp = new Intent(this, StartingActivity.class);
         } else if (position == 1) {
-            tmp = new Intent(this, LoadActivity.class);
+            tmp = new Intent(this, CheckerMenuActivity.class);
         } else if (position == 2) {
             tmp = new Intent(this, ForgetActivity.class);
         } else if (position == 3) {
