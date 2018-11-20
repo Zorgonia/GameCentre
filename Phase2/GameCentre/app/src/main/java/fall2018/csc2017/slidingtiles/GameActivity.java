@@ -30,12 +30,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * Current user's account
      */
-    private static Account account;
+    private Account account;
 
     /**
      * arrayList containing all accounts
      */
-    private static ArrayList<Account> allAccounts = new ArrayList<>();
+    private ArrayList<Account> allAccounts = new ArrayList<>();
 
     /**
      * The board manager.
@@ -263,13 +263,13 @@ public class GameActivity extends AppCompatActivity implements Observer {
             InputStream inputStream1 = this.openFileInput(SINGLE_ACC_FILE);
             if (inputStream1 != null) {
                 ObjectInputStream objectInputStream1 = new ObjectInputStream(inputStream1);
-                GameActivity.account = (Account) objectInputStream1.readObject();
+                account = (Account) objectInputStream1.readObject();
                 inputStream1.close();
             }
             InputStream inputStream2 = this.openFileInput(ACCOUNT_FILENAME);
             if (inputStream2 != null) {
                 ObjectInputStream objectInputStream2 = new ObjectInputStream(inputStream2);
-                GameActivity.allAccounts = (ArrayList<Account>) objectInputStream2.readObject();
+                allAccounts = (ArrayList<Account>) objectInputStream2.readObject();
                 inputStream2.close();
             }
         } catch (FileNotFoundException e) {
