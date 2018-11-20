@@ -1,12 +1,10 @@
 package fall2018.csc2017.checkers;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.Move;
-import fall2018.csc2017.slidingtiles.Tile;
 
 public class CheckerBoard extends GameBoard implements Serializable{
     /**
