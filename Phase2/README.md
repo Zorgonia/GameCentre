@@ -24,3 +24,6 @@ starting screen and entering your username and level.
 - Click on the tile you would like to move in order to move it. You may **ONLY** move tiles directly adjacent, not diagonal, to the blank tile.
 - Aim for a low score, as each move (including each undo) increases your score by 1.
 - When the game finishes, the board freezes, and you should use the android back button return to the main menu
+
+## Notes:
+- The commit names refer to the following utorids: Jimbo is xiejiab1, MD Tanvir Hyder is hydermd1, hartand4 is hartand4, Alexandre Nunes is nunesale, and Zorgonia is yangke16

@@ -25,6 +25,19 @@ Account and score relations - Andries/Jimbo
 
 Phase 2:
 
+To work on currently:
+- Implement 2048 and Checkers main game activities
+    - Currently Alex and Jimbo on checkers, Kevin and Tanvir on 2048
+    - Includes both game functionality as well as any supplementary activities required
+- Do unit tests/provide code coverage for many of the testable classes
+    - Currently Andries working on the Unit testing for sliding tiles
+- Make use of interfaces and abstract classes for the implementation fo 2048 and checkers
+    - Everyone contributing to this
+- Make use of more design patterns if possible
+- Refactor code as you go along
+- Fix other style issues
+- Work on the software walkthrough when most other tasks are completed
+
 Board extends abstract class. Will have lots of dupe code
 Boardmanager implements interface.
 Personalscoreboard/Scoreboard doesn't use additional interfaces/parents. Adjust to display current game's scores.
