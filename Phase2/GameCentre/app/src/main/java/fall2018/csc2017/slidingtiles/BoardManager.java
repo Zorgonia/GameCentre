@@ -44,9 +44,6 @@ class BoardManager implements Manageable, Serializable {
      *
      * @param board the board
      */
-//    BoardManager(Board board) {
-//        this.board = board;
-//    }
 
     /**
      * Return the current board.
@@ -104,17 +101,6 @@ class BoardManager implements Manageable, Serializable {
         return totalInversions%2 == 0;
     }
 
-//    /**
-//     * Sets the columns and rows of board according to current complexity of board manager
-//     *
-//     * @param complexity desired complexity to be set to
-//     */
-//    public void setComplexity(int complexity) {
-//        complex = complexity;
-//        board.setNumCols(complexity + 3);
-//        board.setNumRows(complexity + 3);
-//    }
-
     /**
      * Get score of the board in terms of number of moves
      *
@@ -153,10 +139,10 @@ class BoardManager implements Manageable, Serializable {
         int col = position % board.getNumCols();
         int blankId = board.numTiles();
         // Are any of the 4 the blank tile?
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
+        Tile above = row == 0 ? null : board.getTileAt(row - 1, col);
+        Tile below = row == board.getNumRows() - 1 ? null : board.getTileAt(row + 1, col);
+        Tile left = col == 0 ? null : board.getTileAt(row, col - 1);
+        Tile right = col == board.getNumCols() - 1 ? null : board.getTileAt(row, col + 1);
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -178,10 +164,10 @@ class BoardManager implements Manageable, Serializable {
         int blankId = board.numTiles();
 
         // The tiles surrounding the tapped tile
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
+        Tile above = row == 0 ? null : board.getTileAt(row - 1, col);
+        Tile below = row == board.getNumRows() - 1 ? null : board.getTileAt(row + 1, col);
+        Tile left = col == 0 ? null : board.getTileAt(row, col - 1);
+        Tile right = col == board.getNumCols() - 1 ? null : board.getTileAt(row, col + 1);
 
         // For whichever one around is empty, swap with that one.
         if (below != null && below.getId() == blankId) {
