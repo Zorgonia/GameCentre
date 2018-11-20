@@ -49,4 +49,30 @@ public class CheckerBoard extends AbstractBoard implements Serializable{
     public void destroyPiece(int position){
         //unsure if want parameter to be "position" or "row, col"
     }
+
+    /**
+     * Replace the blank space at position with a piece, who's colour is specified by turn
+     * @param position the position with which to replace the piece
+     * @param turn true if it is player 1's turn
+     */
+    public void addPiece(int position, boolean turn){
+        //this is for the undo function
+    }
+
+    /**
+     * Replace the piece at position with a king of the color specified by turn
+     * @param position the position with which to replace the pieve
+     * @param turn true if it is player 1's turn
+     */
+    public void addKing(int position, boolean turn){
+
+    }
+
+    /**
+     * Toggle the highlighting of the spaces in positions
+     * @param positions array of positions to highlight/dehighlight
+     */
+    public void toggleHighlight(int[] positions){
+
+    }
 }

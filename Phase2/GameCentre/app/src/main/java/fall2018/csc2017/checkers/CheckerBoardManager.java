@@ -1,6 +1,7 @@
 package fall2018.csc2017.checkers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.Manageable;
@@ -22,6 +23,11 @@ public class CheckerBoardManager implements Serializable, Manageable {
     public CheckerBoardManager(){
         refreshBoard();
     }
+
+    /**
+     * True when it is player 1's turn
+     */
+    private boolean player1Turn = true;
 
     /**
      * Reset the board to the starting position
@@ -70,6 +76,26 @@ public class CheckerBoardManager implements Serializable, Manageable {
      * @return score of the board
      */
     public Score getBoardScore(){
+        return null;
+    }
+
+    /**
+     * Return a list of positions of pieces that can perform a capture on this turn. Return an
+     * empty list if no such pieces exist
+     * @return List of positions of pieces that can perform a capture
+     */
+    private ArrayList<Integer> findCaptures(){
+        return null;
+    }
+
+
+
+    /**
+     * Return a list of positions that the piece at position can move to
+     * @param position
+     * @return Array of positions that can be moved to
+     */
+    private ArrayList<Integer> findPotentialMoves(int position){
         return null;
     }
 
