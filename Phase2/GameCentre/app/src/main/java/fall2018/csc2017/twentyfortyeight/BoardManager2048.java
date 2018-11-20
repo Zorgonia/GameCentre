@@ -75,7 +75,7 @@ public class BoardManager2048 implements Manageable, Serializable {
     }
 
     // TODO: Not sure if we need this for 2048
-    public boolean isValidTap(int position){
+    public boolean isValidMove(int position){
         return true;
     }
 

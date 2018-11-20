@@ -50,7 +50,7 @@ public class CheckerBoardManager implements Serializable, Manageable {
      * @param position the tile to check
      * @return true if tap is valid, false otherwise
      */
-    public boolean isValidTap(int position){
+    public boolean isValidMove(int position){
         //note: we can use a false result from this function to "cancel" a tap on a piece if the user wishes to move a different piece
         return false;
     }

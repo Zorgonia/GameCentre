@@ -34,7 +34,7 @@ public interface Manageable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-     boolean isValidTap(int position);
+     boolean isValidMove(int position);
 
     /**
      * Undo a move made by the player. Do nothing if move cannot be undone.
