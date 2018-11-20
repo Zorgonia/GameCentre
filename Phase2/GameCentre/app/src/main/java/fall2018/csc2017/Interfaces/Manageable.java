@@ -1,17 +1,13 @@
 package fall2018.csc2017.Interfaces;
 
-import java.util.List;
-
-import fall2018.csc2017.abstractClasses.AbstractBoard;
-import fall2018.csc2017.slidingtiles.Board;
+import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.Score;
-import fall2018.csc2017.slidingtiles.Tile;
 
 public interface Manageable {
     /**
      * Return the current board.
      */
-     AbstractBoard getBoard();
+     GameBoard getBoard();
 
     /**
      * Refreshes the tile set of the board (for a new game)
