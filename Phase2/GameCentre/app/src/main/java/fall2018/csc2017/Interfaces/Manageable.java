@@ -29,12 +29,26 @@ public interface Manageable {
      boolean gameFinished();
 
     /**
-     * Return whether any of the four surrounding tiles is the blank tile.
+     * Return whether the player is able to make the requested move
      *
-     * @param position the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
+     * @param instruction data specifying the move
+     * @return true if the mode is able to be made
      */
-     boolean isValidMove(int position);
+     boolean isValidMove(int instruction);
+
+    /**
+     * Process a move, specified by instruction
+     * @param instruction data specifying how to move
+     */
+    //TODO: uncomment when BoardManager2048 implements
+    //void touchMove(int instruction);
+
+
+    /**
+     * Return true if the board is able to be interacted with
+     * @return true if board is able to be interacted with
+     */
+     boolean getBoardStatus();
 
     /**
      * Undo a move made by the player. Do nothing if move cannot be undone.

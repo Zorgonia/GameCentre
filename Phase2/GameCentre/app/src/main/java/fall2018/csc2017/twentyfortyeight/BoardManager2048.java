@@ -74,8 +74,13 @@ public class BoardManager2048 implements Manageable, Serializable {
         return score;
     }
 
+    // TODO: return false when game is finished, true otherwise
+    public boolean getBoardStatus(){
+        return activeStatus;
+    }
+
     // TODO: Not sure if we need this for 2048
-    public boolean isValidMove(int position){
+    public boolean isValidMove(int direction){
         return true;
     }
 

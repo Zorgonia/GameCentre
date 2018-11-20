@@ -52,6 +52,7 @@ public class CheckerBoardManager implements Serializable, Manageable {
      */
     public boolean isValidMove(int position){
         //note: we can use a false result from this function to "cancel" a tap on a piece if the user wishes to move a different piece
+        //new note, probably need to split both cases of "valid move" into two separate methods
         return false;
     }
 
@@ -77,6 +78,14 @@ public class CheckerBoardManager implements Serializable, Manageable {
      */
     public Score getBoardScore(){
         return null;
+    }
+
+    /**
+     * Return true if the board is able to be interacted with
+     * @return true if board is able to be interacted with
+     */
+    public boolean getBoardStatus() {
+        return false;
     }
 
     /**
