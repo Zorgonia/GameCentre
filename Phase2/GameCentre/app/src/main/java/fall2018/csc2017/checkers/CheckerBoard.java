@@ -5,17 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc2017.abstractClasses.AbstractBoard;
+import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.Move;
 import fall2018.csc2017.slidingtiles.Tile;
 
-public class CheckerBoard extends AbstractBoard implements Serializable{
+public class CheckerBoard extends GameBoard implements Serializable{
     /**
      * The position of the selectedTile, equals -1 if no tile is selected
      */
     private int selectedTilePos = -1;
 
     public CheckerBoard(List<CheckerTile> tiles, int boardSize){
-        super(new ArrayList<Tile>(0), boardSize, boardSize); //list is temporary so code compiles until we figure out the board/tile issue
+        super(tiles, boardSize, boardSize);
     }
 
     /**
