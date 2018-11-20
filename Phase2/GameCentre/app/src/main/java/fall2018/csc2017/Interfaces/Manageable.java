@@ -37,14 +37,6 @@ public interface Manageable {
      boolean isValidTap(int position);
 
     /**
-     * Process a touch at position in the board, swapping tiles as appropriate.
-     * Update the Score
-     *
-     * @param position the position
-     */
-     void touchMove(int position);
-
-    /**
      * Undo a move made by the player. Do nothing if move cannot be undone.
      * Score increases for Undo. This is INTENTIONAL.
      */
