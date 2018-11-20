@@ -1,108 +1,82 @@
 package fall2018.csc2017.twentyfortyeight;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
+import java.util.Random;
 
-import fall2018.csc2017.slidingtiles.R;
-import android.support.annotation.NonNull;
+import fall2018.csc2017.abstractClasses.GameBoard;
 
-public class Board2048 extends Observable implements Serializable, Iterable<Tile2048> {
-
-    static int NUM_ROWS = 4;
-    static int NUM_COLS = 4;
+public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iterable<Tile2048>{
 
     /**
-     * 2D array representing the current locations of each 2048 tiles
-     * Row major order
+     * A new 2048 game board of tiles in row-major order.
+     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
+     *
+     * @param tiles the tiles for the board
      */
-    private Tile2048[][] tiles = new Tile2048[NUM_ROWS][NUM_COLS];
-
-    /**
-     * A new 2048 board arranged in row-major order
-     * Precondition: length of tiles = NUM_ROWS*NUM_COLS;
-     * @param tiles 2D array of 2048 tiles
-     */
-    Board2048(List<Tile2048> tiles){
-        Iterator<Tile2048> iterator2048 = tiles.iterator();
-        for (int row = 0; row != Board2048.NUM_ROWS; row++) {
-            for (int col = 0; col != Board2048.NUM_COLS; col++) {
-                this.tiles[row][col] = iterator2048.next();
-            }
-        }
+    Board2048(List<Tile2048> tiles, int row, int col) {
+        super(tiles, row, col);
     }
 
     /**
-     * Returns the 2048 tile at the specified location
-     * @param row   row in the board
-     * @param col   col in the board
-     * @return Tile2048 at the specified row and col in the board
-     */
-    public Tile2048 getTileAt(int row, int col){
-        return this.tiles[row][col];
-    }
-
-    /**
-     * changes the tile at row, col to move to row1,col1
-     * for row, col place a blank tile in its place
-     * @param row current row
-     * @param col current column
-     * @param row1 next row
-     * @param col1 next column
-     */
-    // TODO: maybe just call removeTileAt and placeNewTileAt
-    public void changeTilePosition(int row, int col, int row1, int col1){
-        Tile2048 tile = new Tile2048(getTileAt(row,col).getValue(),
-                getTileAt(row,col).getBackground());
-        this.tiles[row1][col1] = tile;
-        this.tiles[row][col] = new Tile2048(0, R.drawable.tile_blank);
-    }
-
-    /**
-     * changes the tile at row,col to a blank tile
+     * changes the 2048 tile at row,col to a blank tile
      * @param row given row
      * @param col given column
      */
-    public void removeTileAt(int row, int col){
-        this.tiles[row][col] = new Tile2048(0, R.drawable.tile_blank);
+    void removeTileAt(int row, int col){
+        this.tiles[row][col] = new Tile2048(0);
     }
 
     /**
-     * placed the tile with background id in the specified tile
-     * @param backgroundID backgroundID of the 2048 tile
+     * places a tile with id as the value at the specified row and column
+     * @param id the value of the tile
      * @param row row
      * @param col column
      */
-    public void placeNewTileAt(int backgroundID, int row, int col){
-        this.tiles[row][col] = new Tile2048(backgroundID);
-    }
-
-    @NonNull
-    @Override
-    public Iterator<Tile2048> iterator() {
-        return new BoardIterator2048();
+    void placeNewTileAt(int id, int row, int col){
+        this.tiles[row][col] = new Tile2048(id);
     }
 
     /**
-     * iterator class for this class
+     * places a 2048 tile of id 2 at a random empty place in the board
      */
-    private class BoardIterator2048 implements Iterator<Tile2048> {
-        /**
-         * The number of the next tile to be iterated over
-         */
-        int nextTile = 0;
-
-        @Override
-        public boolean hasNext() {
-            return nextTile < NUM_COLS*NUM_ROWS;
+    // TODO: implement this method more efficiently
+    void placeRandomTile(){
+        Random rand = new Random();
+        int randRow = rand.nextInt(4);
+        int randCol = rand.nextInt(4);
+        mainLoop:
+        for (int row = 0; row != 4; row++) {
+            for (int col = 0; col != 4; col++){
+                if (getTileAt(row,col).getId() == 0){
+                    while(getTileAt(randRow,randCol).getId() == 0){
+                        randRow = rand.nextInt(4);
+                        randRow = rand.nextInt(4);
+                    }
+                    break mainLoop;
+                }
+            }
         }
+        placeNewTileAt(2,randRow,randCol);
+    }
 
-        @Override
-        public Tile2048 next() {
-            Tile2048 toReturn = tiles[nextTile / NUM_ROWS][nextTile % NUM_COLS];
-            nextTile++;
-            return toReturn;
-        }
+    /**
+     * returns true if any of the surrounding four tiles of the tile
+     * at (row,col) has equal value. Return false otherwise
+     * @param row row
+     * @param col column
+     */
+    // TODO: this method is only needed in gameOver() in boardManager2048, might not be needed
+    boolean hasEqualAdjacentTile(int row, int col){
+        Tile2048 mainTile = getTileAt(row,col);
+        // Are any of the 4 the blank tile?
+        Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
+        Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
+        Tile2048 left = col == 0 ? null  : getTileAt(row, col - 1);
+        Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
+        return (below != null && below.getId() == mainTile.getId())
+                || (above != null && above.getId() == mainTile.getId())
+                || (left != null && left.getId() == mainTile.getId())
+                || (right != null && right.getId() == mainTile.getId());
     }
 }
