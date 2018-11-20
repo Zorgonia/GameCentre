@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.abstractClasses.AbstractBoard;
 import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.Move;
 import fall2018.csc2017.slidingtiles.Tile;
