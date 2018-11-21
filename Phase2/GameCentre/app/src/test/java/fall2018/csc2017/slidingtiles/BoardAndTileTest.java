@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class BoardAndTileTest {
 
     /** The board manager for testing. */
-    BoardManager boardManager;
+    private BoardManager boardManager;
 
     /**
      * Make a set of tiles that are in order.
@@ -104,7 +104,7 @@ public class BoardAndTileTest {
      */
     @Test
     public void testSwapLastTwo() {
-        setUpCorrect3();
+        setUpCorrect4();
         assertEquals(15, boardManager.getBoard().getTileAt(3, 2).getId());
         assertEquals(16, boardManager.getBoard().getTileAt(3, 3).getId());
         boardManager.getBoard().swapTiles(new Move(3, 3, 3, 2));
@@ -121,6 +121,82 @@ public class BoardAndTileTest {
         assertTrue(boardManager.isValidTap(11));
         assertFalse(boardManager.isValidTap(15));
         assertFalse(boardManager.isValidTap(10));
+    }
+
+    private void moveAndUndo(){
+        boardManager.touchMove(6);
+        boardManager.touchMove(3);
+        boardManager.touchMove(4);
+        boardManager.touchMove(7);
+        boardManager.undo();
+        boardManager.undo();
+        boardManager.undo();
+        boardManager.undo();
+    }
+    @Test
+    public void testMoveAndUndo(){
+        setUpAlmost();
+        assertEquals(9, boardManager.getBoard().getTileAt(2, 1).getId());
+        assertEquals(0, boardManager.getBoardScore().getScoreValue());
+        boardManager.touchMove(6);
+        assertEquals(9, boardManager.getBoard().getTileAt(2, 0).getId());
+        boardManager.undo();
+        assertEquals(9, boardManager.getBoard().getTileAt(2, 1).getId());
+    }
+
+    @Test
+    public void testUndoLimit3(){
+        setUpAlmost();
+        moveAndUndo();
+        assertEquals(9, boardManager.getBoard().getTileAt(2, 0).getId());
+    }
+
+    @Test
+    public void testUndoLimit4(){
+        setUpAlmost();
+        boardManager.incrementUndo(1);
+        moveAndUndo();
+        assertEquals(9, boardManager.getBoard().getTileAt(2, 1).getId());
+    }
+
+    @Test
+    public void testUndoNoLimit(){
+        setUpAlmost();
+        boardManager.setLimited(false);
+        moveAndUndo();
+        assertEquals(9, boardManager.getBoard().getTileAt(2, 1).getId());
+    }
+
+    @Test
+    public void testCheckValid(){
+        setUpAlmost();
+        ArrayList<Tile> a1 = new ArrayList<>();
+        a1.add(new Tile(0));
+        a1.add(new Tile(1));
+        a1.add(new Tile(2));
+        assertTrue(boardManager.checkValid(a1));
+        Tile t = a1.get(0);
+        a1.set(0, a1.get(1));
+        a1.set(1, t);
+        assertFalse(boardManager.checkValid(a1));
+    }
+
+    @Test
+    public void testComplex(){
+        boardManager = new BoardManager(2);
+        assertEquals(2, boardManager.getComplex());
+        boardManager = new BoardManager(1);
+        assertEquals(1, boardManager.getComplex());
+        boardManager = new BoardManager(0);
+        assertEquals(0, boardManager.getComplex());
+    }
+
+    @Test
+    public void testInactiveBoard(){
+        setUpAlmost();
+        assertTrue(boardManager.getBoardStatus());
+        boardManager.setBoardToInactive();
+        assertFalse(boardManager.getBoardStatus());
     }
 }
 
