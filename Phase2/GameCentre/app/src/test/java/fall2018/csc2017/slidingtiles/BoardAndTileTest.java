@@ -21,21 +21,49 @@ public class BoardAndTileTest {
      * Make a set of tiles that are in order.
      * @return a set of tiles that are in order
      */
-    private List<Tile> makeTiles() {
+    private List<Tile> makeTiles(int complex) {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = complex*complex;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum + 1, tileNum));
         }
 
         return tiles;
     }
+    private List<Tile> makeAlmost() {
+        List<Tile> tiles = new ArrayList<>();
+        for (int tileNum = 0; tileNum != 7; tileNum++) {
+            tiles.add(new Tile(tileNum + 1, tileNum));
+        }
+
+        tiles.add(new Tile(9, 8));
+        tiles.add(new Tile(8, 7));
+        return tiles;
+    }
 
     /**
      * Make a solved Board.
      */
-    private void setUpCorrect() {
-        List<Tile> tiles = makeTiles();
+    private void setUpCorrect4() {
+        List<Tile> tiles = makeTiles(4);
+        Board board = new Board(tiles);
+        boardManager = new BoardManager(board);
+    }
+
+    private void setUpCorrect5() {
+        List<Tile> tiles = makeTiles(5);
+        Board board = new Board(tiles);
+        boardManager = new BoardManager(board);
+    }
+
+    private void setUpCorrect3() {
+        List<Tile> tiles = makeTiles(3);
+        Board board = new Board(tiles);
+        boardManager = new BoardManager(board);
+    }
+
+    private void setUpAlmost(){
+        List<Tile> tiles = makeAlmost();
         Board board = new Board(tiles);
         boardManager = new BoardManager(board);
     }
@@ -52,10 +80,10 @@ public class BoardAndTileTest {
      */
     @Test
     public void testIsSolved() {
-        setUpCorrect();
-        assertEquals(true, boardManager.puzzleSolved());
+        setUpCorrect4();
+        assertTrue(boardManager.gameFinished());
         swapFirstTwoTiles();
-        assertEquals(false, boardManager.puzzleSolved());
+        assertFalse(boardManager.gameFinished());
     }
 
     /**
@@ -63,12 +91,12 @@ public class BoardAndTileTest {
      */
     @Test
     public void testSwapFirstTwo() {
-        setUpCorrect();
-        assertEquals(1, boardManager.getBoard().getTile(0, 0).getId());
-        assertEquals(2, boardManager.getBoard().getTile(0, 1).getId());
+        setUpCorrect5();
+        assertEquals(1, boardManager.getBoard().getTileAt(0, 0).getId());
+        assertEquals(2, boardManager.getBoard().getTileAt(0, 1).getId());
         boardManager.getBoard().swapTiles(new Move(0, 0, 0, 1));
-        assertEquals(2, boardManager.getBoard().getTile(0, 0).getId());
-        assertEquals(1, boardManager.getBoard().getTile(0, 1).getId());
+        assertEquals(2, boardManager.getBoard().getTileAt(0, 0).getId());
+        assertEquals(1, boardManager.getBoard().getTileAt(0, 1).getId());
     }
 
     /**
@@ -76,12 +104,12 @@ public class BoardAndTileTest {
      */
     @Test
     public void testSwapLastTwo() {
-        setUpCorrect();
-        assertEquals(15, boardManager.getBoard().getTile(3, 2).getId());
-        assertEquals(16, boardManager.getBoard().getTile(3, 3).getId());
+        setUpCorrect3();
+        assertEquals(15, boardManager.getBoard().getTileAt(3, 2).getId());
+        assertEquals(16, boardManager.getBoard().getTileAt(3, 3).getId());
         boardManager.getBoard().swapTiles(new Move(3, 3, 3, 2));
-        assertEquals(16, boardManager.getBoard().getTile(3, 2).getId());
-        assertEquals(15, boardManager.getBoard().getTile(3, 3).getId());
+        assertEquals(16, boardManager.getBoard().getTileAt(3, 2).getId());
+        assertEquals(15, boardManager.getBoard().getTileAt(3, 3).getId());
     }
 
     /**
@@ -89,10 +117,10 @@ public class BoardAndTileTest {
      */
     @Test
     public void testIsValidTap() {
-        setUpCorrect();
-        assertEquals(true, boardManager.isValidMove(11));
-        assertEquals(true, boardManager.isValidMove(15));
-        assertEquals(false, boardManager.isValidMove(10));
+        setUpCorrect4();
+        assertTrue(boardManager.isValidTap(11));
+        assertFalse(boardManager.isValidTap(15));
+        assertFalse(boardManager.isValidTap(10));
     }
 }
 
