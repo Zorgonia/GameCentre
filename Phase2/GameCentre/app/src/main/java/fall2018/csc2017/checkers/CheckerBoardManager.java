@@ -16,7 +16,9 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     /**
      * the Board being managed
      */
-    private Board board;
+    private CheckerBoard board;
+
+    final int BOARD_SIZE = 8;
 
     /**
      * Create a new CheckerBoardManager
@@ -34,6 +36,9 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * Reset the board to the starting position
      */
     public void refreshBoard(){
+        List<CheckerTile> tiles = new ArrayList<>();
+        final int numTiles = (int) Math.pow(BOARD_SIZE, 2);
+        board = new CheckerBoard(tiles, BOARD_SIZE);
 
     }
 
@@ -60,7 +65,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * Return this CheckerBoardManager's Board
      * @return the board
      */
-    public Board getBoard(){
+    public CheckerBoard getBoard(){
         return null;
     }
 

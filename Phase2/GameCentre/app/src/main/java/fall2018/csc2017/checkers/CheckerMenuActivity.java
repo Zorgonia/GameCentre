@@ -8,6 +8,11 @@ import android.widget.Button;
 import fall2018.csc2017.slidingtiles.R;
 
 public class CheckerMenuActivity extends AppCompatActivity {
+    /**
+     * A temporary save file.
+     */
+    public static final String TEMP_SAVE_FILENAME = "checker_save_file_tmp.ser";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

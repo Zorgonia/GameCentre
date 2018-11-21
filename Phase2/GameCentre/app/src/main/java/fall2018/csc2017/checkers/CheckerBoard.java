@@ -6,7 +6,7 @@ import java.util.List;
 import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.Move;
 
-public class CheckerBoard extends GameBoard implements Serializable{
+public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable{
     /**
      * The position of the selectedTile, equals -1 if no tile is selected
      */
