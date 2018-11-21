@@ -2,6 +2,8 @@ package fall2018.csc2017.twentyfortyeight;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.Manageable;
@@ -89,71 +91,68 @@ public class BoardManager2048 implements Manageable, Serializable {
     void touchMove(String direction){
         if (direction.equals("up") || direction.equals("down")){
             for (int col = 0; col != 4; col++){
+                adjustTilesCol(col);
                 combineDoublesCol(col, direction);
-                adjustTilesCol(col,direction);
+                adjustTilesCol(col);
+                if (direction.equals("down")){
+                    board.reverseCol(col);
+                }
             }
         } else if (direction.equals("left") || direction.equals("right")){
             for (int row = 0; row != 4; row++){
+                adjustTilesRow(row);
                 combineDoublesRow(row, direction);
-                adjustTilesRow(row,direction);
+                adjustTilesRow(row);
+                if (direction.equals("right")){
+                    board.reverseRow(row);
+                }
             }
         }
         board.placeRandomTile();
     }
 
-    // TODO: for the following 2 methods, attempt to shorten them or combine them
     /**
      * Adjusts the tiles in the given column position according to the direction
-     * Precondition: vertDirection must be either "up" or "down"
      * @param col the column index
-     * @param vertDirection specifying "up" or "down"
      */
-    private void adjustTilesCol(int col, String vertDirection){
-        if (vertDirection.equals("up")){
-            int row = 0;
-            int emptyIndex = -1;
-            int id;
-            while (row != 4){
-                id = board.getTileAt(row,col).getId();
-                // if current tile is empty tile, emptyIndex = current row
-                if (board.getTileAt(row,col).getId() == 0){
-                    emptyIndex = row;
+    private void adjustTilesCol(int col){
+        int emptyIndex = -1;
+        int id;
+        for (int row = 0; row < 4; row++){
+            id = board.getTileAt(row,col).getId();
+            if (id == 0){
+                if (emptyIndex != -1){
+                    continue;
                 }
-                // if current tile isn't an empty tile and empty index exists
-                if (emptyIndex != -1 && id != 0){
-                    board.placeNewTileAt(id, emptyIndex, col);
-                    board.removeTileAt(row,col);
-                    emptyIndex = -1;
-                }
-                row ++;
+                emptyIndex = row;
+            }
+            if (emptyIndex != -1 && id != 0){
+                board.placeNewTileAt(id, emptyIndex, col);
+                board.removeTileAt(row,col);
+                emptyIndex += 1;
             }
         }
     }
 
     /**
-     * Adjusts the tiles in the given column position according to the direction
-     * Precondition: vertDirection must be either "up" or "down"
+     * Adjusts the tiles in the given row position according to the direction
      * @param row the row index
-     * @param vertDirection specifying "left" or "right"
      */
-    private void adjustTilesRow(int row, String vertDirection){
-        if (vertDirection.equals("up")){
-            int col = 0;
-            int emptyIndex = -1;
-            int id;
-            while (col != 4){
-                id = board.getTileAt(row,col).getId();
-                // if current tile is empty tile, emptyIndex = current col
-                if (board.getTileAt(row,col).getId() == 0){
-                    emptyIndex = col;
+    private void adjustTilesRow(int row) {
+        int emptyIndex = -1;
+        int id;
+        for (int col = 0; col < 4; col++) {
+            id = board.getTileAt(row, col).getId();
+            if (id == 0) {
+                if (emptyIndex != -1) {
+                    continue;
                 }
-                // if current tile isn't an empty tile and empty index exists
-                if (emptyIndex != -1 && id != 0){
-                    board.placeNewTileAt(id, row, emptyIndex);
-                    board.removeTileAt(row,col);
-                    emptyIndex = -1;
-                }
-                col ++;
+                emptyIndex = col;
+            }
+            if (emptyIndex != -1 && id != 0) {
+                board.placeNewTileAt(id, row, emptyIndex);
+                board.removeTileAt(row, col);
+                emptyIndex += 1;
             }
         }
     }
