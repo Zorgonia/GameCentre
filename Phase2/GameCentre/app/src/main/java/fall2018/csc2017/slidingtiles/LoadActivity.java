@@ -59,6 +59,8 @@ public class LoadActivity extends AppCompatActivity {
                 if (boardManager != null) {
                     saveToFile(TEMP_SAVE_FILENAME);
                     makeToast("Successfully Loaded Game");
+                    GameActivity.instance.finish();
+                    finish();
                     switchToGame();
                 } else {
                     makeToast("Empty Load! Save something first");

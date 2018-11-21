@@ -49,8 +49,8 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
         for (int row = 0; row != 4; row++) {
             for (int col = 0; col != 4; col++){
                 if (getTileAt(row,col).getId() == 0){
-                    while(getTileAt(randRow,randCol).getId() == 0){
-                        randRow = rand.nextInt(4);
+                    while(getTileAt(randRow,randCol).getId() != 0){
+                        randCol = rand.nextInt(4);
                         randRow = rand.nextInt(4);
                     }
                     break mainLoop;
@@ -58,6 +58,8 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
             }
         }
         placeNewTileAt(2,randRow,randCol);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -78,5 +80,29 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
                 || (above != null && above.getId() == mainTile.getId())
                 || (left != null && left.getId() == mainTile.getId())
                 || (right != null && right.getId() == mainTile.getId());
+    }
+
+    /**
+     * Reverses the tiles position in given column
+     * @param col the column index
+     */
+    void reverseCol(int col){
+        for (int row = 0; row < NUM_ROWS/2; row++){
+            Tile2048 temp = tiles[row][col];
+            tiles[row][col] = tiles[NUM_ROWS - row - 1][col];
+            tiles[NUM_ROWS - row - 1][col] = temp;
+        }
+    }
+
+    /**
+     * Reverses the tiles position in given row
+     * @param row the column index
+     */
+    void reverseRow(int row){
+        for (int col = 0; col < NUM_COLS/2; col++){
+            Tile2048 temp = tiles[row][col];
+            tiles[row][col] = tiles[row][NUM_COLS - col - 1];
+            tiles[row][NUM_COLS - col - 1] = temp;
+        }
     }
 }

@@ -33,9 +33,7 @@ public class GameSelectActivity extends AppCompatActivity {
         ArrayList<String> gameList = new ArrayList<>();
         gameList.add("Sliding Tiles");
         gameList.add("Checkers???");
-        gameList.add("Goes to forget activity");
         gameList.add("twenty forty eight");
-        gameList.add("goes to save activity");
         RecyclerView rv = findViewById(R.id.RecyclerGame);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL );
         rv.addItemDecoration(itemDecoration);
@@ -62,8 +60,6 @@ public class GameSelectActivity extends AppCompatActivity {
         } else if (position == 1) {
             tmp = new Intent(this, CheckerMenuActivity.class);
         } else if (position == 2) {
-            tmp = new Intent(this, ForgetActivity.class);
-        } else if (position == 3) {
             tmp = new Intent(this, MenuActivity2048.class);
         }
         startActivity(tmp);
