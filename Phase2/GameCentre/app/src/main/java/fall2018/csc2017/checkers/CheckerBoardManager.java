@@ -128,6 +128,45 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     public boolean isValidTap(int position){
         //note: we can use a false result from this function to "cancel" a tap on a piece if the user wishes to move a different piece
+        /*
+        Summary:
+
+        This requires a new instance of type int 'MovingChecker',
+        This stores the checker position that you are about to move.
+
+        PseudocodeC
+        if you tapped a position of a checker and it is your checker:
+            if (MovingChecker == position)
+                # If you selected a checker before, you now canceled it by tapping the same checker
+                MovingChecker == null;
+            else if (MovingChecker == null)
+                # If there is no position stored
+                MovingChecker = position;
+            return FALSE
+
+            #the return false is a bit redundant since there's a return false at the end,
+            but it's here for logical understanding,
+            that while your tap is valid, movementController will take a false and will not execute touchmove
+
+        else if position you tapped is NOT a checker and MovingChecker != null
+            #if you tapped some other space and you tapped a checker before
+            if (the position is 1 corner distance away)
+                NextPlayersTurn();
+                # not actual method, just pseudo, though could be method
+                MovingChecker = null;
+                return true
+            else if (the position is 2 corner distance away from movingChecker)
+                if (there exists a checker in between position and movingChecker)
+                    MovingChecker = null;
+                    CheckMoves();
+                    #check if there exists other checkers to eat.
+                    If so, don't switch turns. Otherwise, switch turn.
+
+                    return true
+        return false
+         */
+
+
         return false;
     }
 
