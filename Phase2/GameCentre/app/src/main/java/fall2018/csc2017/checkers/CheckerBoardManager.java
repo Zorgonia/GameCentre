@@ -17,8 +17,24 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * the Board being managed
      */
     private CheckerBoard board;
-
+    /**
+     * The size of the square board
+     */
     final int BOARD_SIZE = 8;
+    /**
+     * True when board can be interacted with
+     */
+    private boolean activeStatus = true;
+    /**
+     * True when it is player 1's turn
+     */
+    private boolean player1Turn = true;
+
+    /**
+     * True when the player is able to select a checker, false when the player is able to select
+     * where the selected checker can move
+     */
+    private boolean movePhase1 = true;
 
     /**
      * Create a new CheckerBoardManager
@@ -28,18 +44,62 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     }
 
     /**
-     * True when it is player 1's turn
+     * Return this CheckerBoardManager's Board
+     * @return the board
      */
-    private boolean player1Turn = true;
+    public CheckerBoard getBoard(){
+        return board;
+    }
 
     /**
      * Reset the board to the starting position
      */
     public void refreshBoard(){
         List<CheckerTile> tiles = new ArrayList<>();
-        final int numTiles = (int) Math.pow(BOARD_SIZE, 2);
+        addRowVariation1(tiles, 1);
+        addRowVariation2(tiles, 1);
+        addRowVariation1(tiles, 1);
+        addBlankRow(tiles);
+        addBlankRow(tiles);
+        addRowVariation1(tiles, 2);
+        addRowVariation2(tiles, 2);
+        addRowVariation1(tiles, 2);
         board = new CheckerBoard(tiles, BOARD_SIZE);
 
+    }
+
+    /**
+     * Add a blank row of CheckerTiles to tiles
+     * @param tiles the list of tiles
+     */
+    private void addBlankRow(List<CheckerTile> tiles) {
+        for (int i = 0; i < BOARD_SIZE; i++){
+            tiles.add(new CheckerTile(0));
+        }
+    }
+
+    /**
+     * Add a row of checkers in the pattern of blank, checker, blank, checker, etc
+     * @param tiles the list of tiles
+     * @param colour the colour of the pieces added
+     */
+    private void addRowVariation1(List<CheckerTile> tiles, int colour) {
+        for(int i = 0; i < BOARD_SIZE/2; i++){
+            tiles.add(new CheckerTile(0));
+            tiles.add(new CheckerTile(colour));
+        }
+    }
+
+    /**
+     * Add a row of checkers in the pattern of checker, blank, checker, blank, etc
+     * @param tiles the list of tiles
+     * @param colour the colour of the pieces added
+     */
+    private void addRowVariation2(List<CheckerTile> tiles, int colour) {
+        for(int i = 0; i < BOARD_SIZE/2; i++){
+            tiles.add(new CheckerTile(colour));
+            tiles.add(new CheckerTile(0));
+        }
     }
 
     /**
@@ -47,7 +107,17 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * @return true if game is complete, false otherwise
      */
     public boolean gameFinished(){
-        return false;
+        //TODO: also check for a draw
+        boolean player1done = true;
+        boolean player2done = true;
+        for (CheckerTile t : getBoard()){
+            if (t.getId() == 1 || t.getId() == 3){
+                player1done = false;
+            } else if (t.getId() == 2 || t.getId() == 4){
+                player2done = false;
+            }
+        }
+        return player1done || player2done;
     }
 
     /**
@@ -59,14 +129,6 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     public boolean isValidTap(int position){
         //note: we can use a false result from this function to "cancel" a tap on a piece if the user wishes to move a different piece
         return false;
-    }
-
-    /**
-     * Return this CheckerBoardManager's Board
-     * @return the board
-     */
-    public CheckerBoard getBoard(){
-        return null;
     }
 
     /**
@@ -114,6 +176,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     }
 
 
-
-
+    public void setBoardToInactive() {
+        activeStatus = false;
+    }
 }

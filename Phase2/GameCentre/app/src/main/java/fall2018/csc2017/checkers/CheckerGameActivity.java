@@ -162,7 +162,10 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
     }
 
 
-    public void update(Observable o, Object arg){
+    public void update(Observable o, Object arg) {
         display();
+        if (checkerBoardManager.gameFinished()) {
+            checkerBoardManager.setBoardToInactive();
+        }
     }
 }
