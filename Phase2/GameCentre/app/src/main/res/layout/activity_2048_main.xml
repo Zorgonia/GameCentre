@@ -36,7 +36,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <fall2018.csc2017.slidingtiles.GestureDetectGridView
+    <fall2018.csc2017.twentyfortyeight.GestureDetectGridView2048
+        android:id="@+id/grid2"
         android:layout_width="395dp"
         android:layout_height="587dp"
         android:layout_marginStart="8dp"
@@ -45,4 +46,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
