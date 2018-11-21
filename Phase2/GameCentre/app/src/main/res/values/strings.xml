@@ -40,4 +40,6 @@
     <string name="checkersLeaderboard">==LEADERBOARDS==</string>
     <string name="checkersPersonalBests">==PERSONAL BESTS==</string>
     <string name="title2048">2048</string>
+    <string name="newAccount">Sign up for a New Account</string>
+    <string name="signUpText">Click here to sign up</string>
 </resources>
