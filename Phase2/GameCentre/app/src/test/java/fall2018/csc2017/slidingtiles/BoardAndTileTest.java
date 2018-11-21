@@ -46,25 +46,25 @@ public class BoardAndTileTest {
      */
     private void setUpCorrect4() {
         List<Tile> tiles = makeTiles(4);
-        Board board = new Board(tiles);
+        Board board = new Board(tiles, 4, 4);
         boardManager = new BoardManager(board);
     }
 
     private void setUpCorrect5() {
         List<Tile> tiles = makeTiles(5);
-        Board board = new Board(tiles);
+        Board board = new Board(tiles, 5, 5);
         boardManager = new BoardManager(board);
     }
 
     private void setUpCorrect3() {
         List<Tile> tiles = makeTiles(3);
-        Board board = new Board(tiles);
+        Board board = new Board(tiles, 3, 3);
         boardManager = new BoardManager(board);
     }
 
     private void setUpAlmost(){
         List<Tile> tiles = makeAlmost();
-        Board board = new Board(tiles);
+        Board board = new Board(tiles, 3, 3);
         boardManager = new BoardManager(board);
     }
 

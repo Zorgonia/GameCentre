@@ -61,6 +61,12 @@ class BoardManager implements TappableManager, Serializable {
         refreshBoard();
         undoStack = new UndoStack();
     }
+
+    BoardManager(Board b){
+        board = b;
+        complex = b.getNumRows()-3;
+        undoStack = new UndoStack();
+    }
     /**
      * Refreshes the tile set of the board (for a new game)
      */
