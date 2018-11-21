@@ -30,6 +30,11 @@ public class BoardAndTileTest {
 
         return tiles;
     }
+
+    /**
+     * Creates list of 9 Tiles with #8 and the blank swapped
+     * @return list of Tiles
+     */
     private List<Tile> makeAlmost() {
         List<Tile> tiles = new ArrayList<>();
         for (int tileNum = 0; tileNum != 7; tileNum++) {
@@ -42,7 +47,7 @@ public class BoardAndTileTest {
     }
 
     /**
-     * Make a solved Board.
+     * Make a solved 4x4 Board.
      */
     private void setUpCorrect4() {
         List<Tile> tiles = makeTiles(4);
@@ -50,18 +55,27 @@ public class BoardAndTileTest {
         boardManager = new BoardManager(board);
     }
 
+    /**
+     * Make a solved 5x5 Board.
+     */
     private void setUpCorrect5() {
         List<Tile> tiles = makeTiles(5);
         Board board = new Board(tiles, 5, 5);
         boardManager = new BoardManager(board);
     }
 
+    /**
+     * Make a solved 3x3 Board.
+     */
     private void setUpCorrect3() {
         List<Tile> tiles = makeTiles(3);
         Board board = new Board(tiles, 3, 3);
         boardManager = new BoardManager(board);
     }
 
+    /**
+     * Make a 3x3 board one move away from being solved.
+     */
     private void setUpAlmost(){
         List<Tile> tiles = makeAlmost();
         Board board = new Board(tiles, 3, 3);
@@ -91,7 +105,7 @@ public class BoardAndTileTest {
      */
     @Test
     public void testSwapFirstTwo() {
-        setUpCorrect5();
+        setUpCorrect3();
         assertEquals(1, boardManager.getBoard().getTileAt(0, 0).getId());
         assertEquals(2, boardManager.getBoard().getTileAt(0, 1).getId());
         boardManager.getBoard().swapTiles(new Move(0, 0, 0, 1));
@@ -123,6 +137,9 @@ public class BoardAndTileTest {
         assertFalse(boardManager.isValidTap(10));
     }
 
+    /**
+     * Make four moves, then undo four times.
+     */
     private void moveAndUndo(){
         boardManager.touchMove(6);
         boardManager.touchMove(3);
@@ -133,6 +150,10 @@ public class BoardAndTileTest {
         boardManager.undo();
         boardManager.undo();
     }
+
+    /**
+     * Attempt to undo a single move.
+     */
     @Test
     public void testMoveAndUndo(){
         setUpAlmost();
@@ -144,6 +165,9 @@ public class BoardAndTileTest {
         assertEquals(9, boardManager.getBoard().getTileAt(2, 1).getId());
     }
 
+    /**
+     * Attempt to undo 4 times given limit of 3.
+     */
     @Test
     public void testUndoLimit3(){
         setUpAlmost();
@@ -151,6 +175,9 @@ public class BoardAndTileTest {
         assertEquals(9, boardManager.getBoard().getTileAt(2, 0).getId());
     }
 
+    /**
+     * Attempt to undo 4 times given limit of 4.
+     */
     @Test
     public void testUndoLimit4(){
         setUpAlmost();
@@ -159,6 +186,9 @@ public class BoardAndTileTest {
         assertEquals(9, boardManager.getBoard().getTileAt(2, 1).getId());
     }
 
+    /**
+     * Attempt to undo 4 times given limit of infinity.
+     */
     @Test
     public void testUndoNoLimit(){
         setUpAlmost();
@@ -167,6 +197,9 @@ public class BoardAndTileTest {
         assertEquals(9, boardManager.getBoard().getTileAt(2, 1).getId());
     }
 
+    /**
+     * Test whether the check for a valid list of tiles is correct.
+     */
     @Test
     public void testCheckValid(){
         setUpAlmost();
@@ -181,6 +214,9 @@ public class BoardAndTileTest {
         assertFalse(boardManager.checkValid(a1));
     }
 
+    /**
+     * Test whether complexity is given correctly.
+     */
     @Test
     public void testComplex(){
         boardManager = new BoardManager(2);
@@ -191,12 +227,21 @@ public class BoardAndTileTest {
         assertEquals(0, boardManager.getComplex());
     }
 
+    /**
+     * Make a board inactive, test if it updates accordingly.
+     */
     @Test
     public void testInactiveBoard(){
-        setUpAlmost();
+        setUpCorrect5();
         assertTrue(boardManager.getBoardStatus());
         boardManager.setBoardToInactive();
         assertFalse(boardManager.getBoardStatus());
     }
+
+    //Covers BoardManager, UndoStack, Tile, Move, and Board.
+
+    //Remaining tests: Score, GameActivity, StartingActivity,
+    //AccountActivity, ForgetActivity, LoadActivity, ScoreBoardActivity,
+    //SaveActivity, PersonalScoreBoardActivity, SignUpActivity, Account.
 }
 
