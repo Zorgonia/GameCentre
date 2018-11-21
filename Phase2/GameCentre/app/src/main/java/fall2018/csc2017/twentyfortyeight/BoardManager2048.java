@@ -57,7 +57,6 @@ public class BoardManager2048 implements Manageable, Serializable {
         for (int row = 0; row != 4; row++) {
             for (int col = 0; col != 4; col++) {
                 if (board.getTileAt(row,col).getId() == 2048){
-                    gameFin = true;
                     break mainLoop;
                 } else if (board.hasEqualAdjacentTile(row,col)){
                     gameFin = false;
@@ -87,15 +86,15 @@ public class BoardManager2048 implements Manageable, Serializable {
 
     // ignores position
     // TODO: remove touchMove from the Manageable interface
-    public void touchMove(String direction){
+    void touchMove(String direction){
         if (direction.equals("up") || direction.equals("down")){
             for (int col = 0; col != 4; col++){
-                removeDoublesCol(col, direction);
+                combineDoublesCol(col, direction);
                 adjustTilesCol(col,direction);
             }
-        } else { // (direction.equals("left") || direction.equals("right"))
+        } else if (direction.equals("left") || direction.equals("right")){
             for (int row = 0; row != 4; row++){
-                removeDoublesRow(row, direction);
+                combineDoublesRow(row, direction);
                 adjustTilesRow(row,direction);
             }
         }
@@ -159,25 +158,33 @@ public class BoardManager2048 implements Manageable, Serializable {
         }
     }
 
-    void removeDoublesCol(int col, String VertDirection){
-        if (VertDirection.equals("up")){
+    /**
+     * Combines pairs of tiles if both are adjacent in the given column and has same id
+     * @param col   the given column's index
+     * @param vertDirection "up" or "down"
+     */
+    // TODO: once game is functioning replace 4 with numRow
+    private void combineDoublesCol(int col, String vertDirection){
+        if (vertDirection.equals("up")){
+            int value0;
             int row = 0;
             while (row < 4 - 1){
-                int value = board.getTileAt(row,col).getId();
-                if (board.getTileAt(row,col).equals(board.getTileAt(row + 1,col))){
-                    board.placeNewTileAt(2*value,row,col);
+                if (board.getTileAt(row,col).getId() == board.getTileAt(row + 1,col).getId()){
+                    value0 = board.getTileAt(row,col).getId();
+                    board.placeNewTileAt(2*value0,row,col);
                     board.removeTileAt(row + 1,col);
                     row += 2;
                 } else {
                     row += 1;
                 }
             }
-        } else { // direction is down
+        } else if (vertDirection.equals("down")){
             int row = 4 - 1;
+            int value1;
             while (row > 0){
-                int value = board.getTileAt(row,col).getId();
-                if (board.getTileAt(row,col).equals(board.getTileAt(row - 1,col))){
-                    board.placeNewTileAt(2*value,row,col);
+                value1 = board.getTileAt(row,col).getId();
+                if (board.getTileAt(row,col).getId() == board.getTileAt(row - 1,col).getId()){
+                    board.placeNewTileAt(2*value1,row,col);
                     board.removeTileAt(row - 1,col);
                     row -= 2;
                 } else {
@@ -187,25 +194,33 @@ public class BoardManager2048 implements Manageable, Serializable {
         }
     }
 
-    void removeDoublesRow(int row, String SideDirection){
-        if (SideDirection.equals("left")){
+    /**
+     * Combine pairs of tiles if both are adjacent in the given row and has same id
+     * @param row   the given rows's index
+     * @param sideDirection "left" or "right"
+     */
+    // TODO: once game is functioning replace 4 with numCol
+    private void combineDoublesRow(int row, String sideDirection){
+        if (sideDirection.equals("left")){
+            int value0;
             int col = 0;
             while (col < 4 - 1){
-                int value = board.getTileAt(row,col).getId();
-                if (board.getTileAt(row,col).equals(board.getTileAt(row,col+1))){
-                    board.placeNewTileAt(2*value,row,col);
+                value0 = board.getTileAt(row,col).getId();
+                if (board.getTileAt(row,col).getId() == board.getTileAt(row,col+1).getId()){
+                    board.placeNewTileAt(2*value0,row,col);
                     board.removeTileAt(row,col+1);
                     col += 2;
                 } else {
                     col += 1;
                 }
             }
-        } else {
+        } else if (sideDirection.equals("right")){
+            int value1;
             int col = 4 - 1;
             while (col > 0){
-                int value = board.getTileAt(row,col).getId();
-                if (board.getTileAt(row,col).equals(board.getTileAt(row,col-1))){
-                    board.placeNewTileAt(2*value,row,col);
+                value1 = board.getTileAt(row,col).getId();
+                if (board.getTileAt(row,col).getId() == board.getTileAt(row,col-1).getId()){
+                    board.placeNewTileAt(2*value1,row,col);
                     board.removeTileAt(row,col-1);
                     col -= 2;
                 } else {
@@ -214,5 +229,4 @@ public class BoardManager2048 implements Manageable, Serializable {
             }
         }
     }
-
 }
