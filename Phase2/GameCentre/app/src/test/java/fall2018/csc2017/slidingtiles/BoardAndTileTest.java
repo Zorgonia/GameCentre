@@ -238,10 +238,39 @@ public class BoardAndTileTest {
         assertFalse(boardManager.getBoardStatus());
     }
 
-    //Covers BoardManager, UndoStack, Tile, Move, and Board.
+    /**
+     * Test increment of Score.
+     */
+    @Test
+    public void testScoreIncr(){
+        Score s = new Score(0);
+        s.increaseScore();
+        s.increaseScore();
+        assertEquals(2, s.getScoreValue());
+        s.decreaseScore();
+        s.decreaseScore();
+        s.decreaseScore();
+        assertEquals(-1, s.getScoreValue());
+    }
 
-    //Remaining tests: Score, GameActivity, StartingActivity,
+    /**
+     * Test Score comparator.
+     */
+    @Test
+    public void testScoreComp(){
+        Score s1 = new Score(5);
+        Score s2 = new Score(5);
+        assertEquals(0, s1.compareTo(s2));
+        s1.increaseScore();
+        assertEquals(1, s1.compareTo(s2));
+    }
+
+    //Covers BoardManager, UndoStack, Tile, Move, Score, and Board.
+
+    //AccountTest covers Account.
+
+    //Remaining Tests: GameActivity, StartingActivity,
     //AccountActivity, ForgetActivity, LoadActivity, ScoreBoardActivity,
-    //SaveActivity, PersonalScoreBoardActivity, SignUpActivity, Account.
+    //SaveActivity, PersonalScoreBoardActivity, SignUpActivity.
 }
 
