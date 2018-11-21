@@ -1,5 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -28,13 +29,9 @@ import java.util.Observer;
 public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
-     * Current user's account
+     * Current user's account, and the list of accounts
      */
     private Account account;
-
-    /**
-     * arrayList containing all accounts
-     */
     private ArrayList<Account> allAccounts = new ArrayList<>();
 
     /**
@@ -46,7 +43,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The buttons to display.
      */
     private ArrayList<Button> tileButtons;
-
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
@@ -58,6 +54,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private static final int MOVE_EXP = 5;
     private static final int FINISH_EXP = 50;
+
+    public static Activity instance;
+
 
     /**
      * Set up the background image for each button based on the master list
@@ -90,6 +89,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         addLoadButtonListener();
         boardManager.getBoardScore().decreaseScore();
 
+        instance = this;
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(boardManager.getBoard().getNumCols());
         gridView.setBoardManager(boardManager);
