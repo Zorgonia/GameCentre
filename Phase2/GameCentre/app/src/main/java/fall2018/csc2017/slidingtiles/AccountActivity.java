@@ -35,9 +35,31 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         readAllAccountFile();
         setContentView(R.layout.activity_account_);
-        addSignUpButtonListener();
         addSignInButtonListener();
         addForgetButtonListener();
+        addSignUpButtonListener();
+    }
+
+    /**
+     * Adds a listener for the sign up button
+     */
+    private void addSignUpButtonListener() {
+        Button signUp = findViewById(R.id.SwitchToSignUp);
+        signUp.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                switchToSignUp();
+            }
+        });
+    }
+
+    /**
+     * Switches the screen to sign up
+     */
+    private void switchToSignUp() {
+        Intent tmp = new Intent(this, SignUpActivity.class);
+        startActivity(tmp);
     }
 
     private void addForgetButtonListener(){
@@ -53,28 +75,6 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
     private void switchToForgetPassword() {
         Intent tmp = new Intent(this, ForgetActivity.class);
         startActivity(tmp);
-    }
-
-    private void addSignUpButtonListener() {
-        Button saveButton = findViewById(R.id.SignUpButton);
-        final EditText Username = findViewById(R.id.SignUpName);
-        final EditText Password = findViewById(R.id.SignUpPass);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Username.getText().toString().equals("") ||
-                        Password.getText().toString().equals("")){
-                    makeToast("Credentials Incomplete!");
-                }
-                else if (findAccount(Username.getText().toString()) == null){
-                    saveNewAccount(new Account(Username.getText().toString(),
-                            Password.getText().toString()));
-                    makeToast("User Created! Now sign in");
-                }else{
-                    makeToast("Username Taken!");
-                }
-            }
-        });
     }
 
     private void addSignInButtonListener() {
@@ -162,23 +162,6 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save new ArrayList of accounts with Account a added to it, provided the username
-     * of a does not match the username of any other account in allAccounts.
-     * @param a new account to be added to ArrayList allAccounts
-     */
-    public void saveNewAccount(Account a) {
-        AccountActivity.allAccounts.add(a);
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(ACCOUNT_FILENAME, MODE_PRIVATE));
-            outputStream.writeObject(AccountActivity.allAccounts);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 

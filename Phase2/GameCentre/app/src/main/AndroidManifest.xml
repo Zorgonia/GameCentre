@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name="fall2018.csc2017.slidingtiles.GameActivity" />
+        <activity android:name="fall2018.csc2017.slidingtiles.SignUpActivity" />
         <activity android:name="fall2018.csc2017.slidingtiles.SaveActivity" />
         <activity android:name="fall2018.csc2017.slidingtiles.LoadActivity" />
         <activity android:name="fall2018.csc2017.slidingtiles.StartingActivity" />
