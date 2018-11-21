@@ -58,6 +58,8 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
             }
         }
         placeNewTileAt(2,randRow,randCol);
+        setChanged();
+        notifyObservers();
     }
 
     /**
