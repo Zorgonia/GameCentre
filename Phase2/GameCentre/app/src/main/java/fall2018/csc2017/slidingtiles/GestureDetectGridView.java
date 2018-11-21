@@ -15,6 +15,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
+import fall2018.csc2017.Interfaces.TappableManager;
+
 public class GestureDetectGridView extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
     public static final int SWIPE_MAX_OFF_PATH = 100;
@@ -24,7 +26,7 @@ public class GestureDetectGridView extends GridView {
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
-    private BoardManager boardManager;
+    private TappableManager boardManager;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -101,7 +103,7 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
+    public void setBoardManager(TappableManager boardManager) {
         this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
     }

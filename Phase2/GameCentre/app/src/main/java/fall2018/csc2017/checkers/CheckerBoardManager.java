@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.Manageable;
+import fall2018.csc2017.Interfaces.TappableManager;
 import fall2018.csc2017.slidingtiles.Board;
 import fall2018.csc2017.slidingtiles.Score;
 import fall2018.csc2017.slidingtiles.Tile;
 
 
-public class CheckerBoardManager implements Serializable, Manageable {
+public class CheckerBoardManager implements Serializable, TappableManager {
 
     /**
      * the Board being managed
@@ -50,9 +51,8 @@ public class CheckerBoardManager implements Serializable, Manageable {
      * @param position the tile to check
      * @return true if tap is valid, false otherwise
      */
-    public boolean isValidMove(int position){
+    public boolean isValidTap(int position){
         //note: we can use a false result from this function to "cancel" a tap on a piece if the user wishes to move a different piece
-        //new note, probably need to split both cases of "valid move" into two separate methods
         return false;
     }
 

@@ -3,23 +3,25 @@ package fall2018.csc2017.slidingtiles;
 import android.content.Context;
 import android.widget.Toast;
 
+import fall2018.csc2017.Interfaces.TappableManager;
+
 
 public class MovementController {
 
-    private BoardManager boardManager = null;
+    private TappableManager boardManager = null;
 
     public MovementController() {
     }
 
-    public void setBoardManager(BoardManager boardManager) {
+    public void setBoardManager(TappableManager boardManager) {
         this.boardManager = boardManager;
     }
 
-    public void processTapMovement(Context context, int instruction, boolean display) {
-        if (boardManager.isValidMove(instruction)) {
-            boardManager.touchMove(instruction);
+    public void processTapMovement(Context context, int position, boolean display) {
+        if (boardManager.isValidTap(position)) {
+            boardManager.touchMove(position);
             if (boardManager.gameFinished()) {
-                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Game Complete", Toast.LENGTH_SHORT).show();
             }
         } else if (!this.boardManager.getBoardStatus()){
             Toast.makeText(context, "Press back button to exit", Toast.LENGTH_SHORT).show();

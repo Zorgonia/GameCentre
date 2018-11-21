@@ -6,12 +6,13 @@ import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.Manageable;
+import fall2018.csc2017.Interfaces.TappableManager;
 
 /**
  * Manage a board, including swapping tiles, undoing swaps, checking for a win, and managing taps.
  */
 
-class BoardManager implements Manageable, Serializable {
+class BoardManager implements TappableManager, Serializable {
 
     /**
      * The board being managed.
@@ -133,7 +134,7 @@ class BoardManager implements Manageable, Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    public boolean isValidMove(int position) {
+    public boolean isValidTap(int position) {
 
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();

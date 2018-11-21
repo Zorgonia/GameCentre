@@ -20,10 +20,12 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
     private ArrayList<Button> tileButtons;
 
     private GestureDetectGridView gridView;
-    private static int columnWidth, columnHeight;
+    private int columnWidth, columnHeight;
+    private static final int BOARD_SIZE = 8;
 
     public static final String SINGLE_ACC_FILE = "account_single.ser";
     public static final String ACCOUNT_FILENAME = "account_file.ser";
+
 
     public void display(){
 
@@ -37,7 +39,7 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
         addSaveButtonListener();
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(checkerBoardManager.getBoard().getNumCols());
-        //gridView.setBoardManager(checkerBoardManager);
+        gridView.setBoardManager(checkerBoardManager);
         checkerBoardManager.getBoard().addObserver(this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -48,8 +50,8 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / 8;
-                        columnHeight = displayHeight / 8;
+                        columnWidth = displayWidth / BOARD_SIZE;
+                        columnHeight = displayHeight / BOARD_SIZE;
                         display();
                     }
                 });

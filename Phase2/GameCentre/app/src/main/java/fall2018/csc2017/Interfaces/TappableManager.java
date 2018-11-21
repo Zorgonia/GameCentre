@@ -3,7 +3,7 @@ package fall2018.csc2017.Interfaces;
 import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.Score;
 
-public interface Manageable {
+public interface TappableManager {
     /**
      * Return the current board.
      */
@@ -15,7 +15,7 @@ public interface Manageable {
     void refreshBoard();
 
     /**
-     * Get score of the board in terms of number of moves
+     * Get score of the board
      *
      * @return the Score of the board
      */
@@ -29,13 +29,18 @@ public interface Manageable {
     boolean gameFinished();
 
     /**
-     * Return whether the player is able to make the requested move
+     * Return whether the tap at position is valid
      *
-     * @param instruction data specifying the move
-     * @return true if the mode is able to be made
+     * @param position position tapped by the user
+     * @return true if tap is valid
      */
-    boolean isValidMove(int instruction);
-    //TODO: this parameter doesn't necessarily have to be an integer
+    boolean isValidTap(int position);
+
+    /**
+     * Perform the correct move or function according to the position tapped by the user
+     * @param position position tapped by the user
+     */
+    void touchMove(int position);
 
 
     /**
