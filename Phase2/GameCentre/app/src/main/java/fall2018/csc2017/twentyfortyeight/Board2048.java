@@ -49,8 +49,8 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
         for (int row = 0; row != 4; row++) {
             for (int col = 0; col != 4; col++){
                 if (getTileAt(row,col).getId() == 0){
-                    while(getTileAt(randRow,randCol).getId() == 0){
-                        randRow = rand.nextInt(4);
+                    while(getTileAt(randRow,randCol).getId() != 0){
+                        randCol = rand.nextInt(4);
                         randRow = rand.nextInt(4);
                     }
                     break mainLoop;
