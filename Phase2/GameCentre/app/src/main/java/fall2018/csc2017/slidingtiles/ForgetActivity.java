@@ -55,7 +55,7 @@ public class ForgetActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                account = AccountActivity.findAccount(username.getText().toString());
+                account = AccountActivity.findAccount(username.getText().toString(), allAccounts);
                 if (username.getText().toString().equals("") ||
                         level.getText().toString().equals("") ||
                         newPassword.getText().toString().equals("")) {

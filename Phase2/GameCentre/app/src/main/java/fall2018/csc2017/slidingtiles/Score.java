@@ -1,5 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -41,7 +43,7 @@ public class Score implements Serializable, Comparable<Score> {
      * @param s: Score to compare
      * @return return -1,0,1 if this is lesser, equal or greater than s
      */
-    public int compareTo(Score s){
+    public int compareTo(@NonNull Score s){
         return Integer.compare(this.score, s.getScoreValue());
     }
 

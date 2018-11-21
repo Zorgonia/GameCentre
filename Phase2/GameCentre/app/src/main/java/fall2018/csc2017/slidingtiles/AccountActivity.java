@@ -84,7 +84,7 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Account a = findAccount(Username.getText().toString());
+                Account a = findAccount(Username.getText().toString(), allAccounts);
                 username = Username.getText().toString();
                 if (username.equals("") ||
                         Password.getText().toString().equals("")){
@@ -135,8 +135,8 @@ public class AccountActivity extends AppCompatActivity implements Serializable {
      * @param name username to search for
      * @return the account with a matching username if one exists, null otherwise.
      */
-    public static Account findAccount(String name) {
-        for (Account a : allAccounts) {
+    public static Account findAccount(String name, ArrayList<Account> accList) {
+        for (Account a : accList) {
             if (a.getUsername().equals(name)) {
                 return a;
             }
