@@ -38,24 +38,39 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      * @param move the two tiles to be swapped
      */
     public void swapTiles(Move move){
-        //unsure if want to use Move object or make new object
+        CheckerTile tempTile = new CheckerTile(this.tiles[move.getRow1()][move.getCol1()].getId(),
+                this.tiles[move.getRow1()][move.getCol1()].getBackground());
+
+        this.tiles[move.getRow1()][move.getCol1()] = this.tiles[move.getRow2()][move.getCol2()];
+        this.tiles[move.getRow2()][move.getCol2()] = tempTile;
+
+        setChanged();
+        notifyObservers();
     }
 
     /**
-     * Replace the piece at position with a blank space
-     * @param position the position to replace the piece at
+     *
+     * @param row
+     * @param col
      */
     public void destroyPiece(int row, int col){
         //unsure if want parameter to be "position" or "row, col"
+        this.tiles[row][col] = new CheckerTile(0);
     }
 
     /**
      * Replace the blank space at position with a piece, who's colour is specified by turn
-     * @param position the position with which to replace the piece
+     * @param row row of adding piece
+     * @param col col of adding piece
      * @param turn true if it is player 1's turn
      */
-    public void addPiece(int position, boolean turn){
-        //this is for the undo function
+    public void addPiece(int row, int col, boolean turn){
+        //TODO: Add a way to add KING checkers back in
+        if(turn){
+            this.tiles[row][col] = new CheckerTile(2);
+        } else {
+            this.tiles[row][col] = new CheckerTile(1);
+        }
     }
 
     /**
