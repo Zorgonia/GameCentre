@@ -39,6 +39,7 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
     public void display(){
         if (checkerBoardManager.getBoardStatus()) {
             updateTileButtons();
+            saveToFile(CHECKER_SAVE_FILE);
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         }
     }
@@ -97,6 +98,8 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void addSaveButtonListener() {
+        //TODO: we might want to remove the button and have it as autosave,
+        // or keep this button and remove autosave.
         Button saveButton = findViewById(R.id.SaveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
