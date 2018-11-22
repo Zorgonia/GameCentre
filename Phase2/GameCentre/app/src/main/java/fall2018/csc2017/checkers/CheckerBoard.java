@@ -1,16 +1,22 @@
 package fall2018.csc2017.checkers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.Move;
 
-public class CheckerBoard extends GameBoard implements Serializable{
+public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable{
     /**
      * The position of the selectedTile, equals -1 if no tile is selected
      */
     private int selectedTilePos = -1;
+
+    /**
+     * Id of a highlighted tile
+     */
+    final int HIGHLIGHT_ID = 5;
 
     public CheckerBoard(List<CheckerTile> tiles, int boardSize){
         super(tiles, boardSize, boardSize);
@@ -37,40 +43,63 @@ public class CheckerBoard extends GameBoard implements Serializable{
      * @param move the two tiles to be swapped
      */
     public void swapTiles(Move move){
-        //unsure if want to use Move object or make new object
+        CheckerTile tempTile = new CheckerTile(this.tiles[move.getRow1()][move.getCol1()].getId(),
+                this.tiles[move.getRow1()][move.getCol1()].getBackground());
+
+        this.tiles[move.getRow1()][move.getCol1()] = this.tiles[move.getRow2()][move.getCol2()];
+        this.tiles[move.getRow2()][move.getCol2()] = tempTile;
+
+        setChanged();
+        notifyObservers();
     }
 
     /**
-     * Replace the piece at position with a blank space
-     * @param position the position to replace the piece at
+     * Replace piece with a blank tile, which means it died
+     * @param row row of adding piece
+     * @param col col of adding piece
      */
-    public void destroyPiece(int position){
-        //unsure if want parameter to be "position" or "row, col"
+    public void destroyPiece(int row, int col){
+        this.tiles[row][col] = new CheckerTile(0);
+        setChanged();
+        notifyObservers();
     }
 
     /**
-     * Replace the blank space at position with a piece, who's colour is specified by turn
-     * @param position the position with which to replace the piece
-     * @param turn true if it is player 1's turn
+     * Replace the space at row, col with a piece, with id id
+     * @param row row of adding piece
+     * @param col col of adding piece
+     * @param id: id of piece being added
      */
-    public void addPiece(int position, boolean turn){
-        //this is for the undo function
+    public void addPiece(int row, int col, int id){
+        this.tiles[row][col] = new CheckerTile(id);
+        setChanged();
+        notifyObservers();
     }
 
     /**
-     * Replace the piece at position with a king of the color specified by turn
-     * @param position the position with which to replace the pieve
-     * @param turn true if it is player 1's turn
-     */
-    public void addKing(int position, boolean turn){
-
-    }
-
-    /**
-     * Toggle the highlighting of the spaces in positions
+     * Highlight the spaces in positions
      * @param positions array of positions to highlight/dehighlight
      */
-    public void toggleHighlight(int[] positions){
+    public void highlight(ArrayList<Integer> positions){
+        for (Integer i : positions){
+            int row = i / getNumRows();
+            int col = i % getNumCols();
+            this.tiles[row][col] = new CheckerTile(HIGHLIGHT_ID);
+        }
+        setChanged();
+        notifyObservers();
 
+    }
+
+    public void turnOffHighlight(){
+        for (int row = 0; row < getNumRows(); row++){
+            for(int col = 0; col < getNumCols(); col++){
+                if (getTileAt(row, col).getId() == HIGHLIGHT_ID){
+                    tiles[row][col] = new CheckerTile(0);
+                }
+            }
+        }
+        setChanged();
+        notifyObservers();
     }
 }
