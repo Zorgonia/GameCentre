@@ -15,7 +15,7 @@ public class CheckerTile extends AbstractTile implements Comparable<AbstractTile
         super(backgroundId);
         Integer[] tileIds = {R.drawable.tile_blank, R.drawable.tile_checkers_black,
                 R.drawable.tile_checkers_red, R.drawable.tile_checkers_black_king,
-                R.drawable.tile_checkers_red_king}; //May not require king images since checkers never start as kings
+                R.drawable.tile_checkers_red_king, R.drawable.tile_checkers_highlight}; //May not require king images since checkers never start as kings
         background = tileIds[backgroundId];
     }
 

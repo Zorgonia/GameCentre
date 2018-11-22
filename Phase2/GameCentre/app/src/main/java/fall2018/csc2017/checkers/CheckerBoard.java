@@ -13,6 +13,11 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      */
     private int selectedTilePos = -1;
 
+    /**
+     * Id of a highlighted tile
+     */
+    final int HIGHLIGHT_ID = 5;
+
     public CheckerBoard(List<CheckerTile> tiles, int boardSize){
         super(tiles, boardSize, boardSize);
     }
@@ -82,14 +87,26 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
     }
 
     /**
-     * Toggle the highlighting of the spaces in positions
+     * Highlight the spaces in positions
      * @param positions array of positions to highlight/dehighlight
      */
     public void highlight(ArrayList<Integer> positions){
+        for (Integer i : positions){
+            int row = i / getNumRows();
+            int col = i % getNumCols();
+            this.tiles[row][col] = new CheckerTile(HIGHLIGHT_ID);
+        }
 
     }
 
     public void turnOffHighlight(){
+        for (int row = 0; row < getNumRows(); row++){
+            for(int col = 0; col < getNumCols(); col++){
+                if (getTileAt(row, col).getId() == HIGHLIGHT_ID){
+                    tiles[row][col] = new CheckerTile(0);
+                }
+            }
+        }
 
     }
 }

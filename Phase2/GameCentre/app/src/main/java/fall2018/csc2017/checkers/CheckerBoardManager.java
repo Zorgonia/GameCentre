@@ -61,9 +61,9 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     public void refreshBoard(){
         List<CheckerTile> tiles = new ArrayList<>();
-        addCheckers(tiles, 1);
-        addBlankRow(tiles);
         addCheckers(tiles, 2);
+        addBlankRow(tiles);
+        addCheckers(tiles, 1);
         board = new CheckerBoard(tiles, BOARD_SIZE);
 
     }
@@ -80,7 +80,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
 
 
     private void addCheckers(List<CheckerTile> tiles, int colour){
-        for(int row = 0; row < BOARD_SIZE; row++){
+        for(int row = 0; row < 3; row++){
 //          This second for loop is a bit weird.
 //          I make it so that it starts off even (colour - 1) = 0 for red checkers
 //          and odd (colours - 1) = 1 for black. Looks weird however
