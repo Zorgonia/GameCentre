@@ -121,6 +121,9 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     public boolean isValidTap(int position){
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
+        if (!activeStatus){
+            return false;
+        }
         if (movePhase1){
             ArrayList<Integer> captures = findCaptures();
             return (board.getTileAt(row, col).getId() == turnColour ||
@@ -151,22 +154,35 @@ public class CheckerBoardManager implements Serializable, TappableManager {
             }
         } else if(board.getTileAt(row, col).getId() == HIGHLIGHT_ID) {
             board.turnOffHighlight();
-            Move move = new Move(row, col, board.getSelectedTilePos() / board.getNumRows(),
-                    board.getSelectedTilePos() % board.getNumCols());
-            board.swapTiles(move);
-            if (move.getVerticalDistance() == 2){
-                board.destroyPiece(Math.max(move.getRow1(), move.getRow2()) - 1,
-                        Math.max(move.getCol1(), move.getCol2()) - 1 );
-            }
+            processMove(row, col);
             board.setSelectedTilePos(-1);
             movePhase1 = true;
             switchTurn();
+            if (gameFinished()){
+                setBoardToInactive();
+            }
         } else {
             board.turnOffHighlight();
             board.setSelectedTilePos(-1);
             movePhase1 = true;
         }
 
+    }
+
+    /**
+     * Process a checker moving from the selected tile position to the space at row, col, capturing
+     * another checker if possible
+     * @param row row of the space to move to
+     * @param col column of the space to move to
+     */
+    public void processMove(int row, int col){
+        Move move = new Move(row, col, board.getSelectedTilePos() / board.getNumRows(),
+                board.getSelectedTilePos() % board.getNumCols());
+        board.swapTiles(move);
+        if (move.getVerticalDistance() == 2){
+            board.destroyPiece(Math.max(move.getRow1(), move.getRow2()) - 1,
+                    Math.max(move.getCol1(), move.getCol2()) - 1 );
+        }
     }
 
     private void switchTurn() {
@@ -194,7 +210,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * @return true if board is able to be interacted with
      */
     public boolean getBoardStatus() {
-        return true;
+        return activeStatus;
     }
 
     /**
