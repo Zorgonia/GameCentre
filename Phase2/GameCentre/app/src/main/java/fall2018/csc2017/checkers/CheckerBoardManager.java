@@ -42,6 +42,11 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     private boolean movePhase1 = true;
 
     /**
+     * True when a player has taken a piece, and is able to take another
+     */
+    private boolean primedCapture = false;
+
+    /**
      * Create a new CheckerBoardManager
      */
     public CheckerBoardManager(){
@@ -131,7 +136,9 @@ public class CheckerBoardManager implements Serializable, TappableManager {
                     (captures.size() == 0 || captures.contains(position));
             //true if user taps on their own piece, and that piece can perform a capture or no
             //pieces can perform a capture
-        } else {
+        } else if (primedCapture) {
+            return board.getTileAt(row, col).getId() == HIGHLIGHT_ID;
+        } else{
             return true; //always return true on phase 2, because either move is made, or tile is
             //unselected
         }
@@ -145,7 +152,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         if (movePhase1){
-            ArrayList<Integer> potentialMoves = findPotentialMoves(position);
+            ArrayList<Integer> potentialMoves = findPotentialMoves(position, false);
             if (potentialMoves.size() > 0){
                 board.setSelectedTilePos(position);
                 board.highlight(potentialMoves);
@@ -155,9 +162,10 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         } else if(board.getTileAt(row, col).getId() == HIGHLIGHT_ID) {
             board.turnOffHighlight();
             processMove(row, col);
-            board.setSelectedTilePos(-1);
-            movePhase1 = true;
-            switchTurn();
+            if (!primedCapture){
+                movePhase1 = true;
+                switchTurn();
+            }
             if (gameFinished()){
                 setBoardToInactive();
             }
@@ -171,7 +179,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
 
     /**
      * Process a checker moving from the selected tile position to the space at row, col, capturing
-     * another checker if possible
+     * another checker if possible, and kinging if possible
      * @param row row of the space to move to
      * @param col column of the space to move to
      */
@@ -179,9 +187,20 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         Move move = new Move(row, col, board.getSelectedTilePos() / board.getNumRows(),
                 board.getSelectedTilePos() % board.getNumCols());
         board.swapTiles(move);
+        if ((row == 0 && turnColour == 1) || (row == 7 && turnColour == 2)){
+            board.addPiece(row, col, turnColour + 2);
+        }
         if (move.getVerticalDistance() == 2){
             board.destroyPiece(Math.max(move.getRow1(), move.getRow2()) - 1,
                     Math.max(move.getCol1(), move.getCol2()) - 1 );
+            if (findPotentialMoves(row*8 + col, true).size() > 0){
+                primedCapture = true;
+                board.setSelectedTilePos(row*8 + col);
+                board.highlight(findPotentialMoves(row*8 + col, true));
+            } else {
+                primedCapture = false;
+                board.setSelectedTilePos(-1);
+            }
         }
     }
 
@@ -228,60 +247,70 @@ public class CheckerBoardManager implements Serializable, TappableManager {
 
     /**
      * Return a list of positions that the piece at position can move to
+     * Return only a list of positions that the piece can move to that involve capturing an
+     * enemy piece if onlyCapture is true
      * @param position the position of the piece
+     * @param onlyCapture return only a list of potential captures.
      * @return ArrayList of positions that can be moved to
      */
-    private ArrayList<Integer> findPotentialMoves(int position){
+    private ArrayList<Integer> findPotentialMoves(int position, boolean onlyCapture){
         ArrayList<Integer> potentialMoves = new ArrayList<>();
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         int tileId = board.getTileAt(row, col).getId();
         if (tileId == 1){
-            addMovesForward(position, row, col, potentialMoves);
+            addMovesForward(position, row, col, potentialMoves, onlyCapture);
         }
         else if (tileId == 2){
-            addMovesBackward(position, row, col, potentialMoves);
+            addMovesBackward(position, row, col, potentialMoves, onlyCapture);
         }
         else if (tileId == 3 || tileId == 4){
-            addMovesForward(position, row, col, potentialMoves);
-            addMovesBackward(position, row, col, potentialMoves);
+            addMovesForward(position, row, col, potentialMoves, onlyCapture);
+            addMovesBackward(position, row, col, potentialMoves, onlyCapture);
         }
         return potentialMoves;
     }
-    //TODO allow kings to be taken
-    private void addMovesForward(int position, int row, int col, ArrayList<Integer> potentialMoves){
+    private void addMovesForward(int position, int row, int col, ArrayList<Integer> potentialMoves,
+    boolean onlyCapture){
         int enemyColour = getEnemyColour();
-        if (row > 0 && col > 0 && board.getTileAt(row - 1, col - 1).getId() == 0){
+        if (row > 0 && col > 0 && board.getTileAt(row - 1, col - 1).getId() == 0 &&
+                !onlyCapture){
             potentialMoves.add(position - BOARD_SIZE - 1);
         }
-        if (row > 0 && col < 7 && board.getTileAt(row - 1, col + 1).getId() == 0){
+        if (row > 0 && col < 7 && board.getTileAt(row - 1, col + 1).getId() == 0 &&
+                !onlyCapture){
             potentialMoves.add(position - BOARD_SIZE + 1);
         }
-        if (row > 1 && col > 1 && board.getTileAt(row - 1, col - 1).getId() == enemyColour
+        if (row > 1 && col > 1 && (board.getTileAt(row - 1, col - 1).getId() == enemyColour
+                || board.getTileAt(row - 1, col - 1).getId() == enemyColour + 2)
                 && board.getTileAt(row - 2, col - 2).getId() == 0){
             potentialMoves.add(position - (BOARD_SIZE*2) - 2);
         }
-        if (row > 1 && col < 6 && board.getTileAt(row - 1, col + 1).getId() == enemyColour
+        if (row > 1 && col < 6 && (board.getTileAt(row - 1, col + 1).getId() == enemyColour
+                || board.getTileAt(row - 1, col + 1).getId() == enemyColour + 2)
                 && board.getTileAt(row - 2, col + 2).getId() == 0){
             potentialMoves.add(position - (BOARD_SIZE*2) + 2);
         }
     }
 
-    //TODO allow kings to be taken
     private void addMovesBackward(int position, int row, int col,
-                                  ArrayList<Integer> potentialMoves){
+                                  ArrayList<Integer> potentialMoves, boolean onlyCapture){
         int enemyColour = getEnemyColour();
-        if (row < 7 && col > 0 && board.getTileAt(row + 1, col - 1).getId() == 0){
+        if (row < 7 && col > 0 && board.getTileAt(row + 1, col - 1).getId() == 0 &&
+                !onlyCapture){
             potentialMoves.add(position + BOARD_SIZE - 1);
         }
-        if (row < 7 && col < 7 && board.getTileAt(row + 1, col + 1).getId() == 0){
+        if (row < 7 && col < 7 && board.getTileAt(row + 1, col + 1).getId() == 0 &&
+                !onlyCapture){
             potentialMoves.add(position + BOARD_SIZE + 1);
         }
-        if (row < 6 && col > 1 && board.getTileAt(row + 1, col - 1).getId() == enemyColour
+        if (row < 6 && col > 1 && (board.getTileAt(row + 1, col - 1).getId() == enemyColour
+                || board.getTileAt(row + 1, col - 1).getId() == enemyColour + 2)
                 && board.getTileAt(row + 2, col - 2).getId() == 0){
             potentialMoves.add(position + BOARD_SIZE*2 - 2);
         }
-        if (row < 6 && col < 6 && board.getTileAt(row + 1, col + 1).getId() == enemyColour
+        if (row < 6 && col < 6 && (board.getTileAt(row + 1, col + 1).getId() == enemyColour
+                || board.getTileAt(row + 1, col + 1).getId() == enemyColour + 2)
                 && board.getTileAt(row + 2, col + 2).getId() == 0){
             potentialMoves.add(position + BOARD_SIZE*2 + 2);
         }

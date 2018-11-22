@@ -65,27 +65,15 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
     }
 
     /**
-     * Replace the blank space at position with a piece, who's colour is specified by turn
+     * Replace the space at row, col with a piece, with id id
      * @param row row of adding piece
      * @param col col of adding piece
-     * @param turn true if it is player 1's turn
+     * @param id: id of piece being added
      */
-    public void addPiece(int row, int col, boolean turn){
-        //TODO: Add a way to add KING checkers back in
-        if(turn){
-            this.tiles[row][col] = new CheckerTile(2);
-        } else {
-            this.tiles[row][col] = new CheckerTile(1);
-        }
-    }
-
-    /**
-     * Replace the piece at position with a king of the color specified by turn
-     * @param position the position with which to replace the pieve
-     * @param turn true if it is player 1's turn
-     */
-    public void addKing(int position, boolean turn){
-        //TODO: I don't think we need a seperate method for what looks like very similar to addPiece
+    public void addPiece(int row, int col, int id){
+        this.tiles[row][col] = new CheckerTile(id);
+        setChanged();
+        notifyObservers();
     }
 
     /**
