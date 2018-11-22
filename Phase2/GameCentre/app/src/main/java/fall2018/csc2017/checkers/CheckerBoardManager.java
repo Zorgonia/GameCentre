@@ -7,6 +7,7 @@ import java.util.List;
 import fall2018.csc2017.Interfaces.Manageable;
 import fall2018.csc2017.Interfaces.TappableManager;
 import fall2018.csc2017.slidingtiles.Board;
+import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.Score;
 import fall2018.csc2017.slidingtiles.Tile;
 
@@ -30,11 +31,14 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     private boolean player1Turn = true;
 
-    /**
-     * True when the player is able to select a checker, false when the player is able to select
-     * where the selected checker can move
-     */
-    private boolean movePhase1 = true;
+//    /**
+//     * True when the player is able to select a checker, false when the player is able to select
+//     * where the selected checker can move
+//     */
+//    private boolean movePhase1 = true;
+//    @@@@Instead, I'ma try to use an int instead to store a position. if position = null, movephase1 = false.
+
+    private Integer movingChecker = null;
 
     /**
      * Create a new CheckerBoardManager
@@ -55,7 +59,6 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * Reset the board to the starting position
      */
     public void refreshBoard(){
-
         List<CheckerTile> tiles = new ArrayList<>();
 //        This is quite smelly. I refactored these methods
 //        addRowVariation1(tiles, 1);
@@ -82,7 +85,11 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         }
     }
 
-
+    /**
+     * Add rows of checkers in the pattern of blank then checker, or checker then blank. etc
+     * @param tiles the list of tiles
+     * @param colour the colour of the pieces added
+     */
     private void addCheckers(List<CheckerTile> tiles, int colour){
         for(int row = 0; row < BOARD_SIZE; row++){
 //          This second for loop is a bit weird.
@@ -157,7 +164,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         This requires a new instance of type int 'MovingChecker',
         This stores the checker position that you are about to move.
 
-        PseudocodeC
+        Pseudocode:
         if you tapped a position of a checker and it is your checker:
             if (MovingChecker == position)
                 # If you selected a checker before, you now canceled it by tapping the same checker
@@ -188,8 +195,27 @@ public class CheckerBoardManager implements Serializable, TappableManager {
                     return true
         return false
          */
+        int row = position / BOARD_SIZE;
+        int col = position % BOARD_SIZE;
+//        final int blankId = 0;
+        int tileBackground = board.getTileAt(row + 1, col).getBackground();
 
+        boolean p1ValidTap = (tileBackground == R.drawable.tile_checkers_red ||
+                tileBackground == R.drawable.tile_checkers_red_king) &&
+                player1Turn;
 
+        boolean p2ValidTap = (tileBackground == R.drawable.tile_checkers_black ||
+                              tileBackground == R.drawable.tile_checkers_black_king) &&
+                              !player1Turn;
+
+        if(p1ValidTap || p2ValidTap){
+            if (movingChecker == position)
+//              If you selected a checker before, you now canceled it by tapping the same checker
+                movingChecker = null;
+            else if (movingChecker == null)
+//                # If there is no position stored
+                movingChecker = position;
+        }
         return false;
     }
 
