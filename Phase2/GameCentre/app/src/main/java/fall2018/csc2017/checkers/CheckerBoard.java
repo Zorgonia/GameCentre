@@ -102,4 +102,9 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
         setChanged();
         notifyObservers();
     }
+
+    public void update(){
+        setChanged();
+        notifyObservers();
+    }
 }

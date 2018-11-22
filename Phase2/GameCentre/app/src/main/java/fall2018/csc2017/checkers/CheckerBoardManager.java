@@ -177,6 +177,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
             board.setSelectedTilePos(-1);
             movePhase1 = true;
         }
+        board.update();
 
     }
 
@@ -241,6 +242,10 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     public boolean getBoardStatus() {
         return activeStatus;
+    }
+
+    public int getTurnColour(){
+        return turnColour;
     }
 
     /**
@@ -334,27 +339,29 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     public void undo(){
         board.turnOffHighlight();
         Move undoMove = undoStack.remove();
-        if (undoMove.getVerticalDistance() == 2){
-            undoStack.getIsPrimedCapture();
-            do{
+        if (undoMove != null){
+            if (undoMove.getVerticalDistance() == 2){
+                undoStack.getIsPrimedCapture();
+                do{
+                    board.swapTiles(undoMove);
+                    int[] captureData = undoStack.removeCapture();
+                    board.addPiece(captureData[0] / board.getNumRows(),
+                            captureData[0] % board.getNumRows(), captureData[1]);
+                    processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
+                    undoMove = undoStack.remove();
+                } while(undoStack.getIsPrimedCapture());
+                undoStack.addIsPrimedCapture(false);
+                undoStack.add(undoMove);
+            } else {
                 board.swapTiles(undoMove);
-                int[] captureData = undoStack.removeCapture();
-                board.addPiece(captureData[0] / board.getNumRows(),
-                        captureData[0] % board.getNumRows(), captureData[1]);
-                processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
-                undoMove = undoStack.remove();
-            } while(undoStack.getIsPrimedCapture());
-            undoStack.addIsPrimedCapture(false);
-            undoStack.add(undoMove);
-        } else {
-            board.swapTiles(undoMove);
+            }
+            processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
+            movePhase1 = true;
+            primedCapture = false;
+            board.setSelectedTilePos(-1);
+            switchTurn();
         }
-        processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
-        movePhase1 = true;
-        primedCapture = false;
-        board.setSelectedTilePos(-1);
-        switchTurn();
-
+        board.update();
 
     }
 

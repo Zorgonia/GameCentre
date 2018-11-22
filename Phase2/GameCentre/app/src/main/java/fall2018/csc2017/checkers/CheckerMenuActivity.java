@@ -76,6 +76,7 @@ public class CheckerMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadFromFile(CheckerGameActivity.CHECKER_SAVE_FILE);
+                switchToGameActivity();
             }
         });
 

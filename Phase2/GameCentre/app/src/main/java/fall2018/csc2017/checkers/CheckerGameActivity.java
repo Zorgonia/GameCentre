@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -41,6 +42,12 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
             updateTileButtons();
             saveToFile(CHECKER_SAVE_FILE);
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            TextView turnDisplay = findViewById(R.id.TurnDisplay);
+            if (checkerBoardManager.getTurnColour() == 1){
+                turnDisplay.setText(String.format("Black's Turn"));
+            } else {
+                turnDisplay.setText(String.format("Red's Turn"));
+            }
         }
     }
 
@@ -50,7 +57,6 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
         createTileButtons(this);
         setContentView(R.layout.activity_checkers_main_);
         addUndoButtonListener();
-        addSaveButtonListener();
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(checkerBoardManager.getBoard().getNumCols());
         gridView.setBoardManager(checkerBoardManager);
@@ -95,18 +101,6 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
             b.setBackgroundResource(board.getTileAt(row, col).getBackground());
             nextPos++;
         }
-    }
-
-    private void addSaveButtonListener() {
-        //TODO: we might want to remove the button and have it as autosave,
-        // or keep this button and remove autosave.
-        Button saveButton = findViewById(R.id.SaveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveToFile(CHECKER_SAVE_FILE);
-            }
-        });
     }
 
     private void addUndoButtonListener() {
