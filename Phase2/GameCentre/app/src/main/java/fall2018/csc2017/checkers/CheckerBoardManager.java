@@ -60,16 +60,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * Reset the board to the starting position
      */
     public void refreshBoard(){
-
         List<CheckerTile> tiles = new ArrayList<>();
-//        This is quite smelly. I refactored these methods
-//        addRowVariation1(tiles, 1);
-//        addRowVariation2(tiles, 1);
-//        addRowVariation1(tiles, 1);
-//        addBlankRow(tiles);
-//        addRowVariation1(tiles, 2);
-//        addRowVariation2(tiles, 2);
-//        addRowVariation1(tiles, 2);
         addCheckers(tiles, 1);
         addBlankRow(tiles);
         addCheckers(tiles, 2);
@@ -102,29 +93,6 @@ public class CheckerBoardManager implements Serializable, TappableManager {
             }
         }
     }
-//    /**
-//     * Add a row of checkers in the pattern of blank, checker, blank, checker, etc
-//     * @param tiles the list of tiles
-//     * @param colour the colour of the pieces added
-//     */
-//    private void addRowVariation1(List<CheckerTile> tiles, int colour) {
-//        for(int i = 0; i < BOARD_SIZE/2; i++){
-//            tiles.add(new CheckerTile(0));
-//            tiles.add(new CheckerTile(colour));
-//        }
-//    }
-//
-//    /**
-//     * Add a row of checkers in the pattern of checker, blank, checker, blank, etc
-//     * @param tiles the list of tiles
-//     * @param colour the colour of the pieces added
-//     */
-//    private void addRowVariation2(List<CheckerTile> tiles, int colour) {
-//        for(int i = 0; i < BOARD_SIZE/2; i++){
-//            tiles.add(new CheckerTile(colour));
-//            tiles.add(new CheckerTile(0));
-//        }
-//    }
 
     /**
      * Return true if a game is complete, meaning one side has no more pieces or there is a draw
@@ -226,7 +194,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * @return true if board is able to be interacted with
      */
     public boolean getBoardStatus() {
-        return false;
+        return true;
     }
 
     /**

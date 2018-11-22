@@ -54,7 +54,6 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      * @param col col of adding piece
      */
     public void destroyPiece(int row, int col){
-        //unsure if want parameter to be "position" or "row, col"
         this.tiles[row][col] = new CheckerTile(0);
     }
 
