@@ -49,9 +49,9 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
     }
 
     /**
-     *
-     * @param row
-     * @param col
+     * Replace piece with a blank tile, which means it died
+     * @param row row of adding piece
+     * @param col col of adding piece
      */
     public void destroyPiece(int row, int col){
         //unsure if want parameter to be "position" or "row, col"
@@ -79,7 +79,7 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      * @param turn true if it is player 1's turn
      */
     public void addKing(int position, boolean turn){
-
+        //TODO: I don't think we need a seperate method for what looks like very similar to addPiece
     }
 
     /**
