@@ -1,6 +1,7 @@
 package fall2018.csc2017.checkers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc2017.abstractClasses.GameBoard;
@@ -44,7 +45,7 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      * Replace the piece at position with a blank space
      * @param position the position to replace the piece at
      */
-    public void destroyPiece(int position){
+    public void destroyPiece(int row, int col){
         //unsure if want parameter to be "position" or "row, col"
     }
 
@@ -70,7 +71,11 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      * Toggle the highlighting of the spaces in positions
      * @param positions array of positions to highlight/dehighlight
      */
-    public void toggleHighlight(int[] positions){
+    public void highlight(ArrayList<Integer> positions){
+
+    }
+
+    public void turnOffHighlight(){
 
     }
 }

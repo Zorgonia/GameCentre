@@ -28,7 +28,7 @@ public class Move implements Serializable {
      * @param row2 The row of the second tile to swap
      * @param col2 The column of the second tile to swap
      */
-    Move(int row1, int col1, int row2, int col2) {
+    public Move(int row1, int col1, int row2, int col2) {
         this.row1 = row1;
         this.col1 = col1;
         this.row2 = row2;
@@ -40,7 +40,7 @@ public class Move implements Serializable {
      *
      * @return row1
      */
-    int getRow1() {
+    public int getRow1() {
         return row1;
     }
 
@@ -49,7 +49,7 @@ public class Move implements Serializable {
      *
      * @return row2
      */
-    int getRow2() {
+    public int getRow2() {
         return row2;
     }
 
@@ -58,7 +58,7 @@ public class Move implements Serializable {
      *
      * @return col1
      */
-    int getCol1() {
+    public int getCol1() {
         return col1;
     }
 
@@ -67,8 +67,12 @@ public class Move implements Serializable {
      *
      * @return col2
      */
-    int getCol2() {
+    public int getCol2() {
         return col2;
+    }
+
+    public int getVerticalDistance(){
+        return Math.abs(col2 - col1);
     }
 
     /**
