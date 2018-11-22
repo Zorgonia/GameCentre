@@ -91,45 +91,60 @@ public class BoardManager2048 implements Manageable, Serializable {
     void touchMove(String direction){
         if (direction.equals("up") || direction.equals("down")){
             for (int col = 0; col != 4; col++){
-                adjustTilesCol(col);
+                adjustTilesCol(col,direction);
                 combineDoublesCol(col, direction);
-                adjustTilesCol(col);
-                if (direction.equals("down")){
-                    board.reverseCol(col);
-                }
+                adjustTilesCol(col,direction);
             }
         } else if (direction.equals("left") || direction.equals("right")){
             for (int row = 0; row != 4; row++){
-                adjustTilesRow(row);
+                adjustTilesRow(row, direction);
                 combineDoublesRow(row, direction);
-                adjustTilesRow(row);
-                if (direction.equals("right")){
-                    board.reverseRow(row);
-                }
+                adjustTilesRow(row, direction);
             }
         }
         board.placeRandomTile();
     }
 
+    ////////////////
+    // TODO: remove duplicate code for the following methods
+    ////////////////
     /**
      * Adjusts the tiles in the given column position according to the direction
      * @param col the column index
+     * @param vertDirection "up" or "down"
      */
-    private void adjustTilesCol(int col){
+    private void adjustTilesCol(int col, String vertDirection){
         int emptyIndex = -1;
         int id;
-        for (int row = 0; row < 4; row++){
-            id = board.getTileAt(row,col).getId();
-            if (id == 0){
-                if (emptyIndex != -1){
-                    continue;
+        if (vertDirection.equals("up")) {
+            for (int row = 0; row < 4; row++) {
+                id = board.getTileAt(row, col).getId();
+                if (id == 0) {
+                    if (emptyIndex != -1) {
+                        continue;
+                    }
+                    emptyIndex = row;
                 }
-                emptyIndex = row;
+                if (emptyIndex != -1 && id != 0) {
+                    board.placeNewTileAt(id, emptyIndex, col);
+                    board.removeTileAt(row, col);
+                    emptyIndex += 1;
+                }
             }
-            if (emptyIndex != -1 && id != 0){
-                board.placeNewTileAt(id, emptyIndex, col);
-                board.removeTileAt(row,col);
-                emptyIndex += 1;
+        } else if (vertDirection.equals("down")){
+            for (int row = 3; row > -1; row--){
+                id = board.getTileAt(row,col).getId();
+                if (id == 0) {
+                    if (emptyIndex != -1){
+                        continue;
+                    }
+                    emptyIndex = row;
+                }
+                if (emptyIndex != -1 && id != 0){
+                    board.placeNewTileAt(id, emptyIndex, col);
+                    board.removeTileAt(row, col);
+                    emptyIndex -= 1;
+                }
             }
         }
     }
@@ -138,21 +153,38 @@ public class BoardManager2048 implements Manageable, Serializable {
      * Adjusts the tiles in the given row position according to the direction
      * @param row the row index
      */
-    private void adjustTilesRow(int row) {
+    private void adjustTilesRow(int row, String sideDirection) {
         int emptyIndex = -1;
         int id;
-        for (int col = 0; col < 4; col++) {
-            id = board.getTileAt(row, col).getId();
-            if (id == 0) {
-                if (emptyIndex != -1) {
-                    continue;
+        if (sideDirection.equals("left")) {
+            for (int col = 0; col < 4; col++) {
+                id = board.getTileAt(row, col).getId();
+                if (id == 0) {
+                    if (emptyIndex != -1) {
+                        continue;
+                    }
+                    emptyIndex = col;
                 }
-                emptyIndex = col;
+                if (emptyIndex != -1 && id != 0) {
+                    board.placeNewTileAt(id, row, emptyIndex);
+                    board.removeTileAt(row, col);
+                    emptyIndex += 1;
+                }
             }
-            if (emptyIndex != -1 && id != 0) {
-                board.placeNewTileAt(id, row, emptyIndex);
-                board.removeTileAt(row, col);
-                emptyIndex += 1;
+        } else if (sideDirection.equals("right")){
+            for (int col = 3; col > -1; col--){
+                id = board.getTileAt(row,col).getId();
+                if (id == 0) {
+                    if (emptyIndex != -1) {
+                        continue;
+                    }
+                    emptyIndex = col;
+                }
+                if (emptyIndex != -1 && id != 0) {
+                    board.placeNewTileAt(id, row, emptyIndex);
+                    board.removeTileAt(row, col);
+                    emptyIndex -= 1;
+                }
             }
         }
     }
