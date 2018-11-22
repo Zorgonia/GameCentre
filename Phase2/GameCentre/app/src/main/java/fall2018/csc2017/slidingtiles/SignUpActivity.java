@@ -49,7 +49,8 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
         if (user.equals("") || pass.equals("")) {
             makeToast("Credentials Incomplete!");
         } else if (findAccount(user, accList) == null) {
-            saveNewAccount(new Account(user, pass), file, allAccounts);
+            accList.add(new Account(user, pass));
+            saveNewAccount(file, accList);
             makeToast("User Created! Press back and sign in");
         } else {
             makeToast("Username Taken!");
@@ -69,11 +70,10 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     /**
      * Save new ArrayList of accounts with Account a added to it, provided the username
      * of a does not match the username of any other account in allAccounts.
-     * @param a new account to be added to ArrayList allAccounts
+     * @param fileName name of file to save to
+     * @param accList list of accounts to save
      */
-    public void saveNewAccount(Account a, String fileName,
-                               ArrayList<Account> accList) {
-        accList.add(a);
+    public void saveNewAccount(String fileName, ArrayList<Account> accList) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));

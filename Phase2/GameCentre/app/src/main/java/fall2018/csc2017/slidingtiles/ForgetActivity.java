@@ -39,7 +39,7 @@ public class ForgetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_);
-        readFiles();
+        readFiles(ACCOUNT_FILENAME);
 
         addFindPasswordButtonListener();
     }
@@ -62,7 +62,8 @@ public class ForgetActivity extends AppCompatActivity {
                     makeToast("Enter Valid Username, Level, and password");
                 } else if (account != null) {
                     if (level.getText().toString().equals(Integer.toString(account.getLevel()))) {
-                        updatePassword(newPassword.getText().toString());
+                        updatePassword(newPassword.getText().toString(), account,
+                                ACCOUNT_FILENAME, allAccounts);
                         makeToast("Correct Level! Your password has been Updated");
                     } else {
                         makeToast("Please Enter the correct level");
@@ -77,9 +78,9 @@ public class ForgetActivity extends AppCompatActivity {
     /**
      * Reading all the account files
      */
-    private void readFiles() {
+    private void readFiles(String file) {
         try {
-            InputStream inputStream1 = this.openFileInput(ACCOUNT_FILENAME);
+            InputStream inputStream1 = this.openFileInput(file);
             if (inputStream1 != null) {
                 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream1);
                 ForgetActivity.allAccounts = (ArrayList<Account>) objectInputStream.readObject();
@@ -109,20 +110,25 @@ public class ForgetActivity extends AppCompatActivity {
      *
      * @param newPass new password
      */
-    private void updatePassword(String newPass) {
-        String name = account.getUsername();
-        account.setPassword(newPass);
-        for (Account acc : allAccounts) {
+    private void updatePassword(String newPass, Account a,
+                                String file, ArrayList<Account> allA) {
+        String name = a.getUsername();
+        a.setPassword(newPass);
+        for (Account acc : allA) {
             if (acc.getUsername().equals(name)) {
-                allAccounts.remove(acc);
+                allA.remove(acc);
                 break;
             }
         }
-        allAccounts.add(account);
+        allA.add(a);
+        saveAccFile(file, allA);
+    }
+
+        private void saveAccFile(String file, ArrayList<Account> allA){
         try {
             ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(
-                    this.openFileOutput(ACCOUNT_FILENAME, MODE_PRIVATE));
-            objectOutputStream1.writeObject(allAccounts);
+                    this.openFileOutput(file, MODE_PRIVATE));
+            objectOutputStream1.writeObject(allA);
             objectOutputStream1.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

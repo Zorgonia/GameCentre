@@ -60,11 +60,20 @@ public class AccountTest {
      * Test if password can be properly set and authenticated.
      */
     @Test
-    public void testPassword(){
+    public void testPasswordCaseSensitive(){
         assertTrue(a.authenticate("pass"));
         assertEquals("user", a.getUsername());
         a.setPassword("pAss");
         assertFalse(a.authenticate("pass"));
         assertTrue(a.authenticate("pAss"));
+    }
+
+    /**
+     * Test if password can be the same as username (should).
+     */
+    @Test
+    public void testPasswordUsername(){
+        a.setPassword("user");
+        assertTrue(a.authenticate("user"));
     }
 }
