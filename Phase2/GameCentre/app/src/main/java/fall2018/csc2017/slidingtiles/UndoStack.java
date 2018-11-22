@@ -30,7 +30,7 @@ public class UndoStack implements Serializable {
      *
      * @return The most recent element in the stack.
      */
-    Move remove() {
+    public Move remove() {
         if (stack.size() > 0) {
             return stack.remove(stack.size() - 1);
         }
@@ -63,7 +63,7 @@ public class UndoStack implements Serializable {
      *
      * @param limited value to set this.limited to
      */
-    void setLimited(boolean limited) {
+    public void setLimited(boolean limited) {
         this.limited = limited;
     }
 

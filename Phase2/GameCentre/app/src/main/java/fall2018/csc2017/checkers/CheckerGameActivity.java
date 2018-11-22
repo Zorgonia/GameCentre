@@ -114,7 +114,7 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                checkerBoardManager.undo();
             }
         });
     }
