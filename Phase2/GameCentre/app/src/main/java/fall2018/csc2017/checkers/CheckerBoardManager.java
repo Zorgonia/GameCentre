@@ -26,6 +26,8 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * Id of a highlighted tile
      */
     final int HIGHLIGHT_ID = 5;
+
+    private CheckerUndoStack undoStack;
     /**
      * True when board can be interacted with
      */
@@ -51,6 +53,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     public CheckerBoardManager(){
         refreshBoard();
+        undoStack = new CheckerUndoStack();
     }
 
     /**
@@ -187,12 +190,19 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         Move move = new Move(row, col, board.getSelectedTilePos() / board.getNumRows(),
                 board.getSelectedTilePos() % board.getNumCols());
         board.swapTiles(move);
+        undoStack.add(move);
         if ((row == 0 && turnColour == 1) || (row == 7 && turnColour == 2)){
             board.addPiece(row, col, turnColour + 2);
+            undoStack.addKinged(true);
+        }
+        else {
+            undoStack.addKinged(false);
         }
         if (move.getVerticalDistance() == 2){
-            board.destroyPiece(Math.max(move.getRow1(), move.getRow2()) - 1,
-                    Math.max(move.getCol1(), move.getCol2()) - 1 );
+            int midRow = Math.max(move.getRow1(), move.getRow2()) - 1;
+            int midCol = Math.max(move.getCol1(), move.getCol2()) - 1;
+            undoStack.addCapture(midRow, midCol, board.getTileAt(midRow, midCol).getId());
+            board.destroyPiece(midRow, midCol);
             if (findPotentialMoves(row*8 + col, true).size() > 0){
                 primedCapture = true;
                 board.setSelectedTilePos(row*8 + col);
@@ -201,6 +211,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
                 primedCapture = false;
                 board.setSelectedTilePos(-1);
             }
+            undoStack.addIsPrimedCapture(primedCapture);
         }
     }
 
@@ -316,8 +327,51 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         }
     }
 
+    /**
+     * Undo the last move made in the game. In the case of forced consecutive captures, undo all of
+     * them at once.
+     */
+    public void undo(){
+        board.turnOffHighlight();
+        Move undoMove = undoStack.remove();
+        if (undoMove.getVerticalDistance() == 2){
+            undoStack.getIsPrimedCapture();
+            do{
+                board.swapTiles(undoMove);
+                int[] captureData = undoStack.removeCapture();
+                board.addPiece(captureData[0] / board.getNumRows(),
+                        captureData[0] % board.getNumRows(), captureData[1]);
+                processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
+                undoMove = undoStack.remove();
+            } while(undoStack.getIsPrimedCapture());
+            undoStack.addIsPrimedCapture(false);
+            undoStack.add(undoMove);
+        } else {
+            board.swapTiles(undoMove);
+        }
+        processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
+        movePhase1 = true;
+        primedCapture = false;
+        board.setSelectedTilePos(-1);
+        switchTurn();
 
 
+    }
+
+    public void processUndoKing(int row, int col, boolean kinged){
+        if (kinged){
+            board.addPiece(row, col, board.getTileAt(row, col).getId() - 2);
+        }
+    }
+
+
+    /**
+     * black moves, red moves, black captures and primes another, performs primed capture and primes
+     * another, perform primes capture, red presses undo.
+     * false, false, true, true, false
+     * removes the first false, then undoes and removes true, then undoes and removes true, then
+     * undoes and removes false. if i readded a false here, would there be an issue?
+     */
     public void setBoardToInactive() {
         activeStatus = false;
     }
