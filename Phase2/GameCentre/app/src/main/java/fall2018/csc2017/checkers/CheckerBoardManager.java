@@ -55,15 +55,19 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * Reset the board to the starting position
      */
     public void refreshBoard(){
+
         List<CheckerTile> tiles = new ArrayList<>();
-        addRowVariation1(tiles, 1);
-        addRowVariation2(tiles, 1);
-        addRowVariation1(tiles, 1);
+//        This is quite smelly. I refactored these methods
+//        addRowVariation1(tiles, 1);
+//        addRowVariation2(tiles, 1);
+//        addRowVariation1(tiles, 1);
+//        addBlankRow(tiles);
+//        addRowVariation1(tiles, 2);
+//        addRowVariation2(tiles, 2);
+//        addRowVariation1(tiles, 2);
+        addCheckers(tiles, 1);
         addBlankRow(tiles);
-        addBlankRow(tiles);
-        addRowVariation1(tiles, 2);
-        addRowVariation2(tiles, 2);
-        addRowVariation1(tiles, 2);
+        addCheckers(tiles, 2);
         board = new CheckerBoard(tiles, BOARD_SIZE);
 
     }
@@ -73,34 +77,53 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * @param tiles the list of tiles
      */
     private void addBlankRow(List<CheckerTile> tiles) {
-        for (int i = 0; i < BOARD_SIZE; i++){
+        for (int i = 0; i < 2*BOARD_SIZE; i++){
             tiles.add(new CheckerTile(0));
         }
     }
 
-    /**
-     * Add a row of checkers in the pattern of blank, checker, blank, checker, etc
-     * @param tiles the list of tiles
-     * @param colour the colour of the pieces added
-     */
-    private void addRowVariation1(List<CheckerTile> tiles, int colour) {
-        for(int i = 0; i < BOARD_SIZE/2; i++){
-            tiles.add(new CheckerTile(0));
-            tiles.add(new CheckerTile(colour));
+
+    private void addCheckers(List<CheckerTile> tiles, int colour){
+        for(int row = 0; row < BOARD_SIZE; row++){
+//          This second for loop is a bit weird.
+//          I make it so that it starts off even (colour - 1) = 0 for red checkers
+//          and odd (colours - 1) = 1 for black. Looks weird however
+            for(int col = colour - 1; col < BOARD_SIZE + colour - 1;  col++){
+                if((row + col)% 2 == 1) {
+                    tiles.add(new CheckerTile(colour));
+                }else{
+                    tiles.add(new CheckerTile(0));
+                }
+            }
         }
     }
 
-    /**
-     * Add a row of checkers in the pattern of checker, blank, checker, blank, etc
-     * @param tiles the list of tiles
-     * @param colour the colour of the pieces added
-     */
-    private void addRowVariation2(List<CheckerTile> tiles, int colour) {
-        for(int i = 0; i < BOARD_SIZE/2; i++){
-            tiles.add(new CheckerTile(colour));
-            tiles.add(new CheckerTile(0));
-        }
-    }
+//
+//    /**
+//     * Add a row of checkers in the pattern of blank, checker, blank, checker, etc
+//     * @param tiles the list of tiles
+//     * @param colour the colour of the pieces added
+//     */
+//    private void addRowVariation1(List<CheckerTile> tiles, int colour) {
+//
+//
+//        for(int i = 0; i < BOARD_SIZE/2; i++){
+//            tiles.add(new CheckerTile(0));
+//            tiles.add(new CheckerTile(colour));
+//        }
+//    }
+//
+//    /**
+//     * Add a row of checkers in the pattern of checker, blank, checker, blank, etc
+//     * @param tiles the list of tiles
+//     * @param colour the colour of the pieces added
+//     */
+//    private void addRowVariation2(List<CheckerTile> tiles, int colour) {
+//        for(int i = 0; i < BOARD_SIZE/2; i++){
+//            tiles.add(new CheckerTile(colour));
+//            tiles.add(new CheckerTile(0));
+//        }
+//    }
 
     /**
      * Return true if a game is complete, meaning one side has no more pieces or there is a draw
