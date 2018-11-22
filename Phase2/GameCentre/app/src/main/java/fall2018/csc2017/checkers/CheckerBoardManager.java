@@ -152,7 +152,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         } else if(board.getTileAt(row, col).getId() == HIGHLIGHT_ID) {
             board.turnOffHighlight();
             Move move = new Move(row, col, board.getSelectedTilePos() / board.getNumRows(),
-                    board.getSelectedTilePos() / board.getNumCols());
+                    board.getSelectedTilePos() % board.getNumCols());
             board.swapTiles(move);
             if (move.getVerticalDistance() == 2){
                 board.destroyPiece(Math.max(move.getRow1(), move.getRow2()) - 1,
@@ -243,11 +243,11 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         }
         if (row > 1 && col > 1 && board.getTileAt(row - 1, col - 1).getId() == enemyColour
                 && board.getTileAt(row - 2, col - 2).getId() == 0){
-            potentialMoves.add(position - BOARD_SIZE*2 - 2);
+            potentialMoves.add(position - (BOARD_SIZE*2) - 2);
         }
         if (row > 1 && col < 6 && board.getTileAt(row - 1, col + 1).getId() == enemyColour
                 && board.getTileAt(row - 2, col + 2).getId() == 0){
-            potentialMoves.add(position - BOARD_SIZE*2 + 2);
+            potentialMoves.add(position - (BOARD_SIZE*2) + 2);
         }
     }
 

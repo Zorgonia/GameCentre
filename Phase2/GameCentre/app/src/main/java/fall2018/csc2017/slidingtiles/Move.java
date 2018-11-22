@@ -72,7 +72,7 @@ public class Move implements Serializable {
     }
 
     public int getVerticalDistance(){
-        return Math.abs(col2 - col1);
+        return Math.abs(row2 - row1);
     }
 
     /**

@@ -7,7 +7,7 @@ import fall2018.csc2017.slidingtiles.R;
 
 public class CheckerTile extends AbstractTile implements Comparable<AbstractTile>, Serializable {
 
-    public CheckerTile(int background, int id){
+    public CheckerTile(int id, int background){
         super(id, background);
     }
 
