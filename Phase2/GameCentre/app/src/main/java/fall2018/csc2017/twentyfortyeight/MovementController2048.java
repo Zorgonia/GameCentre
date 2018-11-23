@@ -31,13 +31,17 @@ public class MovementController2048 {
 //        }
 //    }
     public void processSwipeMovement(Context context, String move, boolean display) {
-        boardManager.touchMove(move);
-        if (boardManager.gameFinished()) {
-            Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-        } else if (boardManager.gameOver()) {
-            Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
+        if (boardManager.isValidMover(move)) {
+            boardManager.touchMove(move);
+            if (boardManager.gameFinished()) {
+                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+            } else if (boardManager.gameOver()) {
+                Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, move, Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(context, move, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "I can't let you do that starfox", Toast.LENGTH_SHORT).show();
         }
     }
 }

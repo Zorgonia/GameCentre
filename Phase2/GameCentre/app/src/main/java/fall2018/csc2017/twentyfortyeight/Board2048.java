@@ -73,18 +73,70 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
      */
     // TODO: this method is only needed in gameOver() in boardManager2048, might not be needed
     boolean hasEqualAdjacentTile(int row, int col) {
+//        Tile2048 mainTile = getTileAt(row, col);
+//        // Are any of the 4 the blank tile?
+//        Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
+//        Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
+//        Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);
+//        Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
+//        return (below != null && below.getId() == mainTile.getId())
+//                || (above != null && above.getId() == mainTile.getId())
+//                || (left != null && left.getId() == mainTile.getId())
+//                || (right != null && right.getId() == mainTile.getId());
+        return (hasEqualTileInDirection(row, col, "up") ||
+                hasEqualTileInDirection(row, col, "down") ||
+                hasEqualTileInDirection(row, col, "left") ||
+                hasEqualTileInDirection(row, col, "right"));
+    }
+
+    boolean hasEqualTileInDirection(int row, int col, String direction) {
         Tile2048 mainTile = getTileAt(row, col);
         // Are any of the 4 the blank tile?
         Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
         Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
         Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);
         Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
-        return (below != null && below.getId() == mainTile.getId())
-                || (above != null && above.getId() == mainTile.getId())
-                || (left != null && left.getId() == mainTile.getId())
-                || (right != null && right.getId() == mainTile.getId());
+        if (direction.equals("up")) {
+            return above != null && above.getId() == mainTile.getId();
+        } else if (direction.equals("down")) {
+            return below != null && below.getId() == mainTile.getId();
+        } else if (direction.equals("left")) {
+            return left != null && left.getId() == mainTile.getId();
+        }
+        return (right != null && right.getId() == mainTile.getId());
     }
 
+    boolean hasAdjacentTileOf(int row, int col, String direction, int id) {
+        Tile2048 mainTile = getTileAt(row, col);
+        if (mainTile.getId() == 0) {
+            return false;
+        }
+        Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
+        Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
+        Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);
+        Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
+
+        if (direction.equals("up")) {
+            if (above == null) {
+                return false;
+            }
+            return above.getId() == id;
+        } else if (direction.equals("down")) {
+            if (below == null) {
+                return false;
+            }
+            return below.getId() == id;
+        } else if (direction.equals("left")) {
+            if (left == null) {
+                return false;
+            }
+            return left.getId() == id;
+        }
+        if (right == null) {
+            return false;
+        }
+        return right.getId() == id;
+    }
     /**
      * Reverses the tiles position in given column
      *

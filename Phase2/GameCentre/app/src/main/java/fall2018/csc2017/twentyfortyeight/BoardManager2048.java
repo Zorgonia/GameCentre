@@ -65,6 +65,11 @@ public class BoardManager2048 implements Manageable, Serializable {
         return false;
     }
 
+    @Override
+    public boolean isValidMove(int instruction) {
+        return true;
+    }
+
     public boolean gameOver() {
         for (int x = 0; x != 16; x++) {
             Tile2048 tmp = board.getTileAt(x / 4, x % 4);
@@ -90,8 +95,14 @@ public class BoardManager2048 implements Manageable, Serializable {
     }
 
     // TODO: Not sure if we need this for 2048
-    public boolean isValidMove(int direction) {
-        return true;
+    public boolean isValidMover(String direction) {
+        for (int x = 0; x != 16; x++) {
+            Tile2048 tmp = board.getTileAt(x/4, x%4);
+            if ((board.hasEqualTileInDirection(x / 4, x % 4,direction) && tmp.getId() != 0)|| board.hasAdjacentTileOf(x/4, x%4, direction,0 )) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
