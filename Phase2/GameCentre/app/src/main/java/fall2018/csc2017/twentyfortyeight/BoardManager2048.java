@@ -46,7 +46,7 @@ public class BoardManager2048 implements Manageable, Serializable {
     public void refreshBoard() {
         List<Tile2048> tiles = new ArrayList<>();
         for (int x = 0; x != 16; x++) {
-            tiles.add(new Tile2048(512));
+            tiles.add(new Tile2048(0));
         }
         this.board = new Board2048(tiles, 4, 4);
         this.board.placeRandomTile();
@@ -102,9 +102,11 @@ public class BoardManager2048 implements Manageable, Serializable {
     }
 
     // TODO: Not sure if we need this for 2048
+
     /**
      * Checks whether the move is valid, that is if with that move,
      * pieces can be combined and/or pieces can be moved
+     *
      * @param direction the direction of the move to check
      */
     public boolean isValidMover(String direction) {
@@ -134,9 +136,11 @@ public class BoardManager2048 implements Manageable, Serializable {
                 adjustTilesRow(row, direction);
             }
         }
-        gameOver();
-        gameFinished();
+//        if (gameOver() || gameFinished()) {
+//            setActiveStatus(false);
+//        }
         board.placeRandomTile();
+
     }
 
     ////////////////

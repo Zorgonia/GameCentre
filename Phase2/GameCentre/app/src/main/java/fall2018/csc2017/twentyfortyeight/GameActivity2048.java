@@ -55,7 +55,7 @@ public class GameActivity2048 extends AppCompatActivity implements Observer {
         //saveFinalScore();
         //account.increaseExperience(MOVE_EXP);
         //writeAccountFile();
-        if(boardManager.getBoardStatus()) {
+        if(!boardManager.gameFinished() &&! boardManager.gameOver()) {
             tempSaveToFile();
         }
         // }
