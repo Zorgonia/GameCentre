@@ -16,6 +16,10 @@ public class BoardManager2048 implements Manageable, Serializable {
      */
     private Board2048 board;
 
+    public void setActiveStatus(boolean activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
     /**
      * false indicates game is finished and board isn't active any longer
      */
@@ -42,7 +46,7 @@ public class BoardManager2048 implements Manageable, Serializable {
     public void refreshBoard() {
         List<Tile2048> tiles = new ArrayList<>();
         for (int x = 0; x != 16; x++) {
-            tiles.add(new Tile2048(0));
+            tiles.add(new Tile2048(512));
         }
         this.board = new Board2048(tiles, 4, 4);
         this.board.placeRandomTile();
@@ -58,12 +62,14 @@ public class BoardManager2048 implements Manageable, Serializable {
         for (int row = 0; row != 4; row++) {
             for (int col = 0; col != 4; col++) {
                 if (board.getTileAt(row, col).getId() == 2048) {
+                    setActiveStatus(false);
                     return true;
                 }
             }
         }
         return false;
     }
+
 
     @Override
     public boolean isValidMove(int instruction) {
@@ -80,6 +86,7 @@ public class BoardManager2048 implements Manageable, Serializable {
                 return false;
             }
         }
+        setActiveStatus(false);
         return true;
     }
 
@@ -95,10 +102,15 @@ public class BoardManager2048 implements Manageable, Serializable {
     }
 
     // TODO: Not sure if we need this for 2048
+    /**
+     * Checks whether the move is valid, that is if with that move,
+     * pieces can be combined and/or pieces can be moved
+     * @param direction the direction of the move to check
+     */
     public boolean isValidMover(String direction) {
         for (int x = 0; x != 16; x++) {
-            Tile2048 tmp = board.getTileAt(x/4, x%4);
-            if (tmp.getId() != 0 && (board.hasEqualTileInDirection(x / 4, x % 4,direction)|| board.hasAdjacentTileOf(x/4, x%4, direction,0 ))) {
+            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
+            if (tmp.getId() != 0 && (board.hasEqualTileInDirection(x / 4, x % 4, direction) || board.hasAdjacentTileOf(x / 4, x % 4, direction, 0))) {
                 return true;
             }
         }
@@ -122,6 +134,8 @@ public class BoardManager2048 implements Manageable, Serializable {
                 adjustTilesRow(row, direction);
             }
         }
+        gameOver();
+        gameFinished();
         board.placeRandomTile();
     }
 

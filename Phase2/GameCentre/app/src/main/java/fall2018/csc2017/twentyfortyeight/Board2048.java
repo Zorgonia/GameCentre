@@ -59,7 +59,13 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
                 }
             }
         }
-        placeNewTileAt(2, randRow, randCol);
+        Random r = new Random();
+        int k = r.nextInt(10);
+        if (k  <= 8 ) {
+            placeNewTileAt(2, randRow, randCol);
+        } else {
+            placeNewTileAt(4, randRow, randCol);
+        }
         setChanged();
         notifyObservers();
     }

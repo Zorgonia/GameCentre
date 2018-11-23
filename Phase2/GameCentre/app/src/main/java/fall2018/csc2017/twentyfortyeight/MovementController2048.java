@@ -31,7 +31,9 @@ public class MovementController2048 {
 //        }
 //    }
     public void processSwipeMovement(Context context, String move, boolean display) {
-        if (boardManager.isValidMover(move)) {
+        if (!boardManager.getBoardStatus()) {
+            Toast.makeText(context, "The game is over, press back to return to the main menu", Toast.LENGTH_SHORT).show();
+        } else if (boardManager.isValidMover(move)) {
             boardManager.touchMove(move);
             if (boardManager.gameFinished()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
