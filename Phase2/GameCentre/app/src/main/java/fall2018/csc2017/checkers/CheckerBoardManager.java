@@ -48,6 +48,8 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     private boolean primedCapture = false;
 
+    private boolean availableCapture = false;
+
     /**
      * Create a new CheckerBoardManager
      */
@@ -134,6 +136,12 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         }
         if (movePhase1){
             ArrayList<Integer> captures = findCaptures();
+            if (captures.size() > 0){
+                availableCapture = true;
+            }
+            else {
+                availableCapture = false;
+            }
             return (board.getTileAt(row, col).getId() == turnColour ||
                     board.getTileAt(row, col).getId() == turnColour + 2) &&
                     (captures.size() == 0 || captures.contains(position));
@@ -155,12 +163,11 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         if (movePhase1){
-            ArrayList<Integer> potentialMoves = findPotentialMoves(position, false);
+            ArrayList<Integer> potentialMoves = findPotentialMoves(position, availableCapture);
             if (potentialMoves.size() > 0){
                 board.setSelectedTilePos(position);
                 board.highlight(potentialMoves);
                 movePhase1 = false;
-                //TODO make it so that if piece can capture, has to capture by only highlighting that spot
             }
         } else if(board.getTileAt(row, col).getId() == HIGHLIGHT_ID) {
             board.turnOffHighlight();
@@ -255,8 +262,16 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     private ArrayList<Integer> findCaptures(){
         ArrayList<Integer> captures = new ArrayList<>();
+        for(int row = 0; row < board.getNumRows(); row++){
+            for(int col = 0; col < board.getNumCols(); col++){
+                int id = board.getTileAt(row, col).getId();
+                if ((id == turnColour || id == turnColour + 2) &&
+                        findPotentialMoves(row*8 + col, true).size() > 0){
+                    captures.add(row*8 + col);
+                }
+            }
+        }
         return captures;
-        //TODO this is hard to implement, do it eventually. returns a list of size 0 for now
     }
 
 
