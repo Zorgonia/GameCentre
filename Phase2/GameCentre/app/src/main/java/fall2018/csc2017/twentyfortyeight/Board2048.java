@@ -107,10 +107,10 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
     }
 
     boolean hasAdjacentTileOf(int row, int col, String direction, int id) {
-        Tile2048 mainTile = getTileAt(row, col);
-        if (mainTile.getId() == 0) {
-            return false;
-        }
+       // Tile2048 mainTile = getTileAt(row, col);
+//        if (mainTile.getId() == 0) {
+//            return false;
+//        }
         Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
         Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
         Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);

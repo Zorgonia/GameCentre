@@ -98,7 +98,7 @@ public class BoardManager2048 implements Manageable, Serializable {
     public boolean isValidMover(String direction) {
         for (int x = 0; x != 16; x++) {
             Tile2048 tmp = board.getTileAt(x/4, x%4);
-            if ((board.hasEqualTileInDirection(x / 4, x % 4,direction) && tmp.getId() != 0)|| board.hasAdjacentTileOf(x/4, x%4, direction,0 )) {
+            if (tmp.getId() != 0 && (board.hasEqualTileInDirection(x / 4, x % 4,direction)|| board.hasAdjacentTileOf(x/4, x%4, direction,0 ))) {
                 return true;
             }
         }
