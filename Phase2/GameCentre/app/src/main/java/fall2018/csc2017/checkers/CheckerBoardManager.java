@@ -199,7 +199,8 @@ public class CheckerBoardManager implements Serializable, TappableManager {
                 board.getSelectedTilePos() % board.getNumCols());
         board.swapTiles(move);
         undoStack.add(move);
-        if ((row == 0 && turnColour == 1) || (row == 7 && turnColour == 2)){
+        if (((row == 0 && turnColour == 1 ) ||(row == 7 && turnColour == 2)
+                && board.getTileAt(row, col).getId() == turnColour)){
             board.addPiece(row, col, turnColour + 2);
             undoStack.addKinged(true);
         }
@@ -369,8 +370,8 @@ public class CheckerBoardManager implements Serializable, TappableManager {
                 undoStack.add(undoMove);
             } else {
                 board.swapTiles(undoMove);
+                processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
             }
-            processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
             movePhase1 = true;
             primedCapture = false;
             board.setSelectedTilePos(-1);
