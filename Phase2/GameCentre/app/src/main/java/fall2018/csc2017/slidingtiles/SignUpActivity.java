@@ -37,19 +37,24 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Username.getText().toString().equals("") ||
-                        Password.getText().toString().equals("")){
-                    makeToast("Credentials Incomplete!");
-                }
-                else if (findAccount(Username.getText().toString()) == null){
-                    saveNewAccount(new Account(Username.getText().toString(),
-                            Password.getText().toString()));
-                    makeToast("User Created! Press back and sign in");
-                }else{
-                    makeToast("Username Taken!");
-                }
+                String user = Username.getText().toString();
+                String pass = Password.getText().toString();
+                signIn(user, pass, allAccounts, ACCOUNT_FILENAME);
             }
         });
+    }
+
+    public void signIn(String user, String pass,
+                       ArrayList<Account> accList, String file){
+        if (user.equals("") || pass.equals("")) {
+            makeToast("Credentials Incomplete!");
+        } else if (findAccount(user, accList) == null) {
+            accList.add(new Account(user, pass));
+            saveNewAccount(file, accList);
+            makeToast("User Created! Press back and sign in");
+        } else {
+            makeToast("Username Taken!");
+        }
     }
 
 
@@ -65,14 +70,14 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     /**
      * Save new ArrayList of accounts with Account a added to it, provided the username
      * of a does not match the username of any other account in allAccounts.
-     * @param a new account to be added to ArrayList allAccounts
+     * @param fileName name of file to save to
+     * @param accList list of accounts to save
      */
-    public void saveNewAccount(Account a) {
-        allAccounts.add(a);
+    public void saveNewAccount(String fileName, ArrayList<Account> accList) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(ACCOUNT_FILENAME, MODE_PRIVATE));
-            outputStream.writeObject(allAccounts);
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(accList);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
