@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -43,17 +44,19 @@ public class GameActivity2048 extends AppCompatActivity implements Observer {
      * The method that updates the display
      */
     public void display() {
-      //  if (boardManager.getBoardStatus()) {
-            //boardManager.getBoardScore().increaseScore();
-            updateTileButtons();
-       // makeToastFinishedText();
-            //TextView scoreDisplay = findViewById(R.id.ScoreDisplay);
-            //scoreDisplay.setText(String.format("Score: %s", String.valueOf(boardManager.getBoardScore().getScoreValue())));
-            gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-            //saveFinalScore();
-            //account.increaseExperience(MOVE_EXP);
-            //writeAccountFile();
-       // }
+        //  if (boardManager.getBoardStatus()) {
+        //boardManager.getBoardScore().increaseScore();
+        updateTileButtons();
+
+        // makeToastFinishedText();
+        //TextView scoreDisplay = findViewById(R.id.ScoreDisplay);
+        //scoreDisplay.setText(String.format("Score: %s", String.valueOf(boardManager.getBoardScore().getScoreValue())));
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+        //saveFinalScore();
+        //account.increaseExperience(MOVE_EXP);
+        //writeAccountFile();
+        tempSaveToFile();
+        // }
     }
 
     /**
@@ -93,6 +96,7 @@ public class GameActivity2048 extends AppCompatActivity implements Observer {
     private void makeToastFinishedText() {
         Toast.makeText(this, "You can't save a finished game!", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +144,17 @@ public class GameActivity2048 extends AppCompatActivity implements Observer {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    public void tempSaveToFile() {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(MenuActivity2048.TEMP_SAVE_FILENAME, MODE_PRIVATE));
+            outputStream.writeObject(boardManager);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 
