@@ -7,13 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
+import fall2018.csc2017.slidingtiles.Account;
+import fall2018.csc2017.slidingtiles.AccountActivity;
 import fall2018.csc2017.slidingtiles.PersonalScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SaveActivity;
@@ -24,7 +28,10 @@ public class CheckerMenuActivity extends AppCompatActivity {
      * A temporary save file.
      */
     public static final String TEMP_SAVE_FILENAME = "checker_save_file_tmp.ser";
+    public static String CHECKER_SAVE_FILE;
 
+    public static final String SINGLE_ACC_FILE = "account_single.ser";
+    public static final String ACCOUNT_FILENAME = "account_file.ser";
     /**
      * A board manager that is loaded into a new game
      */
@@ -38,7 +45,8 @@ public class CheckerMenuActivity extends AppCompatActivity {
         addLoadButtonListener();
         addHighScoresButtonListener();
         addPersonalScoresButtonListener();
-
+        //I moved Checker_save_file to menuActivity. It is necessary here.
+        CHECKER_SAVE_FILE = "checker_save_" + AccountActivity.username + ".ser";
     }
 
     private void addStartButtonListener(){
@@ -61,25 +69,38 @@ public class CheckerMenuActivity extends AppCompatActivity {
 
     private void switchToPersonalScoreBoardActivity() {
         Intent tmp = new Intent(this, PersonalScoreBoardActivity.class);
+        PersonalScoreBoardActivity.highToLow = true;
         startActivity(tmp);
     }
 
     private void switchToScoreBoardActivity() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
+        ScoreBoardActivity.highToLow = true;
         startActivity(tmp);
     }
 
-    //TODO Deal with what happens when there is no save
+    //TODO check that loading an empty save will prevent you from doing so
     private void addLoadButtonListener(){
         Button loadButton = findViewById(R.id.LoadButton);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFromFile(CheckerGameActivity.CHECKER_SAVE_FILE);
-                switchToGameActivity();
+                loadFromFile(CHECKER_SAVE_FILE);
+                if (boardManager != null) {
+                    switchToGameActivity();
+                } else {
+                    makeToast("That's an empty save. Play something first!");
+                }
             }
         });
 
+    }
+
+    /**
+     * Makes a toast about how the seek bar changes complexity.
+     */
+    private void makeToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     private void addHighScoresButtonListener(){
@@ -128,6 +149,7 @@ public class CheckerMenuActivity extends AppCompatActivity {
             }
         } catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
+            boardManager = null;
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {

@@ -21,7 +21,7 @@ public class Score implements Serializable, Comparable<Score> {
     /**
      * increases the score by 1
      */
-    void increaseScore(){
+    public void increaseScore(){
         this.score += 1;
     }
 

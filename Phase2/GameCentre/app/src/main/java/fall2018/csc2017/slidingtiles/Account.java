@@ -1,7 +1,5 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +9,7 @@ import java.util.Collections;
  * Also stores game related information such high scores and the user's
  * level and experience points
  */
-class Account implements Serializable, Comparable<Account>{
+public class Account implements Serializable, Comparable<Account>{
     /**
      * The data for an Account
      */
@@ -21,7 +19,9 @@ class Account implements Serializable, Comparable<Account>{
      * Stores a limited number of final scores for the Account
      * dictated by HIGH_SCORES_AMOUNT
      */
-    private ArrayList<Score> highScores = new ArrayList<>();
+    private ArrayList<Score> slidingTilesHighScores = new ArrayList<>();
+    private Score checkerHighScore = new Score(0);
+    private ArrayList<Score> highScores2048 = new ArrayList<>();
     private static final int HIGH_SCORES_AMOUNT = 5;
 
     /**
@@ -41,7 +41,7 @@ class Account implements Serializable, Comparable<Account>{
      * @param user the username of account
      * @param pass the password of account
      */
-    Account(String user, String pass) {
+    public Account(String user, String pass) {
         username = user;
         password = pass;
         experience = 0;
@@ -53,7 +53,7 @@ class Account implements Serializable, Comparable<Account>{
      *
      * @return username
      */
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -73,22 +73,24 @@ class Account implements Serializable, Comparable<Account>{
      * @return the Score that is top score (lowest number of moves) earned by the Account
      */
     Score getTopScore(){
-        Collections.sort(highScores);
-        if (highScores.size() > 0) {
-            return highScores.get(0);
+        Collections.sort(slidingTilesHighScores);
+        if (slidingTilesHighScores.size() > 0) {
+            return slidingTilesHighScores.get(0);
         } else {
             return new Score(0);
         }
     }
 
     /**
-     * getter for highScores array
-     * @return highScores array
+     * getter for slidingTilesHighScores array
+     * @return slidingTilesHighScores array
      */
-    ArrayList<Score> getHighScores(){
-        return highScores;
+    public ArrayList<Score> getSlidingTilesHighScores(){
+        return slidingTilesHighScores;
     }
-
+    public Score getCheckersScore(){
+        return checkerHighScore;
+    }
     /**
      * Setter for password
      * @param newPass new password to be set.
@@ -98,19 +100,20 @@ class Account implements Serializable, Comparable<Account>{
     }
 
     /**
-     * adds s to highScores if its high enough
+     * adds s to slidingTilesHighScores if its high enough
      * and replaces another score if s is higher
      */
-    void updateHighScores(Score s) {
-        highScores.add(s);
-        Collections.sort(highScores);
-        // re sizes highScores according to HIGH_SCORES_AMOUNT
-        if (highScores.size() > HIGH_SCORES_AMOUNT){
-            for (int i = HIGH_SCORES_AMOUNT; i < highScores.size(); i++){
-                highScores.remove(i);
+    void updateSlidingHighScores(Score s) {
+        slidingTilesHighScores.add(s);
+        Collections.sort(slidingTilesHighScores);
+        // re sizes slidingTilesHighScores according to HIGH_SCORES_AMOUNT
+        if (slidingTilesHighScores.size() > HIGH_SCORES_AMOUNT){
+            for (int i = HIGH_SCORES_AMOUNT; i < slidingTilesHighScores.size(); i++){
+                slidingTilesHighScores.remove(i);
             }
         }
     }
+
 
     /**
      * returns the user's level
