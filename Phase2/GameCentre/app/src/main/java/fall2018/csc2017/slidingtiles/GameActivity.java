@@ -292,7 +292,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
             // updates account's score/exp and then updates it to allAccounts
             account.increaseExperience(FINISH_EXP);
-            account.updateHighScores(boardManager.getBoardScore());
+            account.updateSlidingHighScores(boardManager.getBoardScore());
             writeAccountFile();
         } else {
             // Auto save if the game is not finished.

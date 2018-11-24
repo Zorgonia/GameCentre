@@ -66,6 +66,7 @@ public class StartingActivity extends AppCompatActivity {
         highScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ScoreBoardActivity.highToLow = false;
                 switchToScoreBoardActivity();
             }
         });
@@ -79,6 +80,7 @@ public class StartingActivity extends AppCompatActivity {
         personalScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PersonalScoreBoardActivity.highToLow = false;
                 switchToPersonalScoresActivity();
             }
         });

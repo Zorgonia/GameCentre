@@ -27,12 +27,12 @@ public class AccountTest {
     @Test
     public void testAccountComp(){
         Account a2 = new Account("u2", "p2");
-        a.updateHighScores(new Score(200));
-        a.updateHighScores(new Score(50));
-        a2.updateHighScores(new Score(50));
-        a2.updateHighScores(new Score(100));
+        a.updateSlidingHighScores(new Score(200));
+        a.updateSlidingHighScores(new Score(50));
+        a2.updateSlidingHighScores(new Score(50));
+        a2.updateSlidingHighScores(new Score(100));
         assertEquals(0, a.compareTo(a2));
-        a.updateHighScores(new Score(49));
+        a.updateSlidingHighScores(new Score(49));
         assertEquals(-1, a.compareTo(a2));
     }
 
@@ -43,17 +43,17 @@ public class AccountTest {
     public void testScoreUpdate(){
         assertEquals(0, a.getTopScore().getScoreValue());
         Score s = new Score(300);
-        a.updateHighScores(s);
-        a.updateHighScores(new Score(150));
+        a.updateSlidingHighScores(s);
+        a.updateSlidingHighScores(new Score(150));
         assertEquals(150, a.getTopScore().getScoreValue());
-        a.updateHighScores(new Score(180));
-        a.updateHighScores(new Score(200));
-        a.updateHighScores(new Score(250));
-        assertEquals(5, a.getHighScores().size());
-        assertTrue(a.getHighScores().contains(s));
-        a.updateHighScores(new Score(100));
-        assertEquals(5, a.getHighScores().size());
-        assertFalse(a.getHighScores().contains(s));
+        a.updateSlidingHighScores(new Score(180));
+        a.updateSlidingHighScores(new Score(200));
+        a.updateSlidingHighScores(new Score(250));
+        assertEquals(5, a.getSlidingTilesHighScores().size());
+        assertTrue(a.getSlidingTilesHighScores().contains(s));
+        a.updateSlidingHighScores(new Score(100));
+        assertEquals(5, a.getSlidingTilesHighScores().size());
+        assertFalse(a.getSlidingTilesHighScores().contains(s));
     }
 
     /**

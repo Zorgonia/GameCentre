@@ -1,5 +1,6 @@
 package fall2018.csc2017.checkers;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +19,16 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.slidingtiles.AccountActivity;
 import fall2018.csc2017.slidingtiles.CustomAdapter;
 import fall2018.csc2017.slidingtiles.GestureDetectGridView;
 import fall2018.csc2017.slidingtiles.R;
 
 public class CheckerGameActivity extends AppCompatActivity implements Observer {
+
+    private fall2018.csc2017.slidingtiles.Account account;
+    private ArrayList<fall2018.csc2017.slidingtiles.Account> allAccounts = new ArrayList<>();
+
 
     private CheckerBoardManager checkerBoardManager;
 
@@ -32,7 +38,7 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
     private int columnWidth, columnHeight;
     private static final int BOARD_SIZE = 8;
 
-    public static final String CHECKER_SAVE_FILE = "checker_save.ser";
+//    public static String CHECKER_SAVE_FILE;
     public static final String SINGLE_ACC_FILE = "account_single.ser";
     public static final String ACCOUNT_FILENAME = "account_file.ser";
 
@@ -40,7 +46,6 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
     public void display(){
         if (checkerBoardManager.getBoardStatus()) {
             updateTileButtons();
-            saveToFile(CHECKER_SAVE_FILE);
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
             TextView turnDisplay = findViewById(R.id.TurnDisplay);
             if (checkerBoardManager.getTurnColour() == 1){
@@ -54,9 +59,12 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         loadTempFromFile();
+        readFiles();
         createTileButtons(this);
         setContentView(R.layout.activity_checkers_main_);
         addUndoButtonListener();
+//        CHECKER_SAVE_FILE = "checker_save_" + AccountActivity.username + ".ser";
+
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(checkerBoardManager.getBoard().getNumCols());
         gridView.setBoardManager(checkerBoardManager);
@@ -158,11 +166,72 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    private void readFiles() {
+        try {
+            InputStream inputStream1 = this.openFileInput(SINGLE_ACC_FILE);
+            if (inputStream1 != null) {
+                ObjectInputStream objectInputStream1 = new ObjectInputStream(inputStream1);
+                account = (fall2018.csc2017.slidingtiles.Account) objectInputStream1.readObject();
+                inputStream1.close();
+            }
+            InputStream inputStream2 = this.openFileInput(ACCOUNT_FILENAME);
+            if (inputStream2 != null) {
+                ObjectInputStream objectInputStream2 = new ObjectInputStream(inputStream2);
+                allAccounts = (ArrayList<fall2018.csc2017.slidingtiles.Account>) objectInputStream2.readObject();
+                inputStream2.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("Game Activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("Game Activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("Game Activity", "File contained unexpected data type: "
+                    + e.toString());
+        }
+    }
+
+    /**
+     * Writes new data for account to file
+     */
+    private void writeAccountFile() {
+        updateAllAccountList();
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                    this.openFileOutput(SINGLE_ACC_FILE, MODE_PRIVATE));
+            ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(
+                    this.openFileOutput(ACCOUNT_FILENAME, MODE_PRIVATE));
+            objectOutputStream.writeObject(account);
+            objectOutputStream.close();
+            objectOutputStream1.writeObject(allAccounts);
+            objectOutputStream1.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+
+    /**
+     * the list of all accounts updated to be saved
+     */
+    private void updateAllAccountList(){
+        String name = account.getUsername();
+        for (fall2018.csc2017.slidingtiles.Account acc : allAccounts) {
+            if (acc.getUsername().equals(name)) {
+                allAccounts.remove(acc);
+                break;
+            }
+        }
+        allAccounts.add(account);
+    }
 
     public void update(Observable o, Object arg) {
         display();
-        if (checkerBoardManager.gameFinished()) {
+        if (checkerBoardManager.gameFinished() && checkerBoardManager.getBoardStatus()) {
             checkerBoardManager.setBoardToInactive();
+            account.getCheckersScore().increaseScore();
+            writeAccountFile();
+        } else {
+            saveToFile(CheckerMenuActivity.CHECKER_SAVE_FILE);
         }
     }
 }
