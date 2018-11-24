@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import fall2018.csc2017.GameSelectActivity;
+import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.Score;
 
 /**
@@ -11,7 +13,7 @@ import fall2018.csc2017.Score;
  * Also stores game related information such high scores and the user's
  * level and experience points
  */
-public class Account implements Serializable, Comparable<Account>{
+public class Account implements Serializable, Comparable<Account>, CurrentGameConstants {
     /**
      * The data for an Account
      */
@@ -75,12 +77,20 @@ public class Account implements Serializable, Comparable<Account>{
      * @return the Score that is top score (lowest number of moves) earned by the Account
      */
     Score getTopScore(){
-        Collections.sort(slidingTilesHighScores);
-        if (slidingTilesHighScores.size() > 0) {
-            return slidingTilesHighScores.get(0);
-        } else {
-            return new Score(0);
+        if (GameSelectActivity.currentGame == SLIDING_TILES) {
+            Collections.sort(slidingTilesHighScores);
+            if (slidingTilesHighScores.size() > 0) {
+                return slidingTilesHighScores.get(0);
+            }
+        } else if (GameSelectActivity.currentGame == CHECKERS){
+            return checkerHighScore;
+        } else if (GameSelectActivity.currentGame == TWENTYFORTYEIGHT){
+            Collections.sort(highScores2048);
+            if(highScores2048.size() > 0){
+                return highScores2048.get(0);
+            }
         }
+        return new Score(0);
     }
 
     /**
@@ -150,13 +160,6 @@ public class Account implements Serializable, Comparable<Account>{
      * @return 1,0 or -1 depending on comparing value
      */
     public int compareTo(Account temp){
-        if (ScoreBoardActivity.currentGame.equals("slidingtiles")) {
-            return Integer.compare(getTopScore().getScoreValue(), temp.getTopScore().getScoreValue());
-        } else if (ScoreBoardActivity.currentGame.equals("checkers")){
-            return Integer.compare(checkerHighScore.getScoreValue(), temp.checkerHighScore.getScoreValue());
-        } else if (ScoreBoardActivity.currentGame.equals("twentyfortyeight")){
-            return 0;
-        }
-        return 0;
+        return Integer.compare(getTopScore().getScoreValue(), temp.getTopScore().getScoreValue());
     }
 }

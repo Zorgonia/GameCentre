@@ -67,7 +67,6 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ScoreBoardActivity.highToLow = false;
-                ScoreBoardActivity.currentGame = "slidingtiles";
                 switchToScoreBoardActivity();
             }
         });

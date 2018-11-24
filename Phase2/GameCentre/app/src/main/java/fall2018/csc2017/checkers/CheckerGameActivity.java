@@ -53,6 +53,14 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
             } else {
                 turnDisplay.setText(String.format("Red's Turn"));
             }
+            if (checkerBoardManager.gameFinished()) {
+                checkerBoardManager.setBoardToInactive();
+                account.getCheckersScore().increaseScore();
+                writeAccountFile();
+                deleteSaveFile(CheckerMenuActivity.CHECKER_SAVE_FILE);
+            } else {
+                saveToFile(CheckerMenuActivity.CHECKER_SAVE_FILE);
+            }
         }
     }
 
@@ -121,14 +129,14 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
         });
     }
 
-    /**
-     * Dispatch onPause() to fragments.
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //saveToFile(CheckerMenuActivity.TEMP_SAVE_FILENAME);
-    }
+//    /**
+//     * Dispatch onPause() to fragments.
+//     */
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        //saveToFile(CheckerMenuActivity.TEMP_SAVE_FILENAME);
+//    }
 
     /**
      * Load the board manager from the temporary save
@@ -164,6 +172,18 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    public void deleteSaveFile(String fileName){
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(null);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+
     }
 
     private void readFiles() {
@@ -226,12 +246,5 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
 
     public void update(Observable o, Object arg) {
         display();
-        if (checkerBoardManager.gameFinished() && checkerBoardManager.getBoardStatus()) {
-            checkerBoardManager.setBoardToInactive();
-            account.getCheckersScore().increaseScore();
-            writeAccountFile();
-        } else {
-            saveToFile(CheckerMenuActivity.CHECKER_SAVE_FILE);
-        }
     }
 }

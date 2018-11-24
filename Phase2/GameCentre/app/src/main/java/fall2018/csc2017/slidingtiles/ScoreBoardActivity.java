@@ -21,7 +21,6 @@ public class ScoreBoardActivity extends AppCompatActivity {
     /**
      * holds all made Accounts read from account_file.ser
      */
-    public static String currentGame = "";
     public static boolean highToLow = false;
     private static ArrayList<Account> allAccounts;
     public static final String ACCOUNTS_FILENAME = "account_file.ser";
