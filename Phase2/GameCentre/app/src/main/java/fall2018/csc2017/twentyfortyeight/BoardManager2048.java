@@ -2,12 +2,10 @@ package fall2018.csc2017.twentyfortyeight;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.Manageable;
-import fall2018.csc2017.slidingtiles.Score;
+import fall2018.csc2017.Score;
 
 public class BoardManager2048 implements Manageable, Serializable {
 
@@ -16,14 +14,15 @@ public class BoardManager2048 implements Manageable, Serializable {
      */
     private Board2048 board;
 
-    public void setActiveStatus(boolean activeStatus) {
-        this.activeStatus = activeStatus;
-    }
-
     /**
      * false indicates game is finished and board isn't active any longer
      */
     private boolean activeStatus = true;
+
+    /**
+     * the current board's score
+     */
+    private Score score =  new Score(0);
 
     /**
      * Return the current board.
@@ -31,6 +30,7 @@ public class BoardManager2048 implements Manageable, Serializable {
     public Board2048 getBoard() {
         return board;
     }
+
 
     /**
      * Manage a new shuffled board.
@@ -40,34 +40,58 @@ public class BoardManager2048 implements Manageable, Serializable {
     }
 
     /**
-     * Changes the current board to a new 2048 game
+     * board is disabled for playing when false, playable otherwise
+     * @param activeStatus true => playable, false => disabled
      */
-    // TODO: change method to allow for complexity
-    public void refreshBoard() {
-        List<Tile2048> tiles = new ArrayList<>();
-        for (int x = 0; x != 16; x++) {
-            tiles.add(new Tile2048(0));
-        }
-        this.board = new Board2048(tiles, 4, 4);
-        this.board.placeRandomTile();
+    public void setActiveStatus(boolean activeStatus) {
+        this.activeStatus = activeStatus;
     }
 
     /**
-     * Returns true if no moves can be made or a tile of 2048 is achieved
-     * No moves can be made when no 2 tiles can be combined adjacently
-     *
+     * Changes the current board to a new 2048 game
+     */
+    public void refreshBoard() {
+        // To implement complexity pass in row and column in the method header
+        int numRows = 4;
+        int numCols = 4;
+        List<Tile2048> tiles = new ArrayList<>();
+        for (int x = 0; x < numRows*numCols; x++) {
+            tiles.add(new Tile2048(0));
+        }
+        this.board = new Board2048(tiles, numRows, numCols);
+        this.board.placeRandomTile();
+        setActiveStatus(true);
+        score = new Score(0);
+    }
+
+    // TODO: maybe combine gameFinished and gameOver
+    /**
+     * Returns true if game is won : highest tile possible achieved
      * @return true if game finishes, false otherwise
      */
     public boolean gameFinished() {
-        for (int row = 0; row != 4; row++) {
-            for (int col = 0; col != 4; col++) {
-                if (board.getTileAt(row, col).getId() == 2048) {
-                    setActiveStatus(false);
-                    return true;
-                }
+        for (int x = 0; x < 16; x++) {
+            if (board.getTileAt(x / 4, x % 4).getId() == 2048) {
+                setActiveStatus(false);
+                return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Returns true if game is lost : no more moves can be made and 2048 isn't achieved
+     * @return true or false indicating loss
+     */
+    public boolean gameOver() {
+        for (int x = 0; x != 16; x++) {
+            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
+            if (tmp.getId() == 0 || board.hasEqualAdjacentTile(x / 4, x % 4)) {
+                return false;
+            }
+        }
+        setActiveStatus(false);
+        return true;
     }
 
 
@@ -76,23 +100,8 @@ public class BoardManager2048 implements Manageable, Serializable {
         return true;
     }
 
-    public boolean gameOver() {
-        for (int x = 0; x != 16; x++) {
-            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
-            if (tmp.getId() == 0) {
-                return false;
-            }
-            if (board.hasEqualAdjacentTile(x / 4, x % 4)) {
-                return false;
-            }
-        }
-        setActiveStatus(false);
-        return true;
-    }
-
     // TODO: implement score and getBoardScore
     public Score getBoardScore() {
-        Score score = new Score(0);
         return score;
     }
 
@@ -136,9 +145,6 @@ public class BoardManager2048 implements Manageable, Serializable {
                 adjustTilesRow(row, direction);
             }
         }
-//        if (gameOver() || gameFinished()) {
-//            setActiveStatus(false);
-//        }
         board.placeRandomTile();
 
     }
@@ -246,6 +252,7 @@ public class BoardManager2048 implements Manageable, Serializable {
                     value0 = board.getTileAt(row, col).getId();
                     board.placeNewTileAt(2 * value0, row, col);
                     board.removeTileAt(row + 1, col);
+                    score.increaseScore(2*value0);
                     row += 2;
                 } else {
                     row += 1;
@@ -259,6 +266,7 @@ public class BoardManager2048 implements Manageable, Serializable {
                 if (board.getTileAt(row, col).getId() == board.getTileAt(row - 1, col).getId()) {
                     board.placeNewTileAt(2 * value1, row, col);
                     board.removeTileAt(row - 1, col);
+                    score.increaseScore(2*value1);
                     row -= 2;
                 } else {
                     row -= 1;
@@ -283,6 +291,7 @@ public class BoardManager2048 implements Manageable, Serializable {
                 if (board.getTileAt(row, col).getId() == board.getTileAt(row, col + 1).getId()) {
                     board.placeNewTileAt(2 * value0, row, col);
                     board.removeTileAt(row, col + 1);
+                    score.increaseScore(2*value0);
                     col += 2;
                 } else {
                     col += 1;
@@ -296,6 +305,7 @@ public class BoardManager2048 implements Manageable, Serializable {
                 if (board.getTileAt(row, col).getId() == board.getTileAt(row, col - 1).getId()) {
                     board.placeNewTileAt(2 * value1, row, col);
                     board.removeTileAt(row, col - 1);
+                    score.increaseScore(2*value1);
                     col -= 2;
                 } else {
                     col -= 1;

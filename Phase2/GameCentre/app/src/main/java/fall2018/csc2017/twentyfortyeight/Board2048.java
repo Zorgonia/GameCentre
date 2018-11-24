@@ -42,7 +42,6 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
     /**
      * places a 2048 tile of id 2 at a random empty place in the board
      */
-    // TODO: implement this method more efficiently
     void placeRandomTile() {
         ArrayList<Integer> emptyPositions = new ArrayList<>();
         int[] randomTileIds = {2,2,2,2,2,2,2,2,2,4};
