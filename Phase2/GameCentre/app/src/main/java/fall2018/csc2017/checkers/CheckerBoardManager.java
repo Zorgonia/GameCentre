@@ -4,12 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.Interfaces.Manageable;
 import fall2018.csc2017.Interfaces.TappableManager;
-import fall2018.csc2017.slidingtiles.Board;
 import fall2018.csc2017.slidingtiles.Move;
-import fall2018.csc2017.slidingtiles.Score;
-import fall2018.csc2017.slidingtiles.Tile;
+import fall2018.csc2017.Score;
 
 
 public class CheckerBoardManager implements Serializable, TappableManager {

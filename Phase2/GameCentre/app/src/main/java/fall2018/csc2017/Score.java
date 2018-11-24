@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017;
 
 import android.support.annotation.NonNull;
 
@@ -21,20 +21,28 @@ public class Score implements Serializable, Comparable<Score> {
     /**
      * increases the score by 1
      */
-    void increaseScore(){
+    public void increaseScore(){
         this.score += 1;
+    }
+
+    /**
+     * increases the score by x
+     * @param x increment in score
+     */
+    public void increaseScore(int x){
+        this.score += x;
     }
 
     /**
      * decreases the score by 1
      */
-    void decreaseScore(){
+    public void decreaseScore(){
         this.score -= 1;
     }
     /**
      * return the int value of the score
      */
-    int getScoreValue(){
+    public int getScoreValue(){
         return this.score;
     }
 
