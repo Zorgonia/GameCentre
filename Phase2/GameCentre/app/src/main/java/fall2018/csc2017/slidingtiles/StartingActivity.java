@@ -67,6 +67,7 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ScoreBoardActivity.highToLow = false;
+                ScoreBoardActivity.currentGame = "slidingtiles";
                 switchToScoreBoardActivity();
             }
         });
@@ -275,6 +276,7 @@ public class StartingActivity extends AppCompatActivity {
     private void switchToScoreBoardActivity() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         tempSaveToFile();
+
         startActivity(tmp);
     }
 

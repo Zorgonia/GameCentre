@@ -148,6 +148,13 @@ public class Account implements Serializable, Comparable<Account>{
      * @return 1,0 or -1 depending on comparing value
      */
     public int compareTo(Account temp){
-        return Integer.compare(getTopScore().getScoreValue(), temp.getTopScore().getScoreValue());
+        if (ScoreBoardActivity.currentGame.equals("slidingtiles")) {
+            return Integer.compare(getTopScore().getScoreValue(), temp.getTopScore().getScoreValue());
+        } else if (ScoreBoardActivity.currentGame.equals("checkers")){
+            return Integer.compare(checkerHighScore.getScoreValue(), temp.checkerHighScore.getScoreValue());
+        } else if (ScoreBoardActivity.currentGame.equals("twentyfortyeight")){
+            return 0;
+        }
+        return 0;
     }
 }
