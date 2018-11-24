@@ -17,6 +17,7 @@ public class PersonalScoreBoardActivity extends AppCompatActivity {
 
     private static Account account;
     private StringBuilder topScores;
+    public static boolean highToLow = false;
 
     private static final int SCORE_BOARD_SIZE = 5;
 
@@ -68,8 +69,11 @@ public class PersonalScoreBoardActivity extends AppCompatActivity {
      * fills the topScores array from account file
      */
     private void fillTopScores() {
-        ArrayList<Score> scores = account.getHighScores();
+        ArrayList<Score> scores = account.getSlidingTilesHighScores();
         Collections.sort(scores);
+        if (highToLow){
+            Collections.reverse(scores);
+        }
         int limit = Math.min(scores.size(), SCORE_BOARD_SIZE);
         for (int i = 0; i < limit; i++) {
             String nextTopScore = String.valueOf(scores.get(i).getScoreValue())

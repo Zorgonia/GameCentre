@@ -21,6 +21,8 @@ public class ScoreBoardActivity extends AppCompatActivity {
     /**
      * holds all made Accounts read from account_file.ser
      */
+
+    public static boolean highToLow = false;
     private static ArrayList<Account> allAccounts;
     public static final String ACCOUNTS_FILENAME = "account_file.ser";
 
@@ -86,6 +88,9 @@ public class ScoreBoardActivity extends AppCompatActivity {
     private void fillDisplayValues(){
         ArrayList<Account> alteredAllAccounts = getScoreBoardAccounts();
         Collections.sort(alteredAllAccounts);
+        if (highToLow){
+            Collections.reverse(alteredAllAccounts);
+        }
         int limit = Math.min(alteredAllAccounts.size(), SCORE_BOARD_SIZE);
         for (int i = 0; i < limit; i++) {
             String nextTopPlayer = alteredAllAccounts.get(i).getUsername()
