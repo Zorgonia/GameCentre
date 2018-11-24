@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import fall2018.csc2017.Interfaces.Manageable;
 import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.Score;
 
 /**
  * Manage a board, including swapping tiles, undoing swaps, checking for a win, and managing taps.

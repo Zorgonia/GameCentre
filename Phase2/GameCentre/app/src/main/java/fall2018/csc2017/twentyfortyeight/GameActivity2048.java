@@ -49,8 +49,9 @@ public class GameActivity2048 extends AppCompatActivity implements Observer {
         updateTileButtons();
 
         // makeToastFinishedText();
-        //TextView scoreDisplay = findViewById(R.id.ScoreDisplay);
-        //scoreDisplay.setText(String.format("Score: %s", String.valueOf(boardManager.getBoardScore().getScoreValue())));
+        TextView scoreDisplay = findViewById(R.id.score2048);
+        scoreDisplay.setText(String.format("Score: %s",
+                String.valueOf(boardManager.getBoardScore().getScoreValue())));
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         //saveFinalScore();
         //account.increaseExperience(MOVE_EXP);

@@ -13,6 +13,8 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import fall2018.csc2017.Score;
+
 public class PersonalScoreBoardActivity extends AppCompatActivity {
 
     private static Account account;

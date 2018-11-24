@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import fall2018.csc2017.Score;
+
 /**
  * An user's account. Store information such as password and username
  * Also stores game related information such high scores and the user's
