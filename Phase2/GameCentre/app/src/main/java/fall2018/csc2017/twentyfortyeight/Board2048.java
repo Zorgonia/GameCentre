@@ -1,9 +1,9 @@
 package fall2018.csc2017.twentyfortyeight;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import fall2018.csc2017.abstractClasses.GameBoard;
 
 public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iterable<Tile2048> {
@@ -44,27 +44,22 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
      */
     // TODO: implement this method more efficiently
     void placeRandomTile() {
+        ArrayList<Integer> emptyPositions = new ArrayList<>();
+        int[] randomTileIds = {2,2,2,2,2,2,2,2,2,4};
         Random rand = new Random();
-        int randRow = rand.nextInt(4);
-        int randCol = rand.nextInt(4);
-        mainLoop:
-        for (int row = 0; row != 4; row++) {
-            for (int col = 0; col != 4; col++) {
-                if (getTileAt(row, col).getId() == 0) {
-                    while (getTileAt(randRow, randCol).getId() != 0) {
-                        randCol = rand.nextInt(4);
-                        randRow = rand.nextInt(4);
-                    }
-                    break mainLoop;
-                }
+        for (int x = 0; x < 16; x++){
+            if (getTileAt(x / 4, x % 4).getId() == 0){
+                emptyPositions.add(x);
             }
         }
-        Random r = new Random();
-        int k = r.nextInt(10);
-        if (k  <= 8 ) {
-            placeNewTileAt(2, randRow, randCol);
-        } else {
-            placeNewTileAt(4, randRow, randCol);
+        int index = rand.nextInt(randomTileIds.length - 1);
+        if (emptyPositions.size() == 1){
+            placeNewTileAt(randomTileIds[index], emptyPositions.get(0) / 4,
+                    emptyPositions.get(0) % 4);
+        } else if (emptyPositions.size() > 1){
+            int randIndex = rand.nextInt(emptyPositions.size() - 1);
+            placeNewTileAt(randomTileIds[index], emptyPositions.get(randIndex) / 4,
+                    emptyPositions.get(randIndex) % 4);
         }
         setChanged();
         notifyObservers();
@@ -142,30 +137,5 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
             return false;
         }
         return right.getId() == id;
-    }
-    /**
-     * Reverses the tiles position in given column
-     *
-     * @param col the column index
-     */
-    void reverseCol(int col) {
-        for (int row = 0; row < NUM_ROWS / 2; row++) {
-            Tile2048 temp = tiles[row][col];
-            tiles[row][col] = tiles[NUM_ROWS - row - 1][col];
-            tiles[NUM_ROWS - row - 1][col] = temp;
-        }
-    }
-
-    /**
-     * Reverses the tiles position in given row
-     *
-     * @param row the column index
-     */
-    void reverseRow(int row) {
-        for (int col = 0; col < NUM_COLS / 2; col++) {
-            Tile2048 temp = tiles[row][col];
-            tiles[row][col] = tiles[row][NUM_COLS - col - 1];
-            tiles[row][NUM_COLS - col - 1] = temp;
-        }
     }
 }
