@@ -97,9 +97,21 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * getter for slidingTilesHighScores array
      * @return slidingTilesHighScores array
      */
-    public ArrayList<Score> getSlidingTilesHighScores(){
-        return slidingTilesHighScores;
+    public ArrayList<Score> getHighScores(){
+        if (GameSelectActivity.currentGame == SLIDING_TILES) {
+            return slidingTilesHighScores;
+        } else if (GameSelectActivity.currentGame == CHECKERS){
+            ArrayList<Score> tmp = new ArrayList<>();
+            tmp.add(checkerHighScore);
+            return tmp;
+        } else if (GameSelectActivity.currentGame == TWENTYFORTYEIGHT){
+            return highScores2048;
+        }
+        return new ArrayList<>();
     }
+
+
+
     public Score getCheckersScore(){
         return checkerHighScore;
     }

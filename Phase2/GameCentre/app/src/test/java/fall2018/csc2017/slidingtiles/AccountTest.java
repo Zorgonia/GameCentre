@@ -49,11 +49,11 @@ public class AccountTest {
         a.updateSlidingHighScores(new Score(180));
         a.updateSlidingHighScores(new Score(200));
         a.updateSlidingHighScores(new Score(250));
-        assertEquals(5, a.getSlidingTilesHighScores().size());
-        assertTrue(a.getSlidingTilesHighScores().contains(s));
+        assertEquals(5, a.getHighScores().size());
+        assertTrue(a.getHighScores().contains(s));
         a.updateSlidingHighScores(new Score(100));
-        assertEquals(5, a.getSlidingTilesHighScores().size());
-        assertFalse(a.getSlidingTilesHighScores().contains(s));
+        assertEquals(5, a.getHighScores().size());
+        assertFalse(a.getHighScores().contains(s));
     }
 
     /**

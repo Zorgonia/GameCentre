@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import fall2018.csc2017.GameSelectActivity;
 import fall2018.csc2017.Score;
 
 public class PersonalScoreBoardActivity extends AppCompatActivity {
@@ -71,7 +72,7 @@ public class PersonalScoreBoardActivity extends AppCompatActivity {
      * fills the topScores array from account file
      */
     private void fillTopScores() {
-        ArrayList<Score> scores = account.getSlidingTilesHighScores();
+        ArrayList<Score> scores = account.getHighScores();
         Collections.sort(scores);
         if (highToLow){
             Collections.reverse(scores);
