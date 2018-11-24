@@ -8,7 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        readAllAccountFile(ACCOUNT_FILENAME);
         addSignUpButtonListener();
     }
 
@@ -39,18 +43,17 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
             public void onClick(View v) {
                 String user = Username.getText().toString();
                 String pass = Password.getText().toString();
-                signIn(user, pass, allAccounts, ACCOUNT_FILENAME);
+                signIn(user, pass);
             }
         });
     }
 
-    public void signIn(String user, String pass,
-                       ArrayList<Account> accList, String file){
+    public void signIn(String user, String pass){
         if (user.equals("") || pass.equals("")) {
             makeToast("Credentials Incomplete!");
-        } else if (findAccount(user, accList) == null) {
-            accList.add(new Account(user, pass));
-            saveNewAccount(file, accList);
+        } else if (findAccount(user, allAccounts) == null) {
+            allAccounts.add(new Account(user, pass));
+            saveNewAccount(ACCOUNT_FILENAME, allAccounts);
             makeToast("User Created! Press back and sign in");
         } else {
             makeToast("Username Taken!");
@@ -78,6 +81,42 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
             outputStream.writeObject(accList);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Attempt to load data for allAccounts from file.
+     */
+    public void readAllAccountFile(String file) {
+        try {
+            InputStream inputStream = this.openFileInput(file);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                allAccounts = (ArrayList<Account>) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+            writeDefaultAllAccounts(file);
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+    /**
+     * method to handle situation where when allAccounts file doesn't exist because
+     * of app's very first run on device
+     */
+    public void writeDefaultAllAccounts(String file){
+        try{
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(file, MODE_PRIVATE));
+            ArrayList<Account> defaultAllAccounts = new ArrayList<>();
+            outputStream.writeObject(defaultAllAccounts);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

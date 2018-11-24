@@ -38,6 +38,10 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
     private int columnWidth, columnHeight;
     private static final int BOARD_SIZE = 8;
 
+    //TODO: delete this after. Instant win variable
+    private boolean instant = false;
+
+
 //    public static String CHECKER_SAVE_FILE;
     public static final String SINGLE_ACC_FILE = "account_single.ser";
     public static final String ACCOUNT_FILENAME = "account_file.ser";
@@ -53,7 +57,7 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
             } else {
                 turnDisplay.setText(String.format("Red's Turn"));
             }
-            if (checkerBoardManager.gameFinished()) {
+            if (checkerBoardManager.gameFinished() || instant) {
                 checkerBoardManager.setBoardToInactive();
                 account.getCheckersScore().increaseScore();
                 writeAccountFile();
@@ -71,6 +75,10 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
         createTileButtons(this);
         setContentView(R.layout.activity_checkers_main_);
         addUndoButtonListener();
+
+        //TODO: Delete this after
+        instant = false;
+        addWinButtonListener();
 //        CHECKER_SAVE_FILE = "checker_save_" + AccountActivity.username + ".ser";
 
         gridView = findViewById(R.id.grid);
@@ -127,6 +135,18 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
                 checkerBoardManager.undo();
             }
         });
+    }
+
+    //TODO: Delete this. It is instant win for test
+    private void addWinButtonListener(){
+        Button win = findViewById(R.id.deWin);
+        win.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                instant = true;
+            }
+        });
+
     }
 
 //    /**
