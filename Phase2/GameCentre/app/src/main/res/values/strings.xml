@@ -42,4 +42,18 @@
     <string name="title2048">2048</string>
     <string name="newAccount">Sign up for a New Account</string>
     <string name="signUpText">Click here to sign up</string>
+    <string name="rulesButton">Rules</string>
+    <string name="rulesTitle">RULES</string>
+    <string name="rules1">On your turn: Tap one of your pieces to see it\'s available moves,
+        then tap again to move it.</string>
+    <string name="rules2">If one or more of your pieces can make a capture, you MUST perform a
+        capture on that turn. You will be unable to perform any other move.</string>
+    <string name="rules3">If you make a capture, and are in a position to capture another piece,
+        you will be automatically prompted to perform this capture on the same turn.
+        You must perform this capture.</string>
+    <string name="rules4">If one of your pieces makes it to the other side of the board,
+        it will be kinged. Kings can move and capture both forwards and backwards.</string>
+    <string name="rules5">If one of your pieces makes it to the other side of the board,
+        it will be kinged. Kings can move and capture both forwards and backwards.</string>
+    <string name="rules6">Press the back button to return to the menu</string>
 </resources>

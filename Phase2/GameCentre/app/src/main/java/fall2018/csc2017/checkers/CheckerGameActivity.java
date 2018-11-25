@@ -42,10 +42,10 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
     private boolean instant = false;
 
     public void display(){
+        TextView turnDisplay = findViewById(R.id.TurnDisplay);
         if (checkerBoardManager.getBoardStatus()) {
             updateTileButtons();
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-            TextView turnDisplay = findViewById(R.id.TurnDisplay);
             if (checkerBoardManager.getTurnColour() == 1){
                 turnDisplay.setText(String.format("Black's Turn"));
             } else {
@@ -59,6 +59,12 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
             } else {
                 saveToFile(CheckerMenuActivity.CHECKER_SAVE_FILE);
             }
+        }
+        else if (checkerBoardManager.getTurnColour() == 1){
+            turnDisplay.setText(String.format("Red Wins!"));
+        }
+        else {
+            turnDisplay.setText(String.format("Black Wins!"));
         }
     }
 
@@ -126,7 +132,9 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkerBoardManager.undo();
+                if (checkerBoardManager.getBoardStatus()) {
+                    checkerBoardManager.undo();
+                }
             }
         });
     }

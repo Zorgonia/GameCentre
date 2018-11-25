@@ -38,6 +38,7 @@ public class CheckerMenuActivity extends AppCompatActivity {
         addLoadButtonListener();
         addHighScoresButtonListener();
         addPersonalScoresButtonListener();
+        addRulesButtonListener();
         //I moved Checker_save_file to menuActivity. It is necessary here.
         CHECKER_SAVE_FILE = "checker_save_" + AccountActivity.username + ".ser";
     }
@@ -116,6 +117,21 @@ public class CheckerMenuActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addRulesButtonListener(){
+        Button rulesButton = findViewById(R.id.RulesButton);
+        rulesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToRulesActivity();
+            }
+        });
+    }
+
+    private void switchToRulesActivity(){
+        Intent tmp = new Intent(this, CheckerRulesActivity.class);
+        startActivity(tmp);
     }
 
     /**

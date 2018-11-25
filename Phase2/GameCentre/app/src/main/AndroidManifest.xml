@@ -29,6 +29,7 @@
         <activity android:name="fall2018.csc2017.slidingtiles.PersonalScoreBoardActivity"></activity>
         <activity android:name="fall2018.csc2017.checkers.CheckerMenuActivity"></activity>
         <activity android:name="fall2018.csc2017.checkers.CheckerGameActivity"></activity>
+        <activity android:name="fall2018.csc2017.checkers.CheckerRulesActivity"></activity>
     </application>
 
 </manifest>

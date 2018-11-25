@@ -394,5 +394,6 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     public void setBoardToInactive() {
         activeStatus = false;
+        board.update();
     }
 }
