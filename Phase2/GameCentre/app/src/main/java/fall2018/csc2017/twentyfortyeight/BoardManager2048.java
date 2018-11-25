@@ -108,7 +108,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
     public boolean isValidTap(int instruction) {
         for (int x = 0; x != 16; x++) {
             Tile2048 tmp = board.getTileAt(x / 4, x % 4);
-            if (tmp.getId() != 0 && (board.hasEqualTileInDirection(x / 4, x % 4, instruction) || board.hasAdjacentTileOf(x / 4, x % 4, instruction, 0))) {
+            if (tmp.getId() != 0 && (board.hasAdjacentTileOf(x / 4, x % 4, instruction, tmp.getId()) || board.hasAdjacentTileOf(x / 4, x % 4, instruction, 0))) {
                 return true;
             }
         }

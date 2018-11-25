@@ -45,8 +45,8 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
      */
     void placeRandomTile() {
         ArrayList<Integer> emptyPositions = new ArrayList<>();
-        int[] randomTileIds = {2, 2, 2, 2, 2, 2, 2, 2, 2, 4};
-        //int[] randomTileIds = {128};
+        //int[] randomTileIds = {2, 2, 2, 2, 2, 2, 2, 2, 2, 4};
+        int[] randomTileIds = {128};
         Random rand = new Random();
         for (int x = 0; x < 16; x++) {
             if (getTileAt(x / 4, x % 4).getId() == 0) {
@@ -85,34 +85,21 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
 //                || (above != null && above.getId() == mainTile.getId())
 //                || (left != null && left.getId() == mainTile.getId())
 //                || (right != null && right.getId() == mainTile.getId());
-        return (hasEqualTileInDirection(row, col, 1) ||
-                hasEqualTileInDirection(row, col, 3) ||
-                hasEqualTileInDirection(row, col, 4) ||
-                hasEqualTileInDirection(row, col, 2));
+        return (hasAdjacentTileOf(row, col, 1, getTileAt(row,col ).getId()) ||
+                hasAdjacentTileOf(row, col, 3,getTileAt(row,col ).getId()) ||
+                hasAdjacentTileOf(row, col, 4,getTileAt(row,col ).getId()) ||
+                hasAdjacentTileOf(row, col, 2,getTileAt(row,col ).getId()));
     }
 
-    boolean hasEqualTileInDirection(int row, int col, int direction) {
-        Tile2048 mainTile = getTileAt(row, col);
-        // Are any of the 4 the blank tile?
-        if (direction == 1) {
-            Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
-            return above != null && above.getId() == mainTile.getId();
-        } else if (direction == 3) {
-            Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
-            return below != null && below.getId() == mainTile.getId();
-        } else if (direction == 4) {
-            Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);
-            return left != null && left.getId() == mainTile.getId();
-        }
-        Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
-        return (right != null && right.getId() == mainTile.getId());
-    }
-
+    /**
+     * Checks if the tile at row, col has an adjacent tile with a specific id in the specified direction
+     * @param row row of tile to check
+     * @param col column of tile to check
+     * @param direction the direction, 1 for up, 2 for right, 3 for down, 4 for left
+     * @param id the id of the desired to check for
+     * @return whether the tile in adjacent direction is equal
+     */
     boolean hasAdjacentTileOf(int row, int col, int direction, int id) {
-        // Tile2048 mainTile = getTileAt(row, col);
-//        if (mainTile.getId() == 0) {
-//            return false;
-//        }
         if (direction == 1) {
             Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
             if (above == null) {
