@@ -242,36 +242,28 @@ public class BoardManager2048 implements Manageable, Serializable {
      * @param col           the given column's index
      * @param vertDirection "up" or "down"
      */
-    // TODO: once game is functioning replace 4 with numRow
     private void combineDoublesCol(int col, String vertDirection) {
-        if (vertDirection.equals("up")) {
-            int value0;
-            int row = 0;
-            while (row < 4 - 1) {
-                if (board.getTileAt(row, col).getId() == board.getTileAt(row + 1, col).getId()) {
-                    value0 = board.getTileAt(row, col).getId();
-                    board.placeNewTileAt(2 * value0, row, col);
+        boolean dirIsUp = vertDirection.equals("up");
+        int valueCur, valueNext;
+        int row = (dirIsUp) ? 0 : board.getNumRows() - 1;
+        boolean loopCondition = (dirIsUp) ? (row < board.getNumRows() - 1) : (row > 0);
+        while (loopCondition){
+            valueCur = board.getTileAt(row,col).getId();
+            valueNext = (dirIsUp) ? board.getTileAt(row + 1, col).getId()
+                                  : board.getTileAt(row - 1, col).getId();
+            if (valueCur == valueNext){
+                board.placeNewTileAt(2 * valueCur, row, col);
+                score.increaseScore(2*valueCur);
+                if (dirIsUp){
                     board.removeTileAt(row + 1, col);
-                    score.increaseScore(2*value0);
-                    row += 2;
-                } else {
-                    row += 1;
-                }
-            }
-        } else if (vertDirection.equals("down")) {
-            int row = 4 - 1;
-            int value1;
-            while (row > 0) {
-                value1 = board.getTileAt(row, col).getId();
-                if (board.getTileAt(row, col).getId() == board.getTileAt(row - 1, col).getId()) {
-                    board.placeNewTileAt(2 * value1, row, col);
+                } else { // if right
                     board.removeTileAt(row - 1, col);
-                    score.increaseScore(2*value1);
-                    row -= 2;
-                } else {
-                    row -= 1;
                 }
+                row = (dirIsUp) ? row + 2 : row - 2;
+            } else {
+                row = (dirIsUp) ? row + 1 : row - 1;
             }
+            loopCondition = (dirIsUp) ? (row < board.getNumRows() - 1) : (row > 0);
         }
     }
 
@@ -281,36 +273,60 @@ public class BoardManager2048 implements Manageable, Serializable {
      * @param row           the given rows's index
      * @param sideDirection "left" or "right"
      */
-    // TODO: once game is functioning replace 4 with numCol
-    private void combineDoublesRow(int row, String sideDirection) {
-        if (sideDirection.equals("left")) {
-            int value0;
-            int col = 0;
-            while (col < 4 - 1) {
-                value0 = board.getTileAt(row, col).getId();
-                if (board.getTileAt(row, col).getId() == board.getTileAt(row, col + 1).getId()) {
-                    board.placeNewTileAt(2 * value0, row, col);
+    private void combineDoublesRow(int row, String sideDirection){
+        boolean dirIsLeft = sideDirection.equals("left");
+        int valueCur, valueNext;
+        int col = (dirIsLeft) ? 0 : board.getNumCols() - 1;
+        boolean loopCondition = (dirIsLeft) ? (col < board.getNumCols() - 1) : (col > 0);
+        while (loopCondition){
+            valueCur = board.getTileAt(row,col).getId();
+            valueNext = (dirIsLeft) ? board.getTileAt(row, col + 1).getId()
+                                 : board.getTileAt(row, col - 1).getId();
+            if (valueCur == valueNext){
+                board.placeNewTileAt(2 * valueCur, row, col);
+                score.increaseScore(2*valueCur);
+                if (dirIsLeft){
                     board.removeTileAt(row, col + 1);
-                    score.increaseScore(2*value0);
-                    col += 2;
                 } else {
-                    col += 1;
-                }
-            }
-        } else if (sideDirection.equals("right")) {
-            int value1;
-            int col = 4 - 1;
-            while (col > 0) {
-                value1 = board.getTileAt(row, col).getId();
-                if (board.getTileAt(row, col).getId() == board.getTileAt(row, col - 1).getId()) {
-                    board.placeNewTileAt(2 * value1, row, col);
                     board.removeTileAt(row, col - 1);
-                    score.increaseScore(2*value1);
-                    col -= 2;
-                } else {
-                    col -= 1;
                 }
+                col = (dirIsLeft) ? col + 2 : col - 2;
+            } else {
+                col = (dirIsLeft) ? col + 1 : col - 1;
             }
+            loopCondition = (dirIsLeft) ? (col < board.getNumCols() - 1) : (col > 0);
         }
     }
+
+    // TODO: Don't delete this for now
+    //        if (vertDirection.equals("up")) {
+//            int value0;
+//            int row = 0;
+//            while (row < 4 - 1) {
+//                if (board.getTileAt(row, col).getId() == board.getTileAt(row + 1, col).getId()) {
+//                    value0 = board.getTileAt(row, col).getId();
+//                    board.placeNewTileAt(2 * value0, row, col);
+//                    board.removeTileAt(row + 1, col);
+//                    score.increaseScore(2*value0);
+//                    row += 2;
+//                } else {
+//                    row += 1;
+//                }
+//            }
+//        } else if (vertDirection.equals("down")) {
+//            int row = 4 - 1;
+//            int value1;
+//            while (row > 0) {
+//                value1 = board.getTileAt(row, col).getId();
+//                if (board.getTileAt(row, col).getId() == board.getTileAt(row - 1, col).getId()) {
+//                    board.placeNewTileAt(2 * value1, row, col);
+//                    board.removeTileAt(row - 1, col);
+//                    score.increaseScore(2*value1);
+//                    row -= 2;
+//                } else {
+//                    row -= 1;
+//                }
+//            }
+//        }
+//    }
 }
