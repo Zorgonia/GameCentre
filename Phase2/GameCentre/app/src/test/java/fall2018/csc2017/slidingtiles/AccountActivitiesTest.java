@@ -1,8 +1,8 @@
 package fall2018.csc2017.slidingtiles;
 
-import org.junit.Test;
 import java.util.ArrayList;
-import static org.junit.Assert.*;
+
+import fall2018.csc2017.Account;
 
 public class AccountActivitiesTest {
 

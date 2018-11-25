@@ -1,6 +1,5 @@
 package fall2018.csc2017.checkers;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,13 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
-import fall2018.csc2017.slidingtiles.Account;
-import fall2018.csc2017.slidingtiles.AccountActivity;
+import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.slidingtiles.PersonalScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.slidingtiles.SaveActivity;
 import fall2018.csc2017.slidingtiles.ScoreBoardActivity;
 
 public class CheckerMenuActivity extends AppCompatActivity {

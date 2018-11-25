@@ -1,6 +1,5 @@
 package fall2018.csc2017.checkers;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,16 +18,16 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.Account;
 import fall2018.csc2017.Interfaces.AccountConstants;
-import fall2018.csc2017.slidingtiles.AccountActivity;
 import fall2018.csc2017.slidingtiles.CustomAdapter;
 import fall2018.csc2017.slidingtiles.GestureDetectGridView;
 import fall2018.csc2017.slidingtiles.R;
 
 public class CheckerGameActivity extends AppCompatActivity implements Observer, AccountConstants {
 
-    private fall2018.csc2017.slidingtiles.Account account;
-    private ArrayList<fall2018.csc2017.slidingtiles.Account> allAccounts = new ArrayList<>();
+    private Account account;
+    private ArrayList<Account> allAccounts = new ArrayList<>();
 
 
     private CheckerBoardManager checkerBoardManager;
@@ -206,13 +205,13 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
             InputStream inputStream1 = this.openFileInput(SINGLE_ACC_FILE);
             if (inputStream1 != null) {
                 ObjectInputStream objectInputStream1 = new ObjectInputStream(inputStream1);
-                account = (fall2018.csc2017.slidingtiles.Account) objectInputStream1.readObject();
+                account = (Account) objectInputStream1.readObject();
                 inputStream1.close();
             }
             InputStream inputStream2 = this.openFileInput(ACCOUNT_FILENAME);
             if (inputStream2 != null) {
                 ObjectInputStream objectInputStream2 = new ObjectInputStream(inputStream2);
-                allAccounts = (ArrayList<fall2018.csc2017.slidingtiles.Account>) objectInputStream2.readObject();
+                allAccounts = (ArrayList<Account>) objectInputStream2.readObject();
                 inputStream2.close();
             }
         } catch (FileNotFoundException e) {
@@ -250,7 +249,7 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
      */
     private void updateAllAccountList(){
         String name = account.getUsername();
-        for (fall2018.csc2017.slidingtiles.Account acc : allAccounts) {
+        for (Account acc : allAccounts) {
             if (acc.getUsername().equals(name)) {
                 allAccounts.remove(acc);
                 break;

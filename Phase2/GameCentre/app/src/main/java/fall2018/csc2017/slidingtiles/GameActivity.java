@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.Account;
+import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.AccountConstants;
 
 /**

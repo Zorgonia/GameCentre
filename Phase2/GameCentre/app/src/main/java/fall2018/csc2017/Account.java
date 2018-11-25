@@ -1,12 +1,10 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import fall2018.csc2017.GameSelectActivity;
 import fall2018.csc2017.Interfaces.CurrentGameConstants;
-import fall2018.csc2017.Score;
 
 /**
  * An user's account. Store information such as password and username
@@ -67,7 +65,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      *
      * @return true if pass matches password, false otherwise
      */
-    boolean authenticate(String pass) {
+    public boolean authenticate(String pass) {
         return password.equals(pass);
     }
 
@@ -76,7 +74,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      *
      * @return the Score that is top score (lowest number of moves) earned by the Account
      */
-    Score getTopScore(){
+    public Score getTopScore(){
         if (GameSelectActivity.currentGame == SLIDING_TILES) {
             Collections.sort(slidingTilesHighScores);
             if (slidingTilesHighScores.size() > 0) {
@@ -119,7 +117,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * Setter for password
      * @param newPass new password to be set.
      */
-    void setPassword(String newPass){
+    public void setPassword(String newPass){
         this.password = newPass;
     }
 
@@ -127,7 +125,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * adds s to slidingTilesHighScores if its high enough
      * and replaces another score if s is higher
      */
-    void updateSlidingHighScores(Score s) {
+    public void updateSlidingHighScores(Score s) {
         slidingTilesHighScores.add(s);
         Collections.sort(slidingTilesHighScores);
         // re sizes slidingTilesHighScores according to HIGH_SCORES_AMOUNT
@@ -143,7 +141,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * returns the user's level
      * @return  the user's level
      */
-    int getLevel(){
+    public int getLevel(){
         return level;
     }
 
@@ -151,7 +149,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * returns the user's experience points
      * @return  the user's experience
      */
-    int getExperience() {
+    public int getExperience() {
         return experience;
     }
 
@@ -160,7 +158,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * @param incr increment
      *
      */
-    void increaseExperience(int incr){
+    public void increaseExperience(int incr){
         experience += incr;
         level = (experience / EXP_PER_LEVEL) + 1;
     }

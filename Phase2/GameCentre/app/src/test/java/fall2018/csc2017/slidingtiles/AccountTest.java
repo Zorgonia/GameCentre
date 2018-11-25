@@ -2,6 +2,9 @@ package fall2018.csc2017.slidingtiles;
 
 import org.junit.Test;
 
+import fall2018.csc2017.Account;
+import fall2018.csc2017.Score;
+
 import static org.junit.Assert.*;
 
 public class AccountTest {

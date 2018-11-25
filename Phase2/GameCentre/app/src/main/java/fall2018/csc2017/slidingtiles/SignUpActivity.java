@@ -16,9 +16,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import fall2018.csc2017.Account;
 import fall2018.csc2017.Interfaces.AccountConstants;
 
-import static fall2018.csc2017.slidingtiles.AccountActivity.findAccount;
+import static fall2018.csc2017.AccountActivity.findAccount;
 
 public class SignUpActivity extends AppCompatActivity implements Serializable, AccountConstants {
 

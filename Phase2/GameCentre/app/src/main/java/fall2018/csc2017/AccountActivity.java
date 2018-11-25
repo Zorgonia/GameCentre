@@ -1,9 +1,8 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +15,12 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import fall2018.csc2017.GameSelectActivity;
 import fall2018.csc2017.Interfaces.AccountConstants;
+import fall2018.csc2017.slidingtiles.ForgetActivity;
+import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.slidingtiles.SignUpActivity;
 
 public class AccountActivity extends AppCompatActivity implements Serializable, AccountConstants {
     /**

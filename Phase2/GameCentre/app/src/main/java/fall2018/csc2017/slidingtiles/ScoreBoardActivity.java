@@ -12,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import fall2018.csc2017.Account;
 import fall2018.csc2017.Interfaces.AccountConstants;
 
 public class ScoreBoardActivity extends AppCompatActivity implements AccountConstants {
