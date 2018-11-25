@@ -125,17 +125,26 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * adds s to slidingTilesHighScores if its high enough
      * and replaces another score if s is higher
      */
-    public void updateSlidingHighScores(Score s) {
-        slidingTilesHighScores.add(s);
-        Collections.sort(slidingTilesHighScores);
-        // re sizes slidingTilesHighScores according to HIGH_SCORES_AMOUNT
-        if (slidingTilesHighScores.size() > HIGH_SCORES_AMOUNT){
-            for (int i = HIGH_SCORES_AMOUNT; i < slidingTilesHighScores.size(); i++){
-                slidingTilesHighScores.remove(i);
+    public void updateHighScores(String game, Score s) {
+        ArrayList<Score> list;
+        if (game == "Sliding Tiles") {
+                list = slidingTilesHighScores;
+        } else if (game == "2048") {
+            list = highScores2048;
+        } else {
+            list = new ArrayList<>();
+        }
+        list.add(s);
+        Collections.sort(list);
+        // re sizes list according to HIGH_SCORES_AMOUNT
+        if (list.size() > HIGH_SCORES_AMOUNT){
+            for (int i = HIGH_SCORES_AMOUNT; i < list.size(); i++){
+                list.remove(i);
             }
         }
     }
 
+//    public
 
     /**
      * returns the user's level
