@@ -40,6 +40,14 @@ public class BoardManager2048 implements Serializable, TappableManager {
     }
 
     /**
+     * A constructor that takes in a board to be used instead
+     */
+    BoardManager2048(Board2048 B) {
+        board = B;
+        setActiveStatus(true);
+    }
+
+    /**
      * board is disabled for playing when false, playable otherwise
      *
      * @param activeStatus true => playable, false => disabled
