@@ -271,7 +271,7 @@ public class BoardAndTileTest {
 
     //AccountTest covers Account.
 
-    //Remaining Tests: GameActivity, StartingActivity,
+    //Remaining Tests: GameActivity, SlidingTilesMenuActivity,
     //AccountActivity, ForgetActivity, LoadActivity, ScoreBoardActivity,
     //SaveActivity, PersonalScoreBoardActivity, SignUpActivity.
 }

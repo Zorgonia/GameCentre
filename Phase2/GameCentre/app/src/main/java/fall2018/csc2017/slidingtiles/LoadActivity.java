@@ -35,7 +35,7 @@ public class LoadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
+        loadFromFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
         saveToFile(TEMP_SAVE_FILENAME);
 
         setContentView(R.layout.activity_load_);
@@ -83,7 +83,7 @@ public class LoadActivity extends AppCompatActivity {
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
         startActivity(tmp);
     }
 

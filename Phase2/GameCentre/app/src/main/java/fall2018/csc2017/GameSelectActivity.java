@@ -7,18 +7,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.checkers.CheckerMenuActivity;
-import fall2018.csc2017.slidingtiles.ForgetActivity;
-import fall2018.csc2017.slidingtiles.LoadActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SaveActivity;
-import fall2018.csc2017.slidingtiles.StartingActivity;
+import fall2018.csc2017.slidingtiles.SlidingTilesMenuActivity;
 import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
 
 /**
@@ -62,7 +58,7 @@ public class GameSelectActivity extends AppCompatActivity implements CurrentGame
         Intent tmp = new Intent(this, SaveActivity.class);
         if (position == 0) {
             currentGame = SLIDING_TILES;
-            tmp = new Intent(this, StartingActivity.class);
+            tmp = new Intent(this, SlidingTilesMenuActivity.class);
         } else if (position == 1) {
             currentGame = CHECKERS;
             tmp = new Intent(this, CheckerMenuActivity.class);

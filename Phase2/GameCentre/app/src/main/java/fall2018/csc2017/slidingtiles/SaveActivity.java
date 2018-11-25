@@ -34,7 +34,7 @@ public class SaveActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
+        loadFromFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
         saveToFile(TEMP_SAVE_FILENAME);
         username = AccountActivity.username;
 

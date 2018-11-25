@@ -20,7 +20,7 @@ import java.util.Locale;
 /**
  * The initial activity for the sliding puzzle tile game.
  */
-public class StartingActivity extends AppCompatActivity {
+public class SlidingTilesMenuActivity extends AppCompatActivity {
     /**
      * A temporary save file.
      */
@@ -45,7 +45,7 @@ public class StartingActivity extends AppCompatActivity {
 //        boardManager = new BoardManager();
         tempSaveToFile();
 
-        setContentView(R.layout.activity_starting_);
+        setContentView(R.layout.activity_sliding_menu);
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
@@ -313,7 +313,7 @@ public class StartingActivity extends AppCompatActivity {
     private void tempLoadFromFile() {
 
         try {
-            InputStream inputStream = this.openFileInput(StartingActivity.TEMP_SAVE_FILENAME);
+            InputStream inputStream = this.openFileInput(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 boardManager = (BoardManager) input.readObject();
@@ -334,7 +334,7 @@ public class StartingActivity extends AppCompatActivity {
     public void tempSaveToFile() {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(StartingActivity.TEMP_SAVE_FILENAME, MODE_PRIVATE));
+                    this.openFileOutput(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME, MODE_PRIVATE));
             outputStream.writeObject(boardManager);
             outputStream.close();
         } catch (IOException e) {
