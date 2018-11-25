@@ -67,10 +67,9 @@
 
     <TextView
         android:id="@+id/rules5"
-        android:layout_width="307dp"
-        android:layout_height="47dp"
+        android:layout_width="308dp"
+        android:layout_height="69dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/rules5"
         android:textAlignment="center"
@@ -92,10 +91,9 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rules5"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/rulesTitle"

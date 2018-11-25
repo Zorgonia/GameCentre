@@ -78,7 +78,7 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
 
     /**
      * Highlight the spaces in positions
-     * @param positions array of positions to highlight/dehighlight
+     * @param positions array of positions to highlight
      */
     public void highlight(ArrayList<Integer> positions){
         for (Integer i : positions){
@@ -91,6 +91,9 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
 
     }
 
+    /**
+     * Turn all highlights spaces back into blank spaces
+     */
     public void turnOffHighlight(){
         for (int row = 0; row < getNumRows(); row++){
             for(int col = 0; col < getNumCols(); col++){
@@ -103,6 +106,9 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
         notifyObservers();
     }
 
+    /**
+     * Tell the observer board has been updated
+     */
     public void update(){
         setChanged();
         notifyObservers();
