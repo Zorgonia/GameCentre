@@ -19,8 +19,8 @@ import android.widget.GridView;
 import fall2018.csc2017.slidingtiles.MovementController;
 
 public class GestureDetectGridView2048 extends GridView {
-    public static final int SWIPE_MIN_DISTANCE = 100;
-    public static final int SWIPE_MAX_OFF_PATH = 100;
+    public static final int SWIPE_MIN_DISTANCE = 200;
+    public static final int SWIPE_MAX_OFF_PATH = 150;
     public static final int SWIPE_THRESHOLD_VELOCITY = 100;
     private GestureDetector gDetector;
     private MovementController2048 mController;
@@ -75,24 +75,29 @@ public class GestureDetectGridView2048 extends GridView {
                 final int position = GestureDetectGridView2048.this.pointToPosition
                         (Math.round(e1.getX()), Math.round(e1.getY()));
 
+                /*
+                 * Note that directions are like this:    1
+                 *                                    4       2
+                 *                                        3
+                 */
                 if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
                     if (Math.abs(e1.getX() - e2.getX()) > SWIPE_MAX_OFF_PATH
                             || Math.abs(velocityY) < SWIPE_THRESHOLD_VELOCITY) {
                         return false;
                     }
                     if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
-                        mController.processSwipeMovement(context, "up", true);
+                        mController.processSwipeMovement(context, 1, true);
                     } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
-                        mController.processSwipeMovement(context, "down", true);
+                        mController.processSwipeMovement(context, 3, true);
                     }
                 } else {
                     if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
                         return false;
                     }
                     if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-                        mController.processSwipeMovement(context, "left", true);
+                        mController.processSwipeMovement(context, 4, true);
                     } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
-                        mController.processSwipeMovement(context, "right", true);
+                        mController.processSwipeMovement(context, 2, true);
                     }
                 }
 

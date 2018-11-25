@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.Interfaces.Manageable;
+import fall2018.csc2017.Interfaces.TappableManager;
 import fall2018.csc2017.Score;
 
-public class BoardManager2048 implements Manageable, Serializable {
+public class BoardManager2048 implements Serializable, TappableManager {
 
     /**
      * The board being managed.
@@ -82,6 +82,11 @@ public class BoardManager2048 implements Manageable, Serializable {
         return false;
     }
 
+//    @Override
+//    public boolean isValidTap(int position) {
+//        return false;
+//    }
+
     /**
      * Returns true if game is lost : no more moves can be made and 2048 isn't achieved
      *
@@ -100,8 +105,14 @@ public class BoardManager2048 implements Manageable, Serializable {
 
 
     @Override
-    public boolean isValidMove(int instruction) {
-        return true;
+    public boolean isValidTap(int instruction) {
+        for (int x = 0; x != 16; x++) {
+            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
+            if (tmp.getId() != 0 && (board.hasEqualTileInDirection(x / 4, x % 4, instruction) || board.hasAdjacentTileOf(x / 4, x % 4, instruction, 0))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -118,21 +129,21 @@ public class BoardManager2048 implements Manageable, Serializable {
         return activeStatus;
     }
 
-    /**
-     * Checks whether the move is valid, that is if with that move,
-     * pieces can be combined and/or pieces can be moved
-     *
-     * @param direction the direction of the move to check
-     */
-    public boolean isValidMover(String direction) {
-        for (int x = 0; x != 16; x++) {
-            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
-            if (tmp.getId() != 0 && (board.hasEqualTileInDirection(x / 4, x % 4, direction) || board.hasAdjacentTileOf(x / 4, x % 4, direction, 0))) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    /**
+//     * Checks whether the move is valid, that is if with that move,
+//     * pieces can be combined and/or pieces can be moved
+//     *
+//     * @param direction the direction of the move to check
+//     */
+//    public boolean isValidMover(String direction) {
+//        for (int x = 0; x != 16; x++) {
+//            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
+//            if (tmp.getId() != 0 && (board.hasEqualTileInDirection(x / 4, x % 4, direction) || board.hasAdjacentTileOf(x / 4, x % 4, direction, 0))) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     // ignores position
     // TODO: remove touchMove from the Manageable interface
@@ -141,14 +152,14 @@ public class BoardManager2048 implements Manageable, Serializable {
      * Precondition: gameOver() or gameFinished() needs to be false
      * @param direction the direction of the slide
      */
-    void touchMove(String direction) {
-        if (direction.equals("up") || direction.equals("down")) {
+    public void touchMove(int direction) {
+        if (direction == 1 || direction == 3) {
             for (int col = 0; col != 4; col++) {
                 adjustTilesCol(col, direction);
                 combineDoublesCol(col, direction);
                 adjustTilesCol(col, direction);
             }
-        } else if (direction.equals("left") || direction.equals("right")) {
+        } else if (direction == 4 || direction == 2) {
             for (int row = 0; row != 4; row++) {
                 adjustTilesRow(row, direction);
                 combineDoublesRow(row, direction);
@@ -165,9 +176,9 @@ public class BoardManager2048 implements Manageable, Serializable {
      * @param col           the column index
      * @param vertDirection "up" or "down"
      */
-    private void adjustTilesCol(int col, String vertDirection) {
+    private void adjustTilesCol(int col, int vertDirection) {
         int emptyIndex = -1, id;
-        boolean dirIsUp = vertDirection.equals("up");
+        boolean dirIsUp = vertDirection == 1;
         int row = (dirIsUp) ? 0 : board.getNumRows() - 1;
         boolean loopCondition = (dirIsUp) ? (row < board.getNumRows()) : (row > -1);
         while (loopCondition) {
@@ -196,9 +207,9 @@ public class BoardManager2048 implements Manageable, Serializable {
      * Precondition: sideDirection must be "left" or "right"
      * @param row the row index
      */
-    private void adjustTilesRow(int row, String sideDirection) {
+    private void adjustTilesRow(int row, int sideDirection) {
         int emptyIndex = -1, id;
-        boolean dirIsLeft = sideDirection.equals("left");
+        boolean dirIsLeft = sideDirection == 4;
         int col = (dirIsLeft) ? 0 : board.getNumCols() - 1;
         boolean loopCondition = (dirIsLeft) ? (col < board.getNumRows()) : (col > -1);
         while (loopCondition) {
@@ -228,8 +239,8 @@ public class BoardManager2048 implements Manageable, Serializable {
      * @param col           the given column's index
      * @param vertDirection "up" or "down"
      */
-    private void combineDoublesCol(int col, String vertDirection) {
-        boolean dirIsUp = vertDirection.equals("up");
+    private void combineDoublesCol(int col, int vertDirection) {
+        boolean dirIsUp = vertDirection == 1;
         int valueCur, valueNext;
         int row = (dirIsUp) ? 0 : board.getNumRows() - 1;
         boolean loopCondition = (dirIsUp) ? (row < board.getNumRows() - 1) : (row > 0);
@@ -258,8 +269,8 @@ public class BoardManager2048 implements Manageable, Serializable {
      * @param row           the given rows's index
      * @param sideDirection "left" or "right"
      */
-    private void combineDoublesRow(int row, String sideDirection) {
-        boolean dirIsLeft = sideDirection.equals("left");
+    private void combineDoublesRow(int row, int sideDirection) {
+        boolean dirIsLeft = sideDirection == 4;
         int valueCur, valueNext;
         int col = (dirIsLeft) ? 0 : board.getNumCols() - 1;
         boolean loopCondition = (dirIsLeft) ? (col < board.getNumCols() - 1) : (col > 0);

@@ -3,6 +3,8 @@ package fall2018.csc2017.twentyfortyeight;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 //import fall2018.csc2017.slidingtiles.BoardManager;
 
 
@@ -30,17 +32,17 @@ public class MovementController2048 {
 //            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
 //        }
 //    }
-    public void processSwipeMovement(Context context, String move, boolean display) {
+    public void processSwipeMovement(Context context, int move, boolean display) {
         if (!boardManager.getBoardStatus()) {
             Toast.makeText(context, "The game is over, press back to return to the main menu", Toast.LENGTH_SHORT).show();
-        } else if (boardManager.isValidMover(move)) {
+        } else if (boardManager.isValidTap(move)) {
             boardManager.touchMove(move);
             if (boardManager.gameFinished()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
             } else if (boardManager.gameOver()) {
                 Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, move, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, String.format(Locale.CANADA, "%d : 1= up, 2=right, 3 = down, 4= left", move), Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(context, "I can't let you do that starfox", Toast.LENGTH_SHORT).show();
