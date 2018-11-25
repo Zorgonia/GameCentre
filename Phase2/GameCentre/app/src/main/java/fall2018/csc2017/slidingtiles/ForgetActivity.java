@@ -15,10 +15,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import fall2018.csc2017.Interfaces.AccountConstants;
+
 /**
  * The activity for forgot password.
  */
-public class ForgetActivity extends AppCompatActivity {
+public class ForgetActivity extends AppCompatActivity implements AccountConstants {
 
     /**
      * An ArrayList for storing all accounts
@@ -29,11 +31,6 @@ public class ForgetActivity extends AppCompatActivity {
      * The account to potentially give a new password.
      */
     private static Account account;
-
-    /**
-     * The save file for the account
-     */
-    public static final String ACCOUNT_FILENAME = "account_file.ser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

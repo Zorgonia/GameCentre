@@ -12,7 +12,9 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ScoreBoardActivity extends AppCompatActivity {
+import fall2018.csc2017.Interfaces.AccountConstants;
+
+public class ScoreBoardActivity extends AppCompatActivity implements AccountConstants {
     private static final int SCORE_BOARD_SIZE = 10;
 
     private StringBuilder topScores;
@@ -23,7 +25,6 @@ public class ScoreBoardActivity extends AppCompatActivity {
      */
     public static boolean highToLow = false;
     private static ArrayList<Account> allAccounts;
-    public static final String ACCOUNTS_FILENAME = "account_file.ser";
 
 
     @Override
@@ -49,7 +50,7 @@ public class ScoreBoardActivity extends AppCompatActivity {
      */
     private void readFromAccountsFile() {
         try {
-            InputStream inputStream = this.openFileInput(ACCOUNTS_FILENAME);
+            InputStream inputStream = this.openFileInput(ACCOUNT_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                 ScoreBoardActivity.allAccounts = (ArrayList<Account>) objectInputStream.readObject();

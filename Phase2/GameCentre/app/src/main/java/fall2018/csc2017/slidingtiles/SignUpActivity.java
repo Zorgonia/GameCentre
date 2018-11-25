@@ -16,15 +16,16 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import fall2018.csc2017.Interfaces.AccountConstants;
+
 import static fall2018.csc2017.slidingtiles.AccountActivity.findAccount;
 
-public class SignUpActivity extends AppCompatActivity implements Serializable {
+public class SignUpActivity extends AppCompatActivity implements Serializable, AccountConstants {
 
     /**
      * A static ArrayList of all accounts, and its save file.
      */
     private static ArrayList<Account> allAccounts = new ArrayList<>();
-    public static final String ACCOUNT_FILENAME = "account_file.ser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

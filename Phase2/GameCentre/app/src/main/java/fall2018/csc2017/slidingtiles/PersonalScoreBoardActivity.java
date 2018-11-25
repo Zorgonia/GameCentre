@@ -14,17 +14,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import fall2018.csc2017.GameSelectActivity;
+import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.Score;
 
-public class PersonalScoreBoardActivity extends AppCompatActivity {
+public class PersonalScoreBoardActivity extends AppCompatActivity implements AccountConstants {
 
     private static Account account;
     private StringBuilder topScores;
     public static boolean highToLow = false;
 
     private static final int SCORE_BOARD_SIZE = 5;
-
-    public static final String SINGLE_ACC_FILE = "account_single.ser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

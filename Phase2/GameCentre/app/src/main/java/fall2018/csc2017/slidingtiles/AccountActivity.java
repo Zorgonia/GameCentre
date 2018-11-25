@@ -20,15 +20,15 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import fall2018.csc2017.GameSelectActivity;
+import fall2018.csc2017.Interfaces.AccountConstants;
 
-public class AccountActivity extends AppCompatActivity implements Serializable {
+public class AccountActivity extends AppCompatActivity implements Serializable, AccountConstants {
     /**
      * A static ArrayList of all accounts, and its save file.
      */
     public static String username;
     public static ArrayList<Account> allAccounts = new ArrayList<>();
-    public static final String ACCOUNT_FILENAME = "account_file.ser";
-    public static final String SINGLE_ACC_FILE = "account_single.ser";
+
 
 
     @Override

@@ -20,11 +20,6 @@ public class SaveActivity extends AppCompatActivity {
      * The main save file.
      */
     private String username;
-//    public final String SAVE_FILENAME1 = "save_file1" + username + ".ser";
-//    public final String SAVE_FILENAME2 = "save_file2" + username + ".ser";
-//    public final String SAVE_FILENAME3 = "save_file3" + username + ".ser";
-
-    //  public final String SAVE_AUTO = "save_auto" + username + ".ser";
     /**
      * A temporary save file.
      */

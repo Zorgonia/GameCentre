@@ -29,9 +29,6 @@ public class CheckerMenuActivity extends AppCompatActivity {
      */
     public static final String TEMP_SAVE_FILENAME = "checker_save_file_tmp.ser";
     public static String CHECKER_SAVE_FILE;
-
-    public static final String SINGLE_ACC_FILE = "account_single.ser";
-    public static final String ACCOUNT_FILENAME = "account_file.ser";
     /**
      * A board manager that is loaded into a new game
      */

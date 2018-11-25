@@ -21,12 +21,14 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.Interfaces.AccountConstants;
+
 /**
  * The game activity.
  * TODO: If you repeatedly load saves inside the game screen, pressing the built in back button
  * will alternate you between the game screen and the load screen (add a back button m
  */
-public class GameActivity extends AppCompatActivity implements Observer {
+public class GameActivity extends AppCompatActivity implements Observer, AccountConstants {
 
     /**
      * Current user's account, and the list of accounts
@@ -45,9 +47,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private ArrayList<Button> tileButtons;
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-
-    public static final String SINGLE_ACC_FILE = "account_single.ser";
-    public static final String ACCOUNT_FILENAME = "account_file.ser";
 
     /**
      * Constants for exp on move and on finishing the game.

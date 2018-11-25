@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.slidingtiles.AccountActivity;
 import fall2018.csc2017.slidingtiles.CustomAdapter;
 import fall2018.csc2017.slidingtiles.GestureDetectGridView;
 import fall2018.csc2017.slidingtiles.R;
 
-public class CheckerGameActivity extends AppCompatActivity implements Observer {
+public class CheckerGameActivity extends AppCompatActivity implements Observer, AccountConstants {
 
     private fall2018.csc2017.slidingtiles.Account account;
     private ArrayList<fall2018.csc2017.slidingtiles.Account> allAccounts = new ArrayList<>();
@@ -40,12 +41,6 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer {
 
     //TODO: delete this after. Instant win variable
     private boolean instant = false;
-
-
-//    public static String CHECKER_SAVE_FILE;
-    public static final String SINGLE_ACC_FILE = "account_single.ser";
-    public static final String ACCOUNT_FILENAME = "account_file.ser";
-
 
     public void display(){
         if (checkerBoardManager.getBoardStatus()) {
