@@ -15,7 +15,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.slidingtiles.ForgetActivity;
+import fall2018.csc2017.slidingtiles.PersonalScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.slidingtiles.ScoreBoardActivity;
 
 public class MenuActivity2048 extends AppCompatActivity {
     /**
@@ -32,6 +34,8 @@ public class MenuActivity2048 extends AppCompatActivity {
         setContentView(R.layout.activity_2048_menu);
         listenAndSwitchNewGame();
         listenAndLoadGame();
+        addScoreButtonListener();
+        addPersonalScoreButtonListener();
     }
 
     void addButtonListener(int id, Class c) {
@@ -79,6 +83,28 @@ public class MenuActivity2048 extends AppCompatActivity {
                 } else {
                     makeToast("Empty Load! Save something first");
                 }
+            }
+        });
+    }
+
+    void addScoreButtonListener(){
+        Button leadButton = findViewById(R.id.leaderBoard);
+        leadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScoreBoardActivity.highToLow = false;
+                switchToActivity(ScoreBoardActivity.class);
+            }
+        });
+    }
+
+    void addPersonalScoreButtonListener(){
+        Button leadButton = findViewById(R.id.personalLeader);
+        leadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PersonalScoreBoardActivity.highToLow = false;
+                switchToActivity(PersonalScoreBoardActivity.class);
             }
         });
     }

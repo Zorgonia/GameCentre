@@ -45,13 +45,14 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
     void placeRandomTile() {
         ArrayList<Integer> emptyPositions = new ArrayList<>();
         int[] randomTileIds = {2,2,2,2,2,2,2,2,2,4};
+        //int[] randomTileIds = {128};
         Random rand = new Random();
         for (int x = 0; x < 16; x++){
             if (getTileAt(x / 4, x % 4).getId() == 0){
                 emptyPositions.add(x);
             }
         }
-        int index = rand.nextInt(randomTileIds.length - 1);
+        int index = rand.nextInt(randomTileIds.length);
         if (emptyPositions.size() == 1){
             placeNewTileAt(randomTileIds[index], emptyPositions.get(0) / 4,
                     emptyPositions.get(0) % 4);

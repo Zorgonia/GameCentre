@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.Account;
+import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.CustomAdapter;
 import fall2018.csc2017.slidingtiles.R;
@@ -25,14 +27,26 @@ import fall2018.csc2017.slidingtiles.R;
 /**
  * The main game activity for 2048
  */
-public class GameActivity2048 extends AppCompatActivity implements Observer {
+public class GameActivity2048 extends AppCompatActivity implements Observer, AccountConstants {
     /**
      * The buttons to display.
      */
     private ArrayList<Button> tileButtons;
 
+    /**
+     * Account information variables
+     */
+    private Account account;
+    private ArrayList<Account> allAccounts = new ArrayList<>();
+
+    /**
+     * The gridview to display the board on
+     */
     private GestureDetectGridView2048 gridView;
 
+    /**
+     * Variables for column width and column height
+     */
     private static int columnWidth, columnHeight;
 
     /**
@@ -55,12 +69,16 @@ public class GameActivity2048 extends AppCompatActivity implements Observer {
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
         //saveFinalScore();
         //account.increaseExperience(MOVE_EXP);
-        //writeAccountFile();
+        //
         if(!boardManager.gameFinished() &&! boardManager.gameOver()) {
             tempSaveToFile();
+        } else if (boardManager.gameFinished()){
+            account.updateHighScores("2048",boardManager.getBoardScore());
+            writeAccountFile();
         }
         // }
     }
+
 
     /**
      * Create the buttons for displaying the tiles.
@@ -107,6 +125,7 @@ public class GameActivity2048 extends AppCompatActivity implements Observer {
         loadFromFile(MenuActivity2048.TEMP_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_2048_main);
+        readFiles();
 
         gridView = findViewById(R.id.grid2);
         gridView.setNumColumns(boardManager.getBoard().getNumCols());
@@ -158,6 +177,63 @@ public class GameActivity2048 extends AppCompatActivity implements Observer {
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Writes new data for account to file
+     */
+    private void writeAccountFile() {
+        updateAllAccountList();
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                    this.openFileOutput(SINGLE_ACC_FILE, MODE_PRIVATE));
+            ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(
+                    this.openFileOutput(ACCOUNT_FILENAME, MODE_PRIVATE));
+            objectOutputStream.writeObject(account);
+            objectOutputStream.close();
+            objectOutputStream1.writeObject(allAccounts);
+            objectOutputStream1.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * the list of all accounts updated to be saved
+     */
+    private void updateAllAccountList(){
+        String name = account.getUsername();
+        for (Account acc : allAccounts) {
+            if (acc.getUsername().equals(name)) {
+                allAccounts.remove(acc);
+                break;
+            }
+        }
+        allAccounts.add(account);
+    }
+
+    private void readFiles() {
+        try {
+            InputStream inputStream1 = this.openFileInput(SINGLE_ACC_FILE);
+            if (inputStream1 != null) {
+                ObjectInputStream objectInputStream1 = new ObjectInputStream(inputStream1);
+                account = (Account) objectInputStream1.readObject();
+                inputStream1.close();
+            }
+            InputStream inputStream2 = this.openFileInput(ACCOUNT_FILENAME);
+            if (inputStream2 != null) {
+                ObjectInputStream objectInputStream2 = new ObjectInputStream(inputStream2);
+                allAccounts = (ArrayList<Account>) objectInputStream2.readObject();
+                inputStream2.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("Game Activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("Game Activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("Game Activity", "File contained unexpected data type: "
+                    + e.toString());
         }
     }
 
