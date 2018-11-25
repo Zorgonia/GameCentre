@@ -155,6 +155,7 @@ public class BoardManager2048 implements Manageable, Serializable {
                 adjustTilesRow(row, direction);
             }
         }
+        score.increaseScore();
         board.placeRandomTile();
     }
 
@@ -238,7 +239,6 @@ public class BoardManager2048 implements Manageable, Serializable {
                     : board.getTileAt(row - 1, col).getId();
             if (valueCur == valueNext) {
                 board.placeNewTileAt(2 * valueCur, row, col);
-                score.increaseScore();
                 if (dirIsUp) {
                     board.removeTileAt(row + 1, col);
                 } else { // if right
@@ -269,7 +269,6 @@ public class BoardManager2048 implements Manageable, Serializable {
                     : board.getTileAt(row, col - 1).getId();
             if (valueCur == valueNext) {
                 board.placeNewTileAt(2 * valueCur, row, col);
-                score.increaseScore();
                 if (dirIsLeft) {
                     board.removeTileAt(row, col + 1);
                 } else {
