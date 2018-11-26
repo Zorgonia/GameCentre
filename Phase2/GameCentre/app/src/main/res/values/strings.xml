@@ -56,4 +56,5 @@
     <string name="rules5">If the game can no longer be continued, press the Draw button to
         declare a draw.</string>
     <string name="rules6">Press the back button to return to the menu</string>
+    <string name="drawButton">Draw</string>
 </resources>

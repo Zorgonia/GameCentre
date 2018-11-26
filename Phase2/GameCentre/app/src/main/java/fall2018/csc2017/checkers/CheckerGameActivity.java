@@ -38,9 +38,11 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
     private int columnWidth, columnHeight;
     private static final int BOARD_SIZE = 8;
 
-    //TODO: delete this after. Instant win variable
-    private boolean instant = false;
+    private boolean drawDeclared = false;
 
+    /**
+     * Update the visuals of the game, as well as autosave.
+     */
     public void display(){
         TextView turnDisplay = findViewById(R.id.TurnDisplay);
         if (checkerBoardManager.getBoardStatus()) {
@@ -51,8 +53,14 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
             } else {
                 turnDisplay.setText(String.format("Red's Turn"));
             }
-            if (checkerBoardManager.gameFinished() || instant) {
+            if (checkerBoardManager.gameFinished()) {
                 checkerBoardManager.setBoardToInactive();
+                if (checkerBoardManager.getTurnColour() == 1){
+                    turnDisplay.setText(String.format("Red Wins!"));
+                }
+                else {
+                    turnDisplay.setText(String.format("Black Wins!"));
+                }
                 account.getCheckersScore().increaseScore();
                 writeAccountFile();
                 deleteSaveFile(CheckerMenuActivity.CHECKER_SAVE_FILE);
@@ -60,11 +68,8 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
                 saveToFile(CheckerMenuActivity.CHECKER_SAVE_FILE);
             }
         }
-        else if (checkerBoardManager.getTurnColour() == 1){
-            turnDisplay.setText(String.format("Red Wins!"));
-        }
-        else {
-            turnDisplay.setText(String.format("Black Wins!"));
+        else if (drawDeclared){
+            turnDisplay.setText(String.format("Tie Game!"));
         }
     }
 
@@ -75,10 +80,7 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
         createTileButtons(this);
         setContentView(R.layout.activity_checkers_main_);
         addUndoButtonListener();
-
-        //TODO: Delete this after
-        instant = false;
-        addWinButtonListener();
+        addDrawButtonListener();
 //        CHECKER_SAVE_FILE = "checker_save_" + AccountActivity.username + ".ser";
 
         gridView = findViewById(R.id.grid);
@@ -139,26 +141,18 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
         });
     }
 
-    //TODO: Delete this. It is instant win for test
-    private void addWinButtonListener(){
-        Button win = findViewById(R.id.deWin);
-        win.setOnClickListener(new View.OnClickListener() {
+    private void addDrawButtonListener(){
+        Button drawButton = findViewById(R.id.drawButton);
+        drawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                instant = true;
+                drawDeclared = true;
+                checkerBoardManager.setBoardToInactive();
+                display();
             }
         });
 
     }
-
-//    /**
-//     * Dispatch onPause() to fragments.
-//     */
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        //saveToFile(CheckerMenuActivity.TEMP_SAVE_FILENAME);
-//    }
 
     /**
      * Load the board manager from the temporary save

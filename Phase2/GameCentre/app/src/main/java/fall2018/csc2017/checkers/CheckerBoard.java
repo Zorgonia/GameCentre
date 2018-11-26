@@ -49,8 +49,6 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
         this.tiles[move.getRow1()][move.getCol1()] = this.tiles[move.getRow2()][move.getCol2()];
         this.tiles[move.getRow2()][move.getCol2()] = tempTile;
 
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -60,8 +58,6 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      */
     public void destroyPiece(int row, int col){
         this.tiles[row][col] = new CheckerTile(0);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -72,8 +68,6 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      */
     public void addPiece(int row, int col, int id){
         this.tiles[row][col] = new CheckerTile(id);
-        setChanged();
-        notifyObservers();
     }
 
     /**
@@ -86,8 +80,6 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
             int col = i % getNumCols();
             this.tiles[row][col] = new CheckerTile(HIGHLIGHT_ID);
         }
-        setChanged();
-        notifyObservers();
 
     }
 
@@ -102,8 +94,6 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
                 }
             }
         }
-        setChanged();
-        notifyObservers();
     }
 
     /**

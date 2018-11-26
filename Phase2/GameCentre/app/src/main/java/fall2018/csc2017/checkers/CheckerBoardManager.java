@@ -106,7 +106,6 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      * @return true if game is complete, false otherwise
      */
     public boolean gameFinished(){
-        //TODO: also check for a draw
         boolean player1done = true;
         boolean player2done = true;
         for (CheckerTile t : getBoard()){
@@ -173,9 +172,6 @@ public class CheckerBoardManager implements Serializable, TappableManager {
                 movePhase1 = true;
                 switchTurn();
             }
-            if (gameFinished()){
-                setBoardToInactive();
-            }
         } else {
             board.turnOffHighlight();
             board.setSelectedTilePos(-1);
@@ -196,8 +192,8 @@ public class CheckerBoardManager implements Serializable, TappableManager {
                 board.getSelectedTilePos() % board.getNumCols());
         board.swapTiles(move);
         undoStack.add(move);
-        if (((row == 0 && turnColour == 1 ) ||(row == 7 && turnColour == 2)
-                && board.getTileAt(row, col).getId() == turnColour)){
+        if (((row == 0 && turnColour == 1 ) ||(row == 7 && turnColour == 2))
+                && board.getTileAt(row, col).getId() == turnColour){
             board.addPiece(row, col, turnColour + 2);
             undoStack.addKinged(true);
         }
@@ -221,10 +217,17 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         }
     }
 
+    /**
+     * Switch to the other player's turn
+     */
     private void switchTurn() {
         turnColour = getEnemyColour();
     }
 
+    /**
+     * Return the id of the piece colour of the other player
+     * @return the id of the piece colour of the other player
+     */
     private int getEnemyColour() {
         if (turnColour == 1){
             return 2;
@@ -249,6 +252,10 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         return activeStatus;
     }
 
+    /**
+     * Return the id of the colour of the current player's turn
+     * @return the id of the colour of the current player's turn
+     */
     public int getTurnColour(){
         return turnColour;
     }
@@ -287,61 +294,80 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         int tileId = board.getTileAt(row, col).getId();
-        if (tileId == 1){
-            addMovesForward(position, row, col, potentialMoves, onlyCapture);
+        if (tileId == 1){ //only allow black to move forward
+            addMovesForward(row, col, potentialMoves, onlyCapture);
         }
-        else if (tileId == 2){
-            addMovesBackward(position, row, col, potentialMoves, onlyCapture);
+        else if (tileId == 2){ //only allow red to move backward
+            addMovesBackward(row, col, potentialMoves, onlyCapture);
         }
-        else if (tileId == 3 || tileId == 4){
-            addMovesForward(position, row, col, potentialMoves, onlyCapture);
-            addMovesBackward(position, row, col, potentialMoves, onlyCapture);
+        else if (tileId == 3 || tileId == 4){ //allow kings to move in all directions
+            addMovesForward(row, col, potentialMoves, onlyCapture);
+            addMovesBackward(row, col, potentialMoves, onlyCapture);
         }
         return potentialMoves;
     }
-    private void addMovesForward(int position, int row, int col, ArrayList<Integer> potentialMoves,
-    boolean onlyCapture){
+
+    /**
+     * Add to potentialMoves the positions that the piece at row, col can move
+     * forward to. Return only a list of positions that the piece can move forward to that involve
+     * capturing an enemy piece if onlyCapture is true.
+     * @param row the row of the piece
+     * @param col the column of the piece
+     * @param potentialMoves the list of positions being added to
+     * @param onlyCapture true if only moves involving captures are added
+     */
+    private void addMovesForward(int row, int col, ArrayList<Integer> potentialMoves,
+                                 boolean onlyCapture){
         int enemyColour = getEnemyColour();
         if (row > 0 && col > 0 && board.getTileAt(row - 1, col - 1).getId() == 0 &&
                 !onlyCapture){
-            potentialMoves.add(position - BOARD_SIZE - 1);
+            potentialMoves.add((row-1)*8 + col - 1);
         }
         if (row > 0 && col < 7 && board.getTileAt(row - 1, col + 1).getId() == 0 &&
                 !onlyCapture){
-            potentialMoves.add(position - BOARD_SIZE + 1);
+            potentialMoves.add((row-1)*8 + col + 1);
         }
         if (row > 1 && col > 1 && (board.getTileAt(row - 1, col - 1).getId() == enemyColour
                 || board.getTileAt(row - 1, col - 1).getId() == enemyColour + 2)
                 && board.getTileAt(row - 2, col - 2).getId() == 0){
-            potentialMoves.add(position - (BOARD_SIZE*2) - 2);
+            potentialMoves.add((row-2)*8 + col - 2);
         }
         if (row > 1 && col < 6 && (board.getTileAt(row - 1, col + 1).getId() == enemyColour
                 || board.getTileAt(row - 1, col + 1).getId() == enemyColour + 2)
                 && board.getTileAt(row - 2, col + 2).getId() == 0){
-            potentialMoves.add(position - (BOARD_SIZE*2) + 2);
+            potentialMoves.add((row-2)*8 + col + 2);
         }
     }
 
-    private void addMovesBackward(int position, int row, int col,
-                                  ArrayList<Integer> potentialMoves, boolean onlyCapture){
+    /**
+     * Add to potentialMoves the positions that the piece at row, col can move
+     * backwards to. Return only a list of positions that the piece can move backwards to that
+     * involve capturing an enemy piece if onlyCapture is true.
+     * @param row the row of the piece
+     * @param col the column of the piece
+     * @param potentialMoves the list of positions being added to
+     * @param onlyCapture true if only moves involving captures are added
+     */
+    private void addMovesBackward(int row, int col,  ArrayList<Integer> potentialMoves,
+                                  boolean onlyCapture){
         int enemyColour = getEnemyColour();
         if (row < 7 && col > 0 && board.getTileAt(row + 1, col - 1).getId() == 0 &&
                 !onlyCapture){
-            potentialMoves.add(position + BOARD_SIZE - 1);
+            potentialMoves.add((row+1)*8 + col - 1);
         }
         if (row < 7 && col < 7 && board.getTileAt(row + 1, col + 1).getId() == 0 &&
                 !onlyCapture){
-            potentialMoves.add(position + BOARD_SIZE + 1);
+            potentialMoves.add((row+1)*8 + col + 1);
         }
         if (row < 6 && col > 1 && (board.getTileAt(row + 1, col - 1).getId() == enemyColour
                 || board.getTileAt(row + 1, col - 1).getId() == enemyColour + 2)
                 && board.getTileAt(row + 2, col - 2).getId() == 0){
-            potentialMoves.add(position + BOARD_SIZE*2 - 2);
+            potentialMoves.add((row+2)*8 + col - 2);
         }
         if (row < 6 && col < 6 && (board.getTileAt(row + 1, col + 1).getId() == enemyColour
                 || board.getTileAt(row + 1, col + 1).getId() == enemyColour + 2)
                 && board.getTileAt(row + 2, col + 2).getId() == 0){
-            potentialMoves.add(position + BOARD_SIZE*2 + 2);
+            potentialMoves.add((row+2)*8 + col + 2);
         }
     }
 
@@ -378,22 +404,22 @@ public class CheckerBoardManager implements Serializable, TappableManager {
 
     }
 
+    /**
+     * Turn the potential king at row, col back into a regular piece if kinged is true
+     * @param row row of the piece in question
+     * @param col column of the piece in question
+     * @param kinged if true, revert to regular piece
+     */
     public void processUndoKing(int row, int col, boolean kinged){
         if (kinged){
             board.addPiece(row, col, board.getTileAt(row, col).getId() - 2);
         }
     }
 
-
     /**
-     * black moves, red moves, black captures and primes another, performs primed capture and primes
-     * another, perform primes capture, red presses undo.
-     * false, false, true, true, false
-     * removes the first false, then undoes and removes true, then undoes and removes true, then
-     * undoes and removes false. if i readded a false here, would there be an issue?
+     * Set the board to no longer respond to input
      */
     public void setBoardToInactive() {
         activeStatus = false;
-        board.update();
     }
 }
