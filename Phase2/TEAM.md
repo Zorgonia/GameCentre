@@ -28,3 +28,21 @@ Team Contract:
 - I will ask each my group members for help if I do not understand something
 - I will try my best to attend and participate in our group meetings
 - I will notify my team if I cannot make a group meeting
+
+## Notes:
+- The commit names refer to the following utorids: Jimbo is xiejiab1, MD Tanvir Hyder is hydermd1, hartand4 is hartand4, Alexandre Nunes is nunesale, and Zorgonia is yangke16
+
+Current contributions
+Phase 1:
+Account (sign up, sign in) - Andries/Jimbo
+Save/Load - Jimbo/Kevin
+Autosave- Jimbo
+Undo - Alex
+GameCentre homescreen - Jimbo/Andries
+Scoreboard and Score related things - Tanvir
+Complexity - Kevin
+Scoreboard finish up - Tanvir (maybe other people if required)
+Account and score relations - Andries/Jimbo
+Phase 2:
+General implementations of 2048 (Tanvir and Kevin) and Checkers (Jimbo and Alex) are complete
+Unit tests for sliding tiles board and tile generally complete (Andries)
