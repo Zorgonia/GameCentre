@@ -11,14 +11,13 @@
         android:layout_width="81dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:background="#42d972"
         android:text="@string/signIn"
         android:textColor="#ffffff"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginPass" />
 
@@ -27,16 +26,15 @@
         android:layout_width="243dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:autofillHints="sample"
-        android:textColor="#ffffff"
         android:ems="10"
         android:hint="@string/usernameField"
         android:inputType="textPersonName"
+        android:textColor="#ffffff"
         android:textColorHint="#9b9c9e"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Welcome" />
 
@@ -45,7 +43,7 @@
         android:layout_width="243dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/passwordField"
@@ -53,7 +51,6 @@
         android:textColor="#ffffff"
         android:textColorHint="#9b9c9e"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginName" />
 
@@ -62,7 +59,7 @@
         android:layout_width="218dp"
         android:layout_height="51dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="136dp"
         android:layout_marginEnd="8dp"
         android:autofillHints="sample"
         android:gravity="center"
@@ -72,7 +69,7 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,27 +85,27 @@
         android:textColor="#ffffff"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.271"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SignInButton" />
 
     <Button
         android:id="@+id/SwitchToSignUp"
-        android:layout_width="80dp"
+        android:layout_width="147dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="8dp"
         android:background="#4898e9"
-        android:text="Sign up"
+        android:text="Create Account"
         android:textColor="#ffffff"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgetButton"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.972" />
 
 </android.support.constraint.ConstraintLayout>
