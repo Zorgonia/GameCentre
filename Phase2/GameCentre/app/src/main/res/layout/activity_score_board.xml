@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fall2018.csc2017.slidingtiles.ScoreBoardActivity">
+    tools:context="fall2018.csc2017.slidingtiles.fall2018.csc2017.ScoreBoardActivity">
 
     <TextView
         android:id="@+id/GameText1"

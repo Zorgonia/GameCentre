@@ -18,7 +18,9 @@ import java.io.ObjectOutputStream;
 import java.util.Locale;
 
 import fall2018.csc2017.LoadActivity;
+import fall2018.csc2017.PersonalScoreBoardActivity;
 import fall2018.csc2017.SaveActivity;
+import fall2018.csc2017.ScoreBoardActivity;
 
 /**
  * The initial activity for the sliding puzzle tile game.

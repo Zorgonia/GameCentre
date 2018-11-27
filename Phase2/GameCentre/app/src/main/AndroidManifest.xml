@@ -21,12 +21,12 @@
         <activity android:name="fall2018.csc2017.SaveActivity" />
         <activity android:name="fall2018.csc2017.LoadActivity" />
         <activity android:name="fall2018.csc2017.slidingtiles.SlidingTilesMenuActivity" />
-        <activity android:name="fall2018.csc2017.slidingtiles.ScoreBoardActivity" />
+        <activity android:name="fall2018.csc2017.ScoreBoardActivity" />
         <activity android:name="fall2018.csc2017.GameSelectActivity" />
         <activity android:name="fall2018.csc2017.slidingtiles.ForgetActivity" />
         <activity android:name="fall2018.csc2017.twentyfortyeight.MenuActivity2048" />
         <activity android:name="fall2018.csc2017.twentyfortyeight.GameActivity2048" />
-        <activity android:name="fall2018.csc2017.slidingtiles.PersonalScoreBoardActivity"></activity>
+        <activity android:name="fall2018.csc2017.PersonalScoreBoardActivity"></activity>
         <activity android:name="fall2018.csc2017.checkers.CheckerMenuActivity"></activity>
         <activity android:name="fall2018.csc2017.checkers.CheckerGameActivity"></activity>
         <activity android:name="fall2018.csc2017.checkers.CheckerRulesActivity"></activity>

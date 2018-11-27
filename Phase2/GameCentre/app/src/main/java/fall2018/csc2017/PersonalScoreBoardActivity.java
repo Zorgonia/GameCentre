@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,9 +13,8 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import fall2018.csc2017.Account;
 import fall2018.csc2017.Interfaces.AccountConstants;
-import fall2018.csc2017.Score;
+import fall2018.csc2017.slidingtiles.R;
 
 public class PersonalScoreBoardActivity extends AppCompatActivity implements AccountConstants {
 
