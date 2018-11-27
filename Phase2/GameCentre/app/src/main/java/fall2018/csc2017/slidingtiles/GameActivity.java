@@ -209,6 +209,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
     private void switchToLoadActivity() {
         Intent tmp = new Intent(this, LoadActivity.class);
         tmp.putExtra("currentGame","_sliding_tiles" );
+        finish();
         startActivity(tmp);
     }
 

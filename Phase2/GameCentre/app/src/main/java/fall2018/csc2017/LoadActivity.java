@@ -85,7 +85,7 @@ public class LoadActivity extends AppCompatActivity {
                     //Not sure if this exactly was the cause, but saves wouldn't work properly if you closed the app
                     //Saves currently work as intended (as in they carry on if you turn off the device) needs more testing
 //                    GameActivity.instance.finish();
-                    //              finish();
+                    finish();
                     switchToGame();
                 } else {
                     makeToast("Empty Load! Save something first");
