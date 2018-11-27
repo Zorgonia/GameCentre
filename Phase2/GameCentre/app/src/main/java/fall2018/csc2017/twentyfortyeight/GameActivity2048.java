@@ -1,9 +1,11 @@
 package fall2018.csc2017.twentyfortyeight;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,10 +21,13 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.Account;
+import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.CustomAdapter;
+import fall2018.csc2017.slidingtiles.LoadActivity;
 import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.slidingtiles.SaveActivity;
 
 /**
  * The main game activity for 2048
@@ -71,7 +76,8 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
         //account.increaseExperience(MOVE_EXP);
         //
         if(!boardManager.gameFinished() &&! boardManager.gameOver()) {
-            tempSaveToFile();
+            saveToFile(MenuActivity2048.TEMP_SAVE_FILENAME);
+            saveToFile("save_auto" + "2048" + AccountActivity.username + ".ser");
         } else if (boardManager.gameFinished()){
             account.updateHighScores("2048",boardManager.getBoardScore());
             writeAccountFile();
@@ -127,6 +133,9 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
         setContentView(R.layout.activity_2048_main);
         readFiles();
 
+        addSaveButtonListener();
+        addLoadButtonListener();
+
         gridView = findViewById(R.id.grid2);
         gridView.setNumColumns(boardManager.getBoard().getNumCols());
         gridView.setBoardManager(boardManager);
@@ -147,6 +156,53 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
                 });
     }
 
+    /**
+     * Activate the save button.
+     */
+    private void addSaveButtonListener() {
+        Button saveButton = findViewById(R.id.saver);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (boardManager.getBoardStatus()) {
+                    switchToSaveActivity();
+                } else {
+                    makeToastFinishedText();
+                }
+            }
+        });
+    }
+
+    /**
+     * Activate the load button.
+     */
+    private void addLoadButtonListener() {
+        Button loadButton = findViewById(R.id.loader);
+        loadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToLoadActivity();
+            }
+        });
+    }
+
+    /**
+     * Switch to the save activity.
+     */
+    private void switchToSaveActivity() {
+        Intent tmp = new Intent(this, SaveActivity.class);
+        tmp.putExtra("currentGame","2048" );
+        startActivity(tmp);
+    }
+
+    /**
+     * Switch to the load activity.
+     */
+    private void switchToLoadActivity() {
+        Intent tmp = new Intent(this, LoadActivity.class);
+        tmp.putExtra("currentGame","2048" );
+        startActivity(tmp);
+    }
     /**
      * Load the board manager from fileName.
      *
@@ -169,10 +225,10 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
         }
     }
 
-    public void tempSaveToFile() {
+    public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(MenuActivity2048.TEMP_SAVE_FILENAME, MODE_PRIVATE));
+                    this.openFileOutput(fileName, MODE_PRIVATE));
             outputStream.writeObject(boardManager);
             outputStream.close();
         } catch (IOException e) {

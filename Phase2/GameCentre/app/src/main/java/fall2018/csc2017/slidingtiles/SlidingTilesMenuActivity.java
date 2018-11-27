@@ -257,7 +257,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     private void switchToLoadActivity() {
         Intent tmp = new Intent(this, LoadActivity.class);
         tempSaveToFile();
-        tmp.putExtra("currentGame","Sliding Tiles" );
+        tmp.putExtra("currentGame","_sliding_tiles" );
         startActivity(tmp);
     }
 
@@ -267,7 +267,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     private void switchToSaveActivity() {
         Intent tmp = new Intent(this, SaveActivity.class);
         tempSaveToFile();
-        tmp.putExtra("currentGame","Sliding Tiles" );
+        tmp.putExtra("currentGame","_sliding_tiles" );
         startActivity(tmp);
     }
 

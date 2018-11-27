@@ -197,7 +197,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
      */
     private void switchToSaveActivity() {
         Intent tmp = new Intent(this, SaveActivity.class);
-        tmp.putExtra("currentGame","Sliding Tiles" );
+        tmp.putExtra("currentGame","_sliding_tiles" );
         startActivity(tmp);
     }
 
@@ -206,7 +206,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
      */
     private void switchToLoadActivity() {
         Intent tmp = new Intent(this, LoadActivity.class);
-        tmp.putExtra("currentGame","Sliding Tiles" );
+        tmp.putExtra("currentGame","_sliding_tiles" );
         startActivity(tmp);
     }
 
@@ -299,7 +299,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
             writeAccountFile();
         } else {
             // Auto save if the game is not finished.
-            saveToFile("save_auto" + AccountActivity.username + ".ser");
+            saveToFile("save_auto" + "_sliding_tiles" + AccountActivity.username + ".ser");
         }
     }
 

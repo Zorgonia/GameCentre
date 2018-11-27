@@ -16,6 +16,7 @@ import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.twentyfortyeight.GameActivity2048;
 import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
 
 public class LoadActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ public class LoadActivity extends AppCompatActivity {
      */
     private TappableManager boardManager;
     private String currentGame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class LoadActivity extends AppCompatActivity {
         addLoadButtonListener("save_file3" + currentGame + username + ".ser", R.id.LoadButton3);
 
         // This save has your SECOND MOST RECENT move done. We don't want to save a finished game
-        addLoadButtonListener("save_auto" + username + ".ser", R.id.AutoLoadButton);
+        addLoadButtonListener("save_auto" + currentGame + username + ".ser", R.id.AutoLoadButton);
 
     }
 
@@ -56,7 +58,7 @@ public class LoadActivity extends AppCompatActivity {
      * //TODO put some error checking in.
      */
     private void loadGameBoard() {
-        if (currentGame.equals("Sliding Tiles")) {
+        if (currentGame.equals("_sliding_tiles")) {
             loadFromFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
         } else if (currentGame.equals("2048")) {
             loadFromFile(MenuActivity2048.TEMP_SAVE_FILENAME);
@@ -76,8 +78,11 @@ public class LoadActivity extends AppCompatActivity {
                 if (boardManager != null) {
                     saveToFile(TEMP_SAVE_FILENAME);
                     makeToast("Successfully Loaded Game");
-                    GameActivity.instance.finish();
-                    finish();
+                    //TODO: I commented this out because it didn't work fluidly with 2048 but I noticed something while doing that
+                    //Not sure if this exactly was the cause, but saves wouldn't work properly if you closed the app
+                    //Saves currently work as intended (as in they carry on if you turn off the device) needs more testing
+//                    GameActivity.instance.finish();
+                    //              finish();
                     switchToGame();
                 } else {
                     makeToast("Empty Load! Save something first");
@@ -98,7 +103,15 @@ public class LoadActivity extends AppCompatActivity {
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        saveToFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
+
+        if (currentGame.equals("_sliding_tiles")) {
+            tmp = new Intent(this, GameActivity.class);
+            saveToFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
+        } else if (currentGame.equals("2048")) {
+            tmp = new Intent(this, GameActivity2048.class);
+            saveToFile(MenuActivity2048.TEMP_SAVE_FILENAME);
+        }
+
         startActivity(tmp);
     }
 

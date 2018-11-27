@@ -54,7 +54,7 @@ public class SaveActivity extends AppCompatActivity {
      * //TODO put some error checking in.
      */
     private void loadGameBoard() {
-        if (currentGame.equals("Sliding Tiles")) {
+        if (currentGame.equals("_sliding_tiles")) {
             loadFromFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
         } else if (currentGame.equals("2048")) {
             loadFromFile(MenuActivity2048.TEMP_SAVE_FILENAME);
