@@ -32,7 +32,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#D94255"
+        android:background="#4898e9"
         android:textSize="12sp"
         android:text="sign up"
         android:textColor="#ffffff"
