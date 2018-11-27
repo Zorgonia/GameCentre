@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,9 @@ import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.slidingtiles.GameActivity;
+import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.slidingtiles.SlidingTilesMenuActivity;
 import fall2018.csc2017.twentyfortyeight.GameActivity2048;
 import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
 

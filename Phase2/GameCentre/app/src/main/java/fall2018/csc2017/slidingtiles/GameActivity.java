@@ -24,6 +24,8 @@ import java.util.Observer;
 import fall2018.csc2017.Account;
 import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.AccountConstants;
+import fall2018.csc2017.LoadActivity;
+import fall2018.csc2017.SaveActivity;
 
 /**
  * The game activity.

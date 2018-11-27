@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.checkers.CheckerMenuActivity;
 import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.slidingtiles.SaveActivity;
 import fall2018.csc2017.slidingtiles.SlidingTilesMenuActivity;
 import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
 
