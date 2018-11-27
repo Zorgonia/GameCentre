@@ -197,6 +197,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
      */
     private void switchToSaveActivity() {
         Intent tmp = new Intent(this, SaveActivity.class);
+        tmp.putExtra("currentGame","Sliding Tiles" );
         startActivity(tmp);
     }
 
@@ -205,6 +206,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
      */
     private void switchToLoadActivity() {
         Intent tmp = new Intent(this, LoadActivity.class);
+        tmp.putExtra("currentGame","Sliding Tiles" );
         startActivity(tmp);
     }
 

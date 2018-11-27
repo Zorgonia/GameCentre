@@ -14,6 +14,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.AccountActivity;
+import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
 
 public class SaveActivity extends AppCompatActivity {
 
@@ -29,21 +31,36 @@ public class SaveActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private TappableManager boardManager;
+    private String currentGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
+        currentGame = getIntent().getStringExtra("currentGame");
+        loadGameBoard();
         saveToFile(TEMP_SAVE_FILENAME);
         username = AccountActivity.username;
 
         setContentView(R.layout.activity_save_);
-        addSaveButtonListener("save_file1" + username + ".ser", R.id.SaveButton1);
-        addSaveButtonListener("save_file2" + username + ".ser", R.id.SaveButton2);
-        addSaveButtonListener("save_file3" + username + ".ser", R.id.SaveButton3);
+        addSaveButtonListener("save_file1" + currentGame + username + ".ser", R.id.SaveButton1);
+        addSaveButtonListener("save_file2" + currentGame + username + ".ser", R.id.SaveButton2);
+        addSaveButtonListener("save_file3" + currentGame + username + ".ser", R.id.SaveButton3);
 
     }
+
+    /**
+     * Loads the right game file corresponding to the current game.
+     * //TODO put some error checking in.
+     */
+    private void loadGameBoard() {
+        if (currentGame.equals("Sliding Tiles")) {
+            loadFromFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
+        } else if (currentGame.equals("2048")) {
+            loadFromFile(MenuActivity2048.TEMP_SAVE_FILENAME);
+        }
+    }
+
     /**
      * Activate the save button.
      */
@@ -78,7 +95,7 @@ public class SaveActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
+                boardManager = (TappableManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
