@@ -11,7 +11,7 @@ import fall2018.csc2017.Interfaces.CurrentGameConstants;
  * Also stores game related information such high scores and the user's
  * level and experience points
  */
-public class Account implements Serializable, Comparable<Account>, CurrentGameConstants {
+public class Account implements Serializable, CurrentGameConstants {
     /**
      * The data for an Account
      */
@@ -22,7 +22,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * dictated by HIGH_SCORES_AMOUNT
      */
     private ArrayList<Score> slidingTilesHighScores = new ArrayList<>();
-    private Score checkerHighScore = new Score(0);
+    private ArrayList<Score> checkerHighScore = new ArrayList<>();
     private ArrayList<Score> highScores2048 = new ArrayList<>();
     private static final int HIGH_SCORES_AMOUNT = 5;
 
@@ -48,6 +48,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
         password = pass;
         experience = 0;
         level = 0;
+        checkerHighScore.add(new Score(0));
     }
 
     /**
@@ -74,15 +75,15 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      *
      * @return the Score that is top score (lowest number of moves) earned by the Account
      */
-    public Score getTopScore(){
-        if (GameSelectActivity.currentGame == SLIDING_TILES) {
+    public Score getTopScore(int currentGame){
+        if (currentGame == SLIDING_TILES) {
             Collections.sort(slidingTilesHighScores);
             if (slidingTilesHighScores.size() > 0) {
                 return slidingTilesHighScores.get(0);
             }
-        } else if (GameSelectActivity.currentGame == CHECKERS){
-            return checkerHighScore;
-        } else if (GameSelectActivity.currentGame == TWENTYFORTYEIGHT){
+        } else if (currentGame == CHECKERS){
+            return checkerHighScore.get(0);
+        } else if (currentGame == TWENTYFORTYEIGHT){
             Collections.sort(highScores2048);
             if(highScores2048.size() > 0){
                 return highScores2048.get(0);
@@ -95,14 +96,12 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
      * getter for slidingTilesHighScores array
      * @return slidingTilesHighScores array
      */
-    public ArrayList<Score> getHighScores(){
-        if (GameSelectActivity.currentGame == SLIDING_TILES) {
+    public ArrayList<Score> getHighScores(int currentGame){
+        if (currentGame == SLIDING_TILES) {
             return slidingTilesHighScores;
-        } else if (GameSelectActivity.currentGame == CHECKERS){
-            ArrayList<Score> tmp = new ArrayList<>();
-            tmp.add(checkerHighScore);
-            return tmp;
-        } else if (GameSelectActivity.currentGame == TWENTYFORTYEIGHT){
+        } else if (currentGame == CHECKERS){
+            return checkerHighScore;
+        } else if (currentGame == TWENTYFORTYEIGHT){
             return highScores2048;
         }
         return new ArrayList<>();
@@ -111,7 +110,7 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
 
 
     public Score getCheckersScore(){
-        return checkerHighScore;
+        return checkerHighScore.get(0);
     }
     /**
      * Setter for password
@@ -171,14 +170,14 @@ public class Account implements Serializable, Comparable<Account>, CurrentGameCo
         experience += incr;
         level = (experience / EXP_PER_LEVEL) + 1;
     }
-
-    /**
-     * returns negative, 0, positive int if Account is lower,equal to or greater
-     * in score value than temp
-     * @param temp Account
-     * @return 1,0 or -1 depending on comparing value
-     */
-    public int compareTo(Account temp){
-        return Integer.compare(getTopScore().getScoreValue(), temp.getTopScore().getScoreValue());
-    }
+//
+//    /**
+//     * returns negative, 0, positive int if Account is lower,equal to or greater
+//     * in score value than temp
+//     * @param temp Account
+//     * @return 1,0 or -1 depending on comparing value
+//     */
+//    public int compareTo(Account temp){
+//        return Integer.compare(getTopScore().getScoreValue(), temp.getTopScore().getScoreValue());
+//    }
 }

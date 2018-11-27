@@ -21,9 +21,6 @@ import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
  * Using much code from https://developer.android.com/guide/topics/ui/layout/recyclerview#java
  */
 public class GameSelectActivity extends AppCompatActivity implements CurrentGameConstants {
-
-    public static Integer currentGame = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +53,10 @@ public class GameSelectActivity extends AppCompatActivity implements CurrentGame
     public void switchToGame(int position) {
         Intent tmp = new Intent(this, SaveActivity.class);
         if (position == 0) {
-            currentGame = SLIDING_TILES;
             tmp = new Intent(this, SlidingTilesMenuActivity.class);
         } else if (position == 1) {
-            currentGame = CHECKERS;
             tmp = new Intent(this, CheckerMenuActivity.class);
         } else if (position == 2) {
-            currentGame = TWENTYFORTYEIGHT;
             tmp = new Intent(this, MenuActivity2048.class);
         }
         startActivity(tmp);

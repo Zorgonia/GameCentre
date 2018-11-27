@@ -14,11 +14,12 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.PersonalScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.ScoreBoardActivity;
 
-public class MenuActivity2048 extends AppCompatActivity {
+public class MenuActivity2048 extends AppCompatActivity implements CurrentGameConstants {
     /**
      * A temporary save file.
      */
@@ -37,6 +38,7 @@ public class MenuActivity2048 extends AppCompatActivity {
         addPersonalScoreButtonListener();
     }
 
+    //TODO: this method is not being used right now.
     void addButtonListener(int id, Class c) {
         Button button = findViewById(id);
         final Class switchTo = c;
@@ -51,6 +53,10 @@ public class MenuActivity2048 extends AppCompatActivity {
     private void switchToActivity(Class c) {
         Intent tmp = new Intent(this, c);
         tempSaveToFile();
+        if(c == PersonalScoreBoardActivity.class || c ==  ScoreBoardActivity.class){
+        tmp.putExtra("highToLow", false);
+        tmp.putExtra("currentGame", TWENTYFORTYEIGHT);
+        }
         startActivity(tmp);
     }
 
@@ -91,7 +97,6 @@ public class MenuActivity2048 extends AppCompatActivity {
         leadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScoreBoardActivity.highToLow = false;
                 switchToActivity(ScoreBoardActivity.class);
             }
         });
@@ -102,7 +107,6 @@ public class MenuActivity2048 extends AppCompatActivity {
         leadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PersonalScoreBoardActivity.highToLow = false;
                 switchToActivity(PersonalScoreBoardActivity.class);
             }
         });

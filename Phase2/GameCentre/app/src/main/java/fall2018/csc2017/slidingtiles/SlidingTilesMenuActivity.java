@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Locale;
 
+import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.LoadActivity;
 import fall2018.csc2017.PersonalScoreBoardActivity;
 import fall2018.csc2017.SaveActivity;
@@ -25,7 +26,7 @@ import fall2018.csc2017.ScoreBoardActivity;
 /**
  * The initial activity for the sliding puzzle tile game.
  */
-public class SlidingTilesMenuActivity extends AppCompatActivity {
+public class SlidingTilesMenuActivity extends AppCompatActivity implements CurrentGameConstants {
     /**
      * A temporary save file.
      */
@@ -71,7 +72,6 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
         highScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScoreBoardActivity.highToLow = false;
                 switchToScoreBoardActivity();
             }
         });
@@ -282,7 +282,8 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     private void switchToScoreBoardActivity() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         tempSaveToFile();
-
+        tmp.putExtra("highToLow", false);
+        tmp.putExtra("currentGame", SLIDING_TILES);
         startActivity(tmp);
     }
 
@@ -292,6 +293,8 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     private void switchToPersonalScoresActivity() {
         Intent tmp = new Intent(this, PersonalScoreBoardActivity.class);
         tempSaveToFile();
+        tmp.putExtra("highToLow", false);
+        tmp.putExtra("currentGame", SLIDING_TILES);
         startActivity(tmp);
     }
 

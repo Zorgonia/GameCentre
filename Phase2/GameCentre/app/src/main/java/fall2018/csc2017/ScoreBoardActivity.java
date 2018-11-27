@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.slidingtiles.R;
@@ -24,7 +25,8 @@ public class ScoreBoardActivity extends AppCompatActivity implements AccountCons
     /**
      * holds all made Accounts read from account_file.ser
      */
-    public static boolean highToLow = false;
+    private boolean highToLow = false;
+    private int currentGame = -1;
     private static ArrayList<Account> allAccounts;
 
 
@@ -33,6 +35,8 @@ public class ScoreBoardActivity extends AppCompatActivity implements AccountCons
         super.onCreate(savedInstanceState);
         readFromAccountsFile();
         setContentView(R.layout.activity_score_board);
+        highToLow = getIntent().getBooleanExtra("highToLow", false);
+        currentGame = getIntent().getIntExtra("currentGame", -1);
 
         topScores = new StringBuilder();
         topPlayers = new StringBuilder();
@@ -75,10 +79,21 @@ public class ScoreBoardActivity extends AppCompatActivity implements AccountCons
     public ArrayList<Account> getScoreBoardAccounts(){
         ArrayList<Account> alteredAllAccounts = new ArrayList<>();
         for (Account acc : allAccounts) {
-            if (acc.getTopScore().getScoreValue() > 0) {
+            if (acc.getTopScore(currentGame).getScoreValue() > 0) {
                 alteredAllAccounts.add(acc);
             }
         }
+        Collections.sort(alteredAllAccounts, new Comparator<Account>() {
+            @Override
+            public int compare(Account o1, Account o2) {
+                int comparison = Integer.compare(o1.getTopScore(currentGame).getScoreValue(),
+                        o2.getTopScore(currentGame).getScoreValue());
+                if (highToLow){
+                    return (-1)*comparison;
+                }
+                return comparison;
+            }
+        });
         return alteredAllAccounts;
     }
 
@@ -89,17 +104,16 @@ public class ScoreBoardActivity extends AppCompatActivity implements AccountCons
     // TODO: have scoreboard do it for specific games, not only sliding tiles
     private void fillDisplayValues(){
         ArrayList<Account> alteredAllAccounts = getScoreBoardAccounts();
-        Collections.sort(alteredAllAccounts);
-        if (highToLow){
-            Collections.reverse(alteredAllAccounts);
-        }
+//        if (highToLow){
+//            Collections.reverse(alteredAllAccounts);
+//        }
         int limit = Math.min(alteredAllAccounts.size(), SCORE_BOARD_SIZE);
         for (int i = 0; i < limit; i++) {
             String nextTopPlayer = alteredAllAccounts.get(i).getUsername()
                     + System.lineSeparator();
             topPlayers.append(nextTopPlayer);
 
-            String nextTopScore = String.valueOf(alteredAllAccounts.get(i).getTopScore().getScoreValue())
+            String nextTopScore = String.valueOf(alteredAllAccounts.get(i).getTopScore(currentGame).getScoreValue())
                     + System.lineSeparator();
             topScores.append(nextTopScore);
         }
