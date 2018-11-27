@@ -20,7 +20,8 @@ public class PersonalScoreBoardActivity extends AppCompatActivity implements Acc
 
     private static Account account;
     private StringBuilder topScores;
-    public static boolean highToLow = false;
+    private boolean highToLow = false;
+    private int currentGame = -1;
 
     private static final int SCORE_BOARD_SIZE = 5;
 
@@ -29,6 +30,9 @@ public class PersonalScoreBoardActivity extends AppCompatActivity implements Acc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_score_board);
         readAccountFile();
+
+        highToLow = getIntent().getBooleanExtra("highToLow", false);
+        currentGame = getIntent().getIntExtra("currentGame", -1);
 
         topScores = new StringBuilder();
         fillTopScores();
@@ -70,7 +74,7 @@ public class PersonalScoreBoardActivity extends AppCompatActivity implements Acc
      * fills the topScores array from account file
      */
     private void fillTopScores() {
-        ArrayList<Score> scores = account.getHighScores();
+        ArrayList<Score> scores = account.getHighScores(currentGame);
         Collections.sort(scores);
         if (highToLow){
             Collections.reverse(scores);

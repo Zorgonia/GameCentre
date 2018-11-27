@@ -15,11 +15,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.AccountActivity;
+import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.PersonalScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.ScoreBoardActivity;
 
-public class CheckerMenuActivity extends AppCompatActivity {
+public class CheckerMenuActivity extends AppCompatActivity implements CurrentGameConstants {
     /**
      * A temporary save file.
      */
@@ -63,13 +64,15 @@ public class CheckerMenuActivity extends AppCompatActivity {
 
     private void switchToPersonalScoreBoardActivity() {
         Intent tmp = new Intent(this, PersonalScoreBoardActivity.class);
-        PersonalScoreBoardActivity.highToLow = true;
+        tmp.putExtra("highToLow", true);
+        tmp.putExtra("currentGame", CHECKERS);
         startActivity(tmp);
     }
 
     private void switchToScoreBoardActivity() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
-        ScoreBoardActivity.highToLow = true;
+        tmp.putExtra("highToLow", true);
+        tmp.putExtra("currentGame", CHECKERS);
         startActivity(tmp);
     }
 

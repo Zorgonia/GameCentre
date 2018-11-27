@@ -85,7 +85,6 @@ public class SlidingTilesMenuActivity extends AppCompatActivity implements Curre
         personalScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PersonalScoreBoardActivity.highToLow = false;
                 switchToPersonalScoresActivity();
             }
         });
