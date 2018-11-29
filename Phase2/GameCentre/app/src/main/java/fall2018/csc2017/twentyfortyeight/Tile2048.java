@@ -9,16 +9,14 @@ import fall2018.csc2017.slidingtiles.R;
  * and background being the image reference of the tile
  */
 public class Tile2048 extends ParentTile implements Comparable<ParentTile>, Serializable {
-
     /**
      * A tile with a id being the value of the tile
-     * Precondition: id must be a power of 2 where id values ranges from 0 to 2048
+     * Precondition: id must be a power of 2 where (currently) id values ranges from 0 to 2048
      * @param id the value of the tile
      */
     Tile2048(int id) {
         super(id);
-        // Array for 2048 tile Ids
-        // To add image referenced for higher id tiles, add to the array, make sure
+        // To add image references for higher id tiles add to the array in order, make sure
         // the last item in the array is always the blank tile image reference
         Integer[] tileIds = {R.drawable.tile2048_2, R.drawable.tile2048_4, R.drawable.tile2048_8,
                 R.drawable.tile2048_16, R.drawable.tile2048_32, R.drawable.tile2048_64,

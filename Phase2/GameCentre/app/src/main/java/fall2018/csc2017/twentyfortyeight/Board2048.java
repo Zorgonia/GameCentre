@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import fall2018.csc2017.ParentClasses.GameBoard;
 
-public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iterable<Tile2048> {
+class Board2048 extends GameBoard<Tile2048> implements Serializable, Iterable<Tile2048> {
 
     /**
      * A new 2048 game board of tiles in row-major order.
@@ -25,7 +24,7 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
      * @param row given row
      * @param col given column
      */
-    void removeTileAt(int row, int col) {
+    private void removeTileAt(int row, int col) {
         this.tiles[row][col] = new Tile2048(0);
     }
 
@@ -36,7 +35,7 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
      * @param row row
      * @param col column
      */
-    void placeNewTileAt(int id, int row, int col) {
+    private void placeNewTileAt(int id, int row, int col) {
         this.tiles[row][col] = new Tile2048(id);
     }
 
@@ -46,88 +45,24 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
     void placeRandomTile() {
         ArrayList<Integer> emptyPositions = new ArrayList<>();
         int[] randomTileIds = {2, 2, 2, 2, 2, 2, 2, 2, 2, 4};
-        //int[] randomTileIds = {2,4,8,16,32,64,256,512,128};
         Random rand = new Random();
         for (int x = 0; x < 16; x++) {
-            if (getTileAt(x / 4, x % 4).getId() == 0) {
+            if (getTileAt(x / NUM_ROWS, x % NUM_COLS).getId() == 0) {
                 emptyPositions.add(x);
             }
         }
         int index = rand.nextInt(randomTileIds.length);
         if (emptyPositions.size() == 1) {
-            placeNewTileAt(randomTileIds[index], emptyPositions.get(0) / 4,
-                    emptyPositions.get(0) % 4);
+            placeNewTileAt(randomTileIds[index], emptyPositions.get(0) / NUM_ROWS,
+                    emptyPositions.get(0) % NUM_COLS);
         } else if (emptyPositions.size() > 1) {
             int randIndex = rand.nextInt(emptyPositions.size() - 1);
-            placeNewTileAt(randomTileIds[index], emptyPositions.get(randIndex) / 4,
-                    emptyPositions.get(randIndex) % 4);
+            placeNewTileAt(randomTileIds[index], emptyPositions.get(randIndex) / NUM_ROWS,
+                    emptyPositions.get(randIndex) % NUM_COLS);
         }
         setChanged();
         notifyObservers();
     }
-
-    /**
-     * returns true if any of the surrounding four tiles of the tile
-     * at (row,col) has equal value. Return false otherwise
-     *
-     * @param row row
-     * @param col column
-     */
-    // TODO: this method is only needed in gameOver() in boardManager2048, might not be needed
-//    boolean hasEqualAdjacentTile(int row, int col) {
-////        Tile2048 mainTile = getTileAt(row, col);
-////        // Are any of the 4 the blank tile?
-////        Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
-////        Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
-////        Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);
-////        Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
-////        return (below != null && below.getId() == mainTile.getId())
-////                || (above != null && above.getId() == mainTile.getId())
-////                || (left != null && left.getId() == mainTile.getId())
-////                || (right != null && right.getId() == mainTile.getId());
-//        return (hasAdjacentTileOf(row, col, 1, getTileAt(row,col ).getId()) ||
-//                hasAdjacentTileOf(row, col, 3,getTileAt(row,col ).getId()) ||
-//                hasAdjacentTileOf(row, col, 4,getTileAt(row,col ).getId()) ||
-//                hasAdjacentTileOf(row, col, 2,getTileAt(row,col ).getId()));
-//    }
-
-//    /**
-//     * Checks if the tile at row, col has an adjacent tile with a specific id in the specified direction
-//     * @param row row of tile to check
-//     * @param col column of tile to check
-//     * @param direction the direction, 1 for up, 2 for right, 3 for down, 4 for left
-//     * @param id the id of the desired to check for
-//     * @return whether the tile in adjacent direction is equal
-//     */
-//    boolean hasAdjacentTileOf(int row, int col, int direction, int id) {
-//        if (direction == 1) {
-//            Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
-//            if (above == null) {
-//                return false;
-//            }
-//            return above.getId() == id;
-//        } else if (direction == 3) {
-//            Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
-//            if (below == null) {
-//                return false;
-//            }
-//            return below.getId() == id;
-//        } else if (direction == 4) {
-//            Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);
-//            if (left == null) {
-//                return false;
-//            }
-//            return left.getId() == id;
-//        }
-//        Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
-//        if (right == null) {
-//
-//            return false;
-//        }
-//        return right.getId() == id;
-//    }
-
-    ////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Adjusts the tiles in the given column position according to the direction
@@ -258,14 +193,15 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
      * @param direction the direction of the slide
      */
     void adjustBoardBy(int direction) {
+        // up or down
         if (direction == 1 || direction == 3) {
-            for (int col = 0; col != 4; col++) {
+            for (int col = 0; col < NUM_COLS; col++) {
                 adjustTilesCol(col, direction);
                 combineDoublesCol(col, direction);
                 adjustTilesCol(col, direction);
             }
-        } else if (direction == 4 || direction == 2) {
-            for (int row = 0; row != 4; row++) {
+        } else if (direction == 4 || direction == 2) { // left or right
+            for (int row = 0; row < NUM_ROWS; row++) {
                 adjustTilesRow(row, direction);
                 combineDoublesRow(row, direction);
                 adjustTilesRow(row, direction);
@@ -273,6 +209,10 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
         }
     }
 
+    /**
+     * returns a board2048 of the exact same arrangements as this board
+     * @return clone of this board2048
+     */
     Board2048 getClone(){
         List<Tile2048> cloneTiles = new ArrayList<>();
         for (int row = 0; row < NUM_ROWS; row++){
@@ -283,3 +223,66 @@ public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iter
         return new Board2048(cloneTiles, NUM_ROWS, NUM_COLS);
     }
 }
+
+// TODO: delete later at time of submission
+//    /**
+//     * returns true if any of the surrounding four tiles of the tile
+//     * at (row,col) has equal value. Return false otherwise
+//     *
+//     * @param row row
+//     * @param col column
+//     */
+//    boolean hasEqualAdjacentTile(int row, int col) {
+////        Tile2048 mainTile = getTileAt(row, col);
+////        // Are any of the 4 the blank tile?
+////        Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
+////        Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
+////        Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);
+////        Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
+////        return (below != null && below.getId() == mainTile.getId())
+////                || (above != null && above.getId() == mainTile.getId())
+////                || (left != null && left.getId() == mainTile.getId())
+////                || (right != null && right.getId() == mainTile.getId());
+//        return (hasAdjacentTileOf(row, col, 1, getTileAt(row,col ).getId()) ||
+//                hasAdjacentTileOf(row, col, 3,getTileAt(row,col ).getId()) ||
+//                hasAdjacentTileOf(row, col, 4,getTileAt(row,col ).getId()) ||
+//                hasAdjacentTileOf(row, col, 2,getTileAt(row,col ).getId()));
+//    }
+
+//    /**
+//     * Checks if the tile at row, col has an adjacent tile with a specific id in the specified direction
+//     * @param row row of tile to check
+//     * @param col column of tile to check
+//     * @param direction the direction, 1 for up, 2 for right, 3 for down, 4 for left
+//     * @param id the id of the desired to check for
+//     * @return whether the tile in adjacent direction is equal
+//     */
+//    boolean hasAdjacentTileOf(int row, int col, int direction, int id) {
+//        if (direction == 1) {
+//            Tile2048 above = row == 0 ? null : getTileAt(row - 1, col);
+//            if (above == null) {
+//                return false;
+//            }
+//            return above.getId() == id;
+//        } else if (direction == 3) {
+//            Tile2048 below = row == 3 ? null : getTileAt(row + 1, col);
+//            if (below == null) {
+//                return false;
+//            }
+//            return below.getId() == id;
+//        } else if (direction == 4) {
+//            Tile2048 left = col == 0 ? null : getTileAt(row, col - 1);
+//            if (left == null) {
+//                return false;
+//            }
+//            return left.getId() == id;
+//        }
+//        Tile2048 right = col == 3 ? null : getTileAt(row, col + 1);
+//        if (right == null) {
+//
+//            return false;
+//        }
+//        return right.getId() == id;
+//    }
+
+////////////////////////////////////////////////////////////////////////////////////
