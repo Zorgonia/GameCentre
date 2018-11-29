@@ -64,10 +64,10 @@ public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable
      * Replace the space at row, col with a piece, with id id
      * @param row row of adding piece
      * @param col col of adding piece
-     * @param id: id of piece being added
+     * @param backId: id of piece being added
      */
-    public void addPiece(int row, int col, int id){
-        this.tiles[row][col] = new CheckerTile(id);
+    public void addPiece(int row, int col, int backId){
+        this.tiles[row][col] = new CheckerTile(backId);
     }
 
     /**
