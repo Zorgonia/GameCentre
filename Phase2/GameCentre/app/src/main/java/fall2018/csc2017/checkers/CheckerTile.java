@@ -2,10 +2,10 @@ package fall2018.csc2017.checkers;
 
 import java.io.Serializable;
 
-import fall2018.csc2017.abstractClasses.AbstractTile;
+import fall2018.csc2017.ParentClasses.ParentTile;
 import fall2018.csc2017.slidingtiles.R;
 
-public class CheckerTile extends AbstractTile implements Comparable<AbstractTile>, Serializable {
+public class CheckerTile extends ParentTile implements Comparable<ParentTile>, Serializable {
 
     public CheckerTile(int id, int background){
         super(id, background);

@@ -1,9 +1,9 @@
-package fall2018.csc2017.abstractClasses;
+package fall2018.csc2017.ParentClasses;
 
 import android.support.annotation.NonNull;
 import java.io.Serializable;
 
-public abstract class AbstractTile implements Comparable<AbstractTile>, Serializable{
+public class ParentTile implements Comparable<ParentTile>, Serializable{
     protected int id, background;
 
     /**
@@ -12,12 +12,12 @@ public abstract class AbstractTile implements Comparable<AbstractTile>, Serializ
      * @param id the corresponding ID of the tile
      * @param background the corresponding background ID
      */
-    public AbstractTile(int id, int background) {
+    public ParentTile(int id, int background) {
         this.id = id;
         this.background = background;
     }
 //
-    public AbstractTile(int id){
+    public ParentTile(int id){
         this.id = id;
     }
 
@@ -38,7 +38,7 @@ public abstract class AbstractTile implements Comparable<AbstractTile>, Serializ
     }
 
     @Override
-    public int compareTo(@NonNull AbstractTile o) {
+    public int compareTo(@NonNull ParentTile o) {
         return o.id - this.id;
     }
 }

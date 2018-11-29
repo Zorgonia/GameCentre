@@ -1,4 +1,4 @@
-package fall2018.csc2017.abstractClasses;
+package fall2018.csc2017.ParentClasses;
 
 import android.support.annotation.NonNull;
 import java.io.Serializable;
