@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.TappableManager;
-import fall2018.csc2017.slidingtiles.Move;
+import fall2018.csc2017.Move;
 import fall2018.csc2017.Score;
 
 
@@ -48,10 +48,17 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     private boolean availableCapture = false;
 
     /**
-     * Create a new CheckerBoardManager
+     * Create a new CheckerBoardManager making a new board
      */
     public CheckerBoardManager(){
         refreshBoard();
+        undoStack = new CheckerUndoStack();
+    }
+    /**
+     * Create a new CheckerBoardManager using existing board
+     */
+    public CheckerBoardManager(CheckerBoard board){
+        this.board = board;
         undoStack = new CheckerUndoStack();
     }
 

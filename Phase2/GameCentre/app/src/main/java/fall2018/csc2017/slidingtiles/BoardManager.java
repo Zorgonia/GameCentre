@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.Move;
 import fall2018.csc2017.Score;
 
 /**

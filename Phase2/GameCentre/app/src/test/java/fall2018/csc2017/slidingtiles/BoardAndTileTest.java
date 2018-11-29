@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import fall2018.csc2017.Move;
 import fall2018.csc2017.Score;
 
 import static org.junit.Assert.*;
