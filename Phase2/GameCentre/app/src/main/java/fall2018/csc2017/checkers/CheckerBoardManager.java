@@ -431,14 +431,6 @@ public class CheckerBoardManager implements Serializable, TappableManager {
     }
 
     /**
-     * Return the value of primedCapture
-     * @return the value of primedCapture
-     */
-    public boolean getPrimedCapture(){
-        return primedCapture;
-    }
-
-    /**
      * Set primedCapture equal to newPrimedCapture
      * @param newPrimedCapture new value for primedCapture
      */

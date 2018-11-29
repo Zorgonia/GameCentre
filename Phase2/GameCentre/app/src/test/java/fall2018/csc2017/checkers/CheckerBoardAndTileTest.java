@@ -11,6 +11,7 @@ import fall2018.csc2017.slidingtiles.R;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 public class CheckerBoardAndTileTest {
 
@@ -27,6 +28,18 @@ public class CheckerBoardAndTileTest {
         }
         tiles.add(new CheckerTile(2));
         checkerBoard = new CheckerBoard(tiles, 7);
+        checkerBoardManager = new CheckerBoardManager(checkerBoard);
+    }
+
+    /**
+     * Makes a board of all blank tiles
+     */
+    private void makeBlankBoard(){
+        List<CheckerTile> tiles = new ArrayList<>();
+        for (int x = 0; x < 64; x++) {
+            tiles.add(new CheckerTile(0));
+        }
+        checkerBoard = new CheckerBoard(tiles, 8);
         checkerBoardManager = new CheckerBoardManager(checkerBoard);
     }
 
@@ -318,7 +331,6 @@ public class CheckerBoardAndTileTest {
     @Test
     public void testUndoPrimedCaptures(){
         preparePrimedCaptures();
-        preparePrimedCaptures();
         checkerBoardManager.setAvailableCapture(true);
         checkerBoardManager.touchMove(50);
         checkerBoardManager.touchMove(36);
@@ -336,7 +348,74 @@ public class CheckerBoardAndTileTest {
                 checkerBoardManager.getBoard().getTileAt(6,2).getBackground());
     }
 
+    @Test
+    public void testAllMoveHighlights(){
+        makeBlankBoard();
+        checkerBoard.addPiece(0, 1, 2);
+        checkerBoard.addPiece(1, 4, 2);
+        checkerBoard.addPiece(2, 3, 1);
+        checkerBoard.addPiece(2, 5, 1);
+        checkerBoard.addPiece(6, 1, 1);
+        checkerBoard.addPiece(5, 4, 1);
+        checkerBoard.addPiece(4, 3, 2);
+        checkerBoard.addPiece(4, 5, 2);
+        checkerBoardManager.setAvailableCapture(false);
 
+        checkerBoardManager.touchMove(44);
+        assertEquals(R.drawable.tile_checkers_highlight,
+                checkerBoard.getTileAt(3, 2).getBackground());
+        assertEquals(R.drawable.tile_checkers_highlight,
+                checkerBoard.getTileAt(3, 6).getBackground());
+
+        checkerBoardManager.touchMove(0);
+        checkerBoardManager.touchMove(49);
+        assertEquals(R.drawable.tile_checkers_highlight,
+                checkerBoard.getTileAt(5, 0).getBackground());
+        assertEquals(R.drawable.tile_checkers_highlight,
+                checkerBoard.getTileAt(5, 2).getBackground());
+        checkerBoardManager.touchMove(40);
+
+        checkerBoardManager.touchMove(1);
+        assertEquals(R.drawable.tile_checkers_highlight,
+                checkerBoard.getTileAt(1, 0).getBackground());
+        assertEquals(R.drawable.tile_checkers_highlight,
+                checkerBoard.getTileAt(1, 2).getBackground());
+
+        checkerBoardManager.touchMove(0);
+        checkerBoardManager.touchMove(12);
+        assertEquals(R.drawable.tile_checkers_highlight,
+                checkerBoard.getTileAt(3, 2).getBackground());
+        assertEquals(R.drawable.tile_checkers_highlight,
+                checkerBoard.getTileAt(3, 6).getBackground());
+
+    }
+
+    @Test
+    public void testEmptyUndo(){
+        checkerBoardManager = new CheckerBoardManager();
+        assertFalse(checkerBoardManager.getUndoStack().removeIsPrimedCapture());
+        assertFalse(checkerBoardManager.getUndoStack().removeKinged());
+        assertNull(checkerBoardManager.getUndoStack().removeCapture());
+    }
+
+    @Test
+    public void testGameFinished(){
+        makeBlankBoard();
+        checkerBoard.addPiece(0, 0, 1);
+        assertTrue(checkerBoardManager.gameFinished());
+        makeBlankBoard();
+        checkerBoard.addPiece(0, 0, 2);
+        assertTrue(checkerBoardManager.gameFinished());
+        checkerBoard.addPiece(0, 1, 1);
+        assertFalse(checkerBoardManager.gameFinished());
+    }
+
+    @Test
+    public void testSetBoardToInactive(){
+        checkerBoardManager = new CheckerBoardManager();
+        checkerBoardManager.setBoardToInactive();
+        assertFalse(checkerBoardManager.getBoardStatus());
+    }
 
 
 }
