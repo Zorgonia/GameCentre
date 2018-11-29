@@ -24,6 +24,7 @@ import java.util.Observer;
 import fall2018.csc2017.Account;
 import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.AccountConstants;
+import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.LoadActivity;
 import fall2018.csc2017.SaveActivity;
 
@@ -32,7 +33,7 @@ import fall2018.csc2017.SaveActivity;
  * TODO: If you repeatedly load saves inside the game screen, pressing the built in back button
  * will alternate you between the game screen and the load screen (add a back button m
  */
-public class GameActivity extends AppCompatActivity implements Observer, AccountConstants {
+public class GameActivity extends AppCompatActivity implements Observer, AccountConstants, CurrentGameConstants {
 
     /**
      * Current user's account, and the list of accounts
@@ -199,7 +200,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
      */
     private void switchToSaveActivity() {
         Intent tmp = new Intent(this, SaveActivity.class);
-        tmp.putExtra("currentGame","_sliding_tiles" );
+        tmp.putExtra("currentGame",SLIDING_TILES );
         startActivity(tmp);
     }
 
@@ -208,7 +209,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
      */
     private void switchToLoadActivity() {
         Intent tmp = new Intent(this, LoadActivity.class);
-        tmp.putExtra("currentGame","_sliding_tiles" );
+        tmp.putExtra("currentGame",SLIDING_TILES );
         finish();
         startActivity(tmp);
     }
@@ -302,7 +303,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
             writeAccountFile();
         } else {
             // Auto save if the game is not finished.
-            saveToFile("save_auto" + "_sliding_tiles" + AccountActivity.username + ".ser");
+            saveToFile("save_auto" + Integer.toString(SLIDING_TILES) + AccountActivity.username + ".ser");
         }
     }
 

@@ -23,6 +23,7 @@ import java.util.Observer;
 import fall2018.csc2017.Account;
 import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.AccountConstants;
+import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.ParentClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.CustomAdapter;
 import fall2018.csc2017.LoadActivity;
@@ -32,7 +33,7 @@ import fall2018.csc2017.SaveActivity;
 /**
  * The main game activity for 2048
  */
-public class GameActivity2048 extends AppCompatActivity implements Observer, AccountConstants {
+public class GameActivity2048 extends AppCompatActivity implements Observer, AccountConstants, CurrentGameConstants {
     /**
      * The buttons to display.
      */
@@ -77,7 +78,7 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
         //
         if(!boardManager.gameFinished() &&! boardManager.gameOver()) {
             saveToFile(MenuActivity2048.TEMP_SAVE_FILENAME);
-            saveToFile("save_auto" + "2048" + AccountActivity.username + ".ser");
+            saveToFile("save_auto" + Integer.toString(TWENTYFORTYEIGHT) + AccountActivity.username + ".ser");
         } else if (boardManager.gameFinished()){
             account.updateHighScores("2048",boardManager.getBoardScore());
             writeAccountFile();
@@ -191,7 +192,7 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
      */
     private void switchToSaveActivity() {
         Intent tmp = new Intent(this, SaveActivity.class);
-        tmp.putExtra("currentGame","2048" );
+        tmp.putExtra("currentGame",TWENTYFORTYEIGHT );
         startActivity(tmp);
     }
 
@@ -200,7 +201,7 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
      */
     private void switchToLoadActivity() {
         Intent tmp = new Intent(this, LoadActivity.class);
-        tmp.putExtra("currentGame","2048" );
+        tmp.putExtra("currentGame",TWENTYFORTYEIGHT);
         startActivity(tmp);
     }
     /**
