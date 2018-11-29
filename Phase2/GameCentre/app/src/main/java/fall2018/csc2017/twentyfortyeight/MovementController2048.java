@@ -27,7 +27,7 @@ public class MovementController2048 {
 //            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
 //        }
 //    }
-    public void processSwipeMovement(Context context, int move, boolean display) {
+    void processSwipeMovement(Context context, int move, boolean display) {
         if (!boardManager.getBoardStatus()) {
             Toast.makeText(context, "The game is over, press back to return to the main menu", Toast.LENGTH_SHORT).show();
         } else if (boardManager.isValidTap(move)) {
