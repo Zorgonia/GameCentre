@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017;
 
 import org.junit.Test;
 
@@ -35,9 +35,9 @@ public class AccountTest implements CurrentGameConstants {
         a.updateHighScores("Sliding Tiles",new Score(50));
         a2.updateHighScores("Sliding Tiles",new Score(50));
         a2.updateHighScores("Sliding Tiles",new Score(100));
-        assertEquals(0, a.getTopScore(SLIDING_TILES).equals(a2.getTopScore(SLIDING_TILES)));
+        assertEquals(a.getTopScore(SLIDING_TILES).getScoreValue(), a2.getTopScore(SLIDING_TILES).getScoreValue());
         a.updateHighScores("Sliding Tiles",new Score(49));
-        assertEquals(-1,  a.getTopScore(SLIDING_TILES).equals(a2.getTopScore(SLIDING_TILES)));
+        assertNotEquals(a.getTopScore(SLIDING_TILES).getScoreValue(), a2.getTopScore(SLIDING_TILES).getScoreValue());
     }
 
     /**

@@ -3,6 +3,8 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+
+import fall2018.csc2017.Move;
 import fall2018.csc2017.ParentClasses.GameBoard;
 
 /**

@@ -3,6 +3,8 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import fall2018.csc2017.Move;
+
 public class UndoStack implements Serializable {
     /**
      * Number of moves that will be saved on the stack at a time

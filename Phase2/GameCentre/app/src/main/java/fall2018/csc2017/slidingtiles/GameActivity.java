@@ -59,9 +59,6 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
     private static final int MOVE_EXP = 5;
     private static final int FINISH_EXP = 50;
 
-    public static Activity instance;
-
-
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -93,7 +90,6 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
         addLoadButtonListener();
         boardManager.getBoardScore().decreaseScore();
 
-        instance = this;
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(boardManager.getBoard().getNumCols());
         gridView.setBoardManager(boardManager);
