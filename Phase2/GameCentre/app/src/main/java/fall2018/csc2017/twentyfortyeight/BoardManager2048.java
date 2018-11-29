@@ -82,7 +82,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
      */
     public boolean gameFinished() {
         for (int x = 0; x < 16; x++) {
-            if (board.getTileAt(x / 4, x % 4).getId() == 128) {
+            if (board.getTileAt(x / 4, x % 4).getId() == 2048) {
                 setActiveStatus(false);
                 return true;
             }
