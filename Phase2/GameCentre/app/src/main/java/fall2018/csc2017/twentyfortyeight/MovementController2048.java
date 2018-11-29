@@ -10,6 +10,7 @@ public class MovementController2048 {
     MovementController2048() {
     }
 
+    // TODO: edit the class to get rid of unused lines or params
     public void setBoardManager(BoardManager2048 boardManager) {
         this.boardManager = boardManager;
     }
