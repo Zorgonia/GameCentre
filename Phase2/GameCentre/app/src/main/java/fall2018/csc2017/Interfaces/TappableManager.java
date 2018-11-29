@@ -1,6 +1,6 @@
 package fall2018.csc2017.Interfaces;
 
-import fall2018.csc2017.abstractClasses.GameBoard;
+import fall2018.csc2017.ParentClasses.GameBoard;
 import fall2018.csc2017.Score;
 
 public interface TappableManager {

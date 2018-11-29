@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import fall2018.csc2017.abstractClasses.GameBoard;
+import fall2018.csc2017.ParentClasses.GameBoard;
 
 public class Board2048 extends GameBoard<Tile2048> implements Serializable, Iterable<Tile2048> {
 
