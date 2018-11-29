@@ -1,13 +1,13 @@
 package fall2018.csc2017.slidingtiles;
 
-import fall2018.csc2017.ParentClasses.ParentTile;
+import fall2018.csc2017.abstractClasses.AbstractTile;
 
 import java.io.Serializable;
 
 /**
  * A Tile in a sliding tiles puzzle.
  */
-public class Tile extends ParentTile implements Comparable<ParentTile>, Serializable {
+public class Tile extends AbstractTile implements Comparable<AbstractTile>, Serializable {
 
     /**
      * A Tile with id and background. The background may not have a corresponding image.

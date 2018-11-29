@@ -1,14 +1,14 @@
 package fall2018.csc2017.twentyfortyeight;
 
 import java.io.Serializable;
-import fall2018.csc2017.ParentClasses.ParentTile;
+import fall2018.csc2017.abstractClasses.AbstractTile;
 import fall2018.csc2017.slidingtiles.R;
 
 /**
  * A 2048 game tile with id as the value of the tile
  * and background being the image reference of the tile
  */
-public class Tile2048 extends ParentTile implements Comparable<ParentTile>, Serializable {
+public class Tile2048 extends AbstractTile implements Comparable<AbstractTile>, Serializable {
 
     /**
      * A tile with a id being the value of the tile

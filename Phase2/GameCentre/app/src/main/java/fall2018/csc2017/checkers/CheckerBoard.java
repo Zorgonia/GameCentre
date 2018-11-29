@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.ParentClasses.GameBoard;
+import fall2018.csc2017.abstractClasses.GameBoard;
 import fall2018.csc2017.slidingtiles.Move;
 
 public class CheckerBoard extends GameBoard<CheckerTile> implements Serializable{
