@@ -118,10 +118,10 @@ public class ScoreBoardActivity extends AppCompatActivity implements AccountCons
             topScores.append(nextTopScore);
         }
         for (int j = limit; j < SCORE_BOARD_SIZE; j++) {
-            String nextTopPlayer = "  ----" + System.lineSeparator();
+            String nextTopPlayer = "----" + System.lineSeparator();
             topPlayers.append(nextTopPlayer);
 
-            String nextTopScore ="  ----" + System.lineSeparator();
+            String nextTopScore ="----" + System.lineSeparator();
             topScores.append(nextTopScore);
         }
     }
