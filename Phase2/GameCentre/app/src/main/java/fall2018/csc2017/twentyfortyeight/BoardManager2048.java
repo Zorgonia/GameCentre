@@ -90,38 +90,58 @@ public class BoardManager2048 implements Serializable, TappableManager {
         return false;
     }
 
-//    @Override
-//    public boolean isValidTap(int position) {
-//        return false;
-//    }
-
     /**
      * Returns true if game is lost : no more moves can be made and 2048 isn't achieved
      *
      * @return true or false indicating loss
      */
     public boolean gameOver() {
-        for (int x = 0; x != 16; x++) {
-            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
-            if (tmp.getId() == 0 || board.hasEqualAdjacentTile(x / 4, x % 4)) {
+        for (int dir = 0; dir < 4; dir++) {
+            if (isValidTap(dir)) {
                 return false;
             }
         }
-        setActiveStatus(false);
         return true;
     }
+//            tempClone.adjustBoardBy(dir);
+//            for (int row = 0; row < board.getNumRows(); row++){
+//                for (int col = 0; col < board.getNumCols(); col++){
+//                    if (tempClone.getTileAt(row,col).getId() != tempClone.getTileAt(row,col).getId()){
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
 
     @Override
     public boolean isValidTap(int instruction) {
-        for (int x = 0; x != 16; x++) {
-            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
-            if (tmp.getId() != 0 && (board.hasAdjacentTileOf(x / 4, x % 4, instruction, tmp.getId()) || board.hasAdjacentTileOf(x / 4, x % 4, instruction, 0))) {
-                return true;
+        Board2048 tempClone = board.getClone();
+        tempClone.adjustBoardBy(instruction);
+        for (int row = 0; row < board.getNumRows(); row++) {
+            for (int col = 0; col < board.getNumCols(); col++) {
+                if (tempClone.getTileAt(row, col).getId() != board.getTileAt(row, col).getId()) {
+                    return true; // if a change is found in the clone then its a valid tap
+                }
             }
         }
         return false;
     }
+
+//        for (int dir = 0; dir < 4; dir++){
+//            tempClone.adjustBoardBy(dir);
+//            for (int row = 0; row < board.getNumRows(); row++){
+//                for (int col = 0; col < board.getNumCols(); col++){
+//                    if (tempClone.getTileAt(row,col).getId() != tempClone.getTileAt(row,col).getId()){
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
     /**
      * Returns the Score of the current board
@@ -137,275 +157,14 @@ public class BoardManager2048 implements Serializable, TappableManager {
         return activeStatus;
     }
 
-//    /**
-//     * Checks whether the move is valid, that is if with that move,
-//     * pieces can be combined and/or pieces can be moved
-//     *
-//     * @param direction the direction of the move to check
-//     */
-//    public boolean isValidMover(String direction) {
-//        for (int x = 0; x != 16; x++) {
-//            Tile2048 tmp = board.getTileAt(x / 4, x % 4);
-//            if (tmp.getId() != 0 && (board.hasEqualTileInDirection(x / 4, x % 4, direction) || board.hasAdjacentTileOf(x / 4, x % 4, direction, 0))) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-    // ignores position
-    // TODO: remove touchMove from the Manageable interface
     /**
      * Processes a slide movement by adjusting and combining tiles in the game board
      * Precondition: gameOver() or gameFinished() needs to be false
      * @param direction the direction of the slide
      */
     public void touchMove(int direction) {
-        if (direction == 1 || direction == 3) {
-            for (int col = 0; col != 4; col++) {
-                adjustTilesCol(col, direction);
-                combineDoublesCol(col, direction);
-                adjustTilesCol(col, direction);
-            }
-        } else if (direction == 4 || direction == 2) {
-            for (int row = 0; row != 4; row++) {
-                adjustTilesRow(row, direction);
-                combineDoublesRow(row, direction);
-                adjustTilesRow(row, direction);
-            }
-        }
+        board.adjustBoardBy(direction);
         score.increaseScore();
         board.placeRandomTile();
     }
-
-    /**
-     * Adjusts the tiles in the given column position according to the direction
-     * Precondition: vertDirection must be "up" or "down"
-     * @param col           the column index
-     * @param vertDirection "up" or "down"
-     */
-    private void adjustTilesCol(int col, int vertDirection) {
-        int emptyIndex = -1, id;
-        boolean dirIsUp = vertDirection == 1;
-        int row = (dirIsUp) ? 0 : board.getNumRows() - 1;
-        boolean loopCondition = (dirIsUp) ? (row < board.getNumRows()) : (row > -1);
-        while (loopCondition) {
-            id = board.getTileAt(row, col).getId();
-            if (id == 0) {
-                if (emptyIndex != -1) {
-                    // updates the loop condition and the iteration since loop will skip
-                    row = (dirIsUp) ? row + 1 : row - 1;
-                    loopCondition = (dirIsUp) ? (row < board.getNumRows()) : (row > -1);
-                    continue;
-                }
-                emptyIndex = row;
-            }
-            if (emptyIndex != -1 && id != 0) {
-                board.placeNewTileAt(id, emptyIndex, col);
-                board.removeTileAt(row, col);
-                emptyIndex = (dirIsUp) ? emptyIndex + 1 : emptyIndex - 1;
-            }
-            row = (dirIsUp) ? row + 1 : row - 1;
-            loopCondition = (dirIsUp) ? (row < board.getNumRows()) : (row > -1);
-        }
-    }
-
-    /**
-     * Adjusts the tiles in the given row position according to the direction
-     * Precondition: sideDirection must be "left" or "right"
-     * @param row the row index
-     */
-    private void adjustTilesRow(int row, int sideDirection) {
-        int emptyIndex = -1, id;
-        boolean dirIsLeft = sideDirection == 4;
-        int col = (dirIsLeft) ? 0 : board.getNumCols() - 1;
-        boolean loopCondition = (dirIsLeft) ? (col < board.getNumRows()) : (col > -1);
-        while (loopCondition) {
-            id = board.getTileAt(row, col).getId();
-            if (id == 0) {
-                if (emptyIndex != -1) {
-                    // updates the loop condition and the iteration since loop will skip
-                    col = (dirIsLeft) ? col + 1 : col - 1;
-                    loopCondition = (dirIsLeft) ? (col < board.getNumRows()) : (col > -1);
-                    continue;
-                }
-                emptyIndex = col;
-            }
-            if (emptyIndex != -1 && id != 0) {
-                board.placeNewTileAt(id, row, emptyIndex);
-                board.removeTileAt(row, col);
-                emptyIndex = (dirIsLeft) ? emptyIndex + 1 : emptyIndex - 1;
-            }
-            col = (dirIsLeft) ? col + 1 : col - 1;
-            loopCondition = (dirIsLeft) ? (col < board.getNumRows()) : (col > -1);
-        }
-    }
-
-    /**
-     * Combines pairs of tiles if both are adjacent in the given column and has same id
-     * Precondition: vertDirection must be "up" or "down"
-     * @param col           the given column's index
-     * @param vertDirection "up" or "down"
-     */
-    private void combineDoublesCol(int col, int vertDirection) {
-        boolean dirIsUp = vertDirection == 1;
-        int valueCur, valueNext;
-        int row = (dirIsUp) ? 0 : board.getNumRows() - 1;
-        boolean loopCondition = (dirIsUp) ? (row < board.getNumRows() - 1) : (row > 0);
-        while (loopCondition) {
-            valueCur = board.getTileAt(row, col).getId();
-            valueNext = (dirIsUp) ? board.getTileAt(row + 1, col).getId()
-                    : board.getTileAt(row - 1, col).getId();
-            if (valueCur == valueNext) {
-                board.placeNewTileAt(2 * valueCur, row, col);
-                if (dirIsUp) {
-                    board.removeTileAt(row + 1, col);
-                } else { // if right
-                    board.removeTileAt(row - 1, col);
-                }
-                row = (dirIsUp) ? row + 2 : row - 2;
-            } else {
-                row = (dirIsUp) ? row + 1 : row - 1;
-            }
-            loopCondition = (dirIsUp) ? (row < board.getNumRows() - 1) : (row > 0);
-        }
-    }
-
-    /**
-     * Combine pairs of tiles if both are adjacent in the given row and has same id
-     * Precondition: sideDirection must be "left" or "right"
-     * @param row           the given rows's index
-     * @param sideDirection "left" or "right"
-     */
-    private void combineDoublesRow(int row, int sideDirection) {
-        boolean dirIsLeft = sideDirection == 4;
-        int valueCur, valueNext;
-        int col = (dirIsLeft) ? 0 : board.getNumCols() - 1;
-        boolean loopCondition = (dirIsLeft) ? (col < board.getNumCols() - 1) : (col > 0);
-        while (loopCondition) {
-            valueCur = board.getTileAt(row, col).getId();
-            valueNext = (dirIsLeft) ? board.getTileAt(row, col + 1).getId()
-                    : board.getTileAt(row, col - 1).getId();
-            if (valueCur == valueNext) {
-                board.placeNewTileAt(2 * valueCur, row, col);
-                if (dirIsLeft) {
-                    board.removeTileAt(row, col + 1);
-                } else {
-                    board.removeTileAt(row, col - 1);
-                }
-                col = (dirIsLeft) ? col + 2 : col - 2;
-            } else {
-                col = (dirIsLeft) ? col + 1 : col - 1;
-            }
-            loopCondition = (dirIsLeft) ? (col < board.getNumCols() - 1) : (col > 0);
-        }
-    }
 }
-
-    // TODO: Don't delete below for now
-    //        if (vertDirection.equals("up")) {
-//            int value0;
-//            int row = 0;
-//            while (row < 4 - 1) {
-//                if (board.getTileAt(row, col).getId() == board.getTileAt(row + 1, col).getId()) {
-//                    value0 = board.getTileAt(row, col).getId();
-//                    board.placeNewTileAt(2 * value0, row, col);
-//                    board.removeTileAt(row + 1, col);
-//                    score.increaseScore(2*value0);
-//                    row += 2;
-//                } else {
-//                    row += 1;
-//                }
-//            }
-//        } else if (vertDirection.equals("down")) {
-//            int row = 4 - 1;
-//            int value1;
-//            while (row > 0) {
-//                value1 = board.getTileAt(row, col).getId();
-//                if (board.getTileAt(row, col).getId() == board.getTileAt(row - 1, col).getId()) {
-//                    board.placeNewTileAt(2 * value1, row, col);
-//                    board.removeTileAt(row - 1, col);
-//                    score.increaseScore(2*value1);
-//                    row -= 2;
-//                } else {
-//                    row -= 1;
-//                }
-//            }
-//        }
-//    }
-
-    //    /**
-//     * Adjusts the tiles in the given column position according to the direction
-//     *
-//     * @param col           the column index
-//     * @param vertDirection "up" or "down"
-//     */
-//    private void adjustTilesCol(int col, String vertDirection) {
-//        int emptyIndex = -1;
-//        int id;
-//        if (vertDirection.equals("up")) {
-//            for (int row = 0; row < 4; row++) {
-//                id = board.getTileAt(row, col).getId();
-//                if (id == 0) {
-//                    if (emptyIndex != -1) {
-//                        continue;
-//                    }
-//                    emptyIndex = row;
-//                }
-//                if (emptyIndex != -1 && id != 0) {
-//                    board.placeNewTileAt(id, emptyIndex, col);
-//                    board.removeTileAt(row, col);
-//                    emptyIndex += 1;
-//                }
-//            }
-//        } else if (vertDirection.equals("down")) {
-//            for (int row = 3; row > -1; row--) {
-//                id = board.getTileAt(row, col).getId();
-//                if (id == 0) {
-//                    if (emptyIndex != -1) {
-//                        continue;
-//                    }
-//                    emptyIndex = row;
-//                }
-//                if (emptyIndex != -1 && id != 0) {
-//                    board.placeNewTileAt(id, emptyIndex, col);
-//                    board.removeTileAt(row, col);
-//                    emptyIndex -= 1;
-//                }
-//            }
-//        }
-//    }
-    //        int emptyIndex = -1;
-//        int id;
-//        if (sideDirection.equals("left")) {
-//            for (int col = 0; col < 4; col++) {
-//                id = board.getTileAt(row, col).getId();
-//                if (id == 0) {
-//                    if (emptyIndex != -1) {
-//                        continue;
-//                    }
-//                    emptyIndex = col;
-//                }
-//                if (emptyIndex != -1 && id != 0) {
-//                    board.placeNewTileAt(id, row, emptyIndex);
-//                    board.removeTileAt(row, col);
-//                    emptyIndex += 1;
-//                }
-//            }
-//        } else if (sideDirection.equals("right")) {
-//            for (int col = 3; col > -1; col--) {
-//                id = board.getTileAt(row, col).getId();
-//                if (id == 0) {
-//                    if (emptyIndex != -1) {
-//                        continue;
-//                    }
-//                    emptyIndex = col;
-//                }
-//                if (emptyIndex != -1 && id != 0) {
-//                    board.placeNewTileAt(id, row, emptyIndex);
-//                    board.removeTileAt(row, col);
-//                    emptyIndex -= 1;
-//                }
-//            }
-//        }
-//    }
