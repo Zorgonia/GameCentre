@@ -7,7 +7,6 @@ import java.util.List;
 
 import fall2018.csc2017.Move;
 import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.twentyfortyeight.Tile2048;
 
 import static org.junit.Assert.assertEquals;
 
@@ -51,14 +50,14 @@ public class CheckerBoardAndTileTest {
         makeInitial();
         checkerBoard.swapTiles(new Move(6, 6, 5, 5));
         assertEquals(R.drawable.tile_checkers_red, checkerBoard.getTileAt(5, 5).getBackground());
-        assertEquals(R.drawable.tile_blank, checkerBoard.getTileAt(6, 6).getBackground());
+        assertEquals(R.drawable.tile_checkers_blank, checkerBoard.getTileAt(6, 6).getBackground());
     }
 
     @Test
     public void testDestoryRecreate(){
         makeInitial();
         checkerBoard.destroyPiece(6, 6);
-        assertEquals(R.drawable.tile_blank, checkerBoard.getTileAt(6, 6).getBackground());
+        assertEquals(R.drawable.tile_checkers_blank, checkerBoard.getTileAt(6, 6).getBackground());
         checkerBoard.addPiece(5, 5, 2);
         assertEquals(R.drawable.tile_checkers_red, checkerBoard.getTileAt(5, 5).getBackground());
     }
@@ -76,7 +75,7 @@ public class CheckerBoardAndTileTest {
         }
         checkerBoard.turnOffHighlight();
         for(int i = 0; i < 20; i++) {
-            assertEquals(R.drawable.tile_blank, checkerBoard.getTileAt(i / 7, i % 7).getBackground());
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoard.getTileAt(i / 7, i % 7).getBackground());
         }
     }
 
