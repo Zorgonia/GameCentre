@@ -15,6 +15,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.AccountActivity;
+import fall2018.csc2017.Interfaces.AccountConstants;
+import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.Interfaces.TappableManager;
 import fall2018.csc2017.slidingtiles.GameActivity;
 import fall2018.csc2017.slidingtiles.R;
@@ -22,7 +24,7 @@ import fall2018.csc2017.slidingtiles.SlidingTilesMenuActivity;
 import fall2018.csc2017.twentyfortyeight.GameActivity2048;
 import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
 
-public class LoadActivity extends AppCompatActivity {
+public class LoadActivity extends AppCompatActivity implements CurrentGameConstants {
 
 
     /**
@@ -37,12 +39,12 @@ public class LoadActivity extends AppCompatActivity {
      * The board manager.
      */
     private TappableManager boardManager;
-    private String currentGame;
+    private int currentGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentGame = getIntent().getStringExtra("currentGame");
+        currentGame = getIntent().getIntExtra("currentGame",0);
         loadGameBoard();
         saveToFile(TEMP_SAVE_FILENAME);
 
@@ -61,9 +63,9 @@ public class LoadActivity extends AppCompatActivity {
      * //TODO put some error checking in.
      */
     private void loadGameBoard() {
-        if (currentGame.equals("_sliding_tiles")) {
+        if (currentGame == SLIDING_TILES) {
             loadFromFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
-        } else if (currentGame.equals("2048")) {
+        } else if (currentGame == TWENTYFORTYEIGHT) {
             loadFromFile(MenuActivity2048.TEMP_SAVE_FILENAME);
         }
     }
@@ -107,10 +109,10 @@ public class LoadActivity extends AppCompatActivity {
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
 
-        if (currentGame.equals("_sliding_tiles")) {
+        if (currentGame == SLIDING_TILES) {
             tmp = new Intent(this, GameActivity.class);
             saveToFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
-        } else if (currentGame.equals("2048")) {
+        } else if (currentGame == TWENTYFORTYEIGHT) {
             tmp = new Intent(this, GameActivity2048.class);
             saveToFile(MenuActivity2048.TEMP_SAVE_FILENAME);
         }

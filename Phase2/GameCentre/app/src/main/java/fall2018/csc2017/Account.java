@@ -3,6 +3,7 @@ package fall2018.csc2017;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import fall2018.csc2017.Interfaces.CurrentGameConstants;
 
@@ -15,7 +16,8 @@ public class Account implements Serializable, CurrentGameConstants {
     /**
      * The data for an Account
      */
-    private String password, username;
+    private String username;
+    private HashMap<String, String> passwordMap = new HashMap<>();
 
     /**
      * Stores a limited number of final scores for the Account
@@ -45,7 +47,7 @@ public class Account implements Serializable, CurrentGameConstants {
      */
     public Account(String user, String pass) {
         username = user;
-        password = pass;
+        passwordMap.put(user, pass);
         experience = 0;
         level = 0;
         checkerHighScore.add(new Score(0));
@@ -67,7 +69,7 @@ public class Account implements Serializable, CurrentGameConstants {
      * @return true if pass matches password, false otherwise
      */
     public boolean authenticate(String pass) {
-        return password.equals(pass);
+        return passwordMap.get(getUsername()).equals(pass);
     }
 
     /**
@@ -117,7 +119,7 @@ public class Account implements Serializable, CurrentGameConstants {
      * @param newPass new password to be set.
      */
     public void setPassword(String newPass){
-        this.password = newPass;
+        passwordMap.replace(getUsername(), newPass);
     }
 
     /**
@@ -126,9 +128,9 @@ public class Account implements Serializable, CurrentGameConstants {
      */
     public void updateHighScores(String game, Score s) {
         ArrayList<Score> list;
-        if (game == "Sliding Tiles") {
+        if (game.equals("Sliding Tiles")) {
                 list = slidingTilesHighScores;
-        } else if (game == "2048") {
+        } else if (game.equals("2048")) {
             list = highScores2048;
         } else {
             list = new ArrayList<>();

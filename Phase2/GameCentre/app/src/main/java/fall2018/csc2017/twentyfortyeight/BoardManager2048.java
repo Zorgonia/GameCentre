@@ -98,9 +98,11 @@ public class BoardManager2048 implements Serializable, TappableManager {
     public boolean gameOver() {
         for (int dir = 0; dir < 4; dir++) {
             if (isValidTap(dir)) {
+
                 return false;
             }
         }
+        setActiveStatus(false);
         return true;
     }
 //            tempClone.adjustBoardBy(dir);
@@ -159,12 +161,15 @@ public class BoardManager2048 implements Serializable, TappableManager {
 
     /**
      * Processes a slide movement by adjusting and combining tiles in the game board
-     * Precondition: gameOver() or gameFinished() needs to be false
+     * Precondition: gameOver() and gameFinished() needs to be false
+     *
      * @param direction the direction of the slide
      */
     public void touchMove(int direction) {
-        board.adjustBoardBy(direction);
-        score.increaseScore();
-        board.placeRandomTile();
+        if (activeStatus) {
+            board.adjustBoardBy(direction);
+            score.increaseScore();
+            board.placeRandomTile();
+        }
     }
 }

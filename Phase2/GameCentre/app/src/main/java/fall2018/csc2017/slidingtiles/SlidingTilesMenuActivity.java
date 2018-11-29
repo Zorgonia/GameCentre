@@ -261,7 +261,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity implements Curre
     private void switchToLoadActivity() {
         Intent tmp = new Intent(this, LoadActivity.class);
         tempSaveToFile();
-        tmp.putExtra("currentGame","_sliding_tiles" );
+        tmp.putExtra("currentGame",SLIDING_TILES );
         startActivity(tmp);
     }
 
@@ -271,7 +271,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity implements Curre
     private void switchToSaveActivity() {
         Intent tmp = new Intent(this, SaveActivity.class);
         tempSaveToFile();
-        tmp.putExtra("currentGame","_sliding_tiles" );
+        tmp.putExtra("currentGame",SLIDING_TILES );
         startActivity(tmp);
     }
 

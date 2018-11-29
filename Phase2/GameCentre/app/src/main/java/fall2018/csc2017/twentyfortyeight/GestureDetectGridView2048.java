@@ -18,16 +18,37 @@ import android.widget.GridView;
 //import fall2018.csc2017.slidingtiles.BoardManager;
 import fall2018.csc2017.slidingtiles.MovementController;
 
+/**
+ * A grid view that detects flings.
+ * Adapted from:
+ * https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
+ */
 public class GestureDetectGridView2048 extends GridView {
+    /**
+     * The minimum distance, off direction distance, and threshold velocity for the swipe
+     */
     public static final int SWIPE_MIN_DISTANCE = 200;
     public static final int SWIPE_MAX_OFF_PATH = 150;
     public static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+    /**
+     * A gesture detector
+     */
     private GestureDetector gDetector;
+    /**
+     * A movement controller to send flings to
+     */
     private MovementController2048 mController;
+
+    /**
+     * Variable for confirming a fling
+     */
     private boolean mFlingConfirmed = false;
+    /**
+     * Variables to hold X and Y position when screen is touched
+     */
     private float mTouchX;
     private float mTouchY;
-    private BoardManager2048 boardManager;
 
     public GestureDetectGridView2048(Context context) {
         super(context);
@@ -51,6 +72,10 @@ public class GestureDetectGridView2048 extends GridView {
         init(context);
     }
 
+    /**
+     * What to do when initialized
+     * @param context the context to act on
+     */
     private void init(final Context context) {
         mController = new MovementController2048();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -69,6 +94,15 @@ public class GestureDetectGridView2048 extends GridView {
             public boolean onDown(MotionEvent event) {
                 return true;
             }
+
+            /**
+             * What to do when a fling is detected
+             * @param e1 first down motion event
+             * @param e2 move motion event that caused on fling
+             * @param velocityX velocity in pixels per second in x direction
+             * @param velocityY velocity in pixels per second in y direction
+             * @return
+             */
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                    float velocityY) {
@@ -108,6 +142,11 @@ public class GestureDetectGridView2048 extends GridView {
 
     }
 
+    /**
+     * What to do on when a touch is interceted
+     * @param ev
+     * @return
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -136,13 +175,22 @@ public class GestureDetectGridView2048 extends GridView {
         return super.onInterceptTouchEvent(ev);
     }
 
+    /**
+     * What to do on touch
+     * @param ev the event to check
+     * @return whether the gesture detector has been touched
+     */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
     }
 
     public void setBoardManager(BoardManager2048 boardManager) {
-        this.boardManager = boardManager;
+        /*
+      Board Manager to give to
+     */ /**
+         * Board Manager to give to
+         */BoardManager2048 boardManager1 = boardManager;
         mController.setBoardManager(boardManager);
     }
 }
