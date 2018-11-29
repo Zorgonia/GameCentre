@@ -138,8 +138,8 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
         setContentView(R.layout.activity_2048_main);
         readFiles();
 
-        addSaveButtonListener();
-        addLoadButtonListener();
+//        addSaveButtonListener();
+//        addLoadButtonListener();
 
         gridView = findViewById(R.id.grid2);
         gridView.setNumColumns(boardManager.getBoard().getNumCols());
@@ -161,35 +161,35 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
                 });
     }
 
-    /**
-     * Activate the save button.
-     */
-    private void addSaveButtonListener() {
-        Button saveButton = findViewById(R.id.saver);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (boardManager.getBoardStatus()) {
-                    switchToSaveActivity();
-                } else {
-                    makeToastFinishedText();
-                }
-            }
-        });
-    }
-
-    /**
-     * Activate the load button.
-     */
-    private void addLoadButtonListener() {
-        Button loadButton = findViewById(R.id.loader);
-        loadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToLoadActivity();
-            }
-        });
-    }
+//    /**
+//     * Activate the save button.
+//     */
+//    private void addSaveButtonListener() {
+//        Button saveButton = findViewById(R.id.saver);
+//        saveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (boardManager.getBoardStatus()) {
+//                    switchToSaveActivity();
+//                } else {
+//                    makeToastFinishedText();
+//                }
+//            }
+//        });
+//    }
+//
+//    /**
+//     * Activate the load button.
+//     */
+//    private void addLoadButtonListener() {
+//        Button loadButton = findViewById(R.id.loader);
+//        loadButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switchToLoadActivity();
+//            }
+//        });
+//    }
 
     /**
      * Switch to the save activity.

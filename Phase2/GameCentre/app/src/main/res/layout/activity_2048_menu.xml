@@ -12,7 +12,7 @@
         android:layout_width="231dp"
         android:layout_height="71dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text="@string/title2048"
@@ -26,7 +26,7 @@
     <TextView
         android:id="@+id/textView6"
         android:layout_width="304dp"
-        android:layout_height="103dp"
+        android:layout_height="78dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
@@ -42,37 +42,38 @@ the 2048 tile. Get the 2048 tile in the fewest moves as possible to achieve the 
         android:id="@+id/newButton2048"
         android:layout_width="107dp"
         android:layout_height="42dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginBottom="296dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="276dp"
+        android:layout_marginEnd="8dp"
         android:background="#4898e9"
         android:text="@string/checkersNewGame"
         android:textColor="#ffffff"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/loadButton2048"
         android:layout_width="107dp"
         android:layout_height="42dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="296dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="#D94255"
         android:text="@string/checkersLoadGame"
-        android:textSize="15sp"
         android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.755"
-        app:layout_constraintStart_toEndOf="@+id/newButton2048" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newButton2048" />
 
     <Button
         android:id="@+id/leaderBoard"
         android:layout_width="142dp"
-        android:layout_height="47dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="424dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="8dp"
         android:background="#42d972"
         android:text="LEADERBOARDS"
@@ -80,7 +81,7 @@ the 2048 tile. Get the 2048 tile in the fewest moves as possible to achieve the 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/loadButton2048" />
 
     <Button
         android:id="@+id/personalLeader"
@@ -97,5 +98,5 @@ the 2048 tile. Get the 2048 tile in the fewest moves as possible to achieve the 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leaderBoard"
-        app:layout_constraintVertical_bias="0.129" />
+        app:layout_constraintVertical_bias="0.028" />
 </android.support.constraint.ConstraintLayout>
