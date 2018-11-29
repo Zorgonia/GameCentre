@@ -74,14 +74,14 @@ public class CheckerBoardAndTileTest {
         makeBasicBoard();
         checkerBoard.swapTiles(new Move(6, 6, 5, 5));
         assertEquals(R.drawable.tile_checkers_red, checkerBoard.getTileAt(5, 5).getBackground());
-        assertEquals(R.drawable.tile_blank, checkerBoard.getTileAt(6, 6).getBackground());
+        assertEquals(R.drawable.tile_checkers_blank, checkerBoard.getTileAt(6, 6).getBackground());
     }
 
     @Test
     public void testDestoryRecreate(){
         makeBasicBoard();
         checkerBoard.destroyPiece(6, 6);
-        assertEquals(R.drawable.tile_blank, checkerBoard.getTileAt(6, 6).getBackground());
+        assertEquals(R.drawable.tile_checkers_blank, checkerBoard.getTileAt(6, 6).getBackground());
         checkerBoard.addPiece(5, 5, 2);
         assertEquals(R.drawable.tile_checkers_red, checkerBoard.getTileAt(5, 5).getBackground());
     }
@@ -99,7 +99,7 @@ public class CheckerBoardAndTileTest {
         }
         checkerBoard.turnOffHighlight();
         for(int i = 0; i < 20; i++) {
-            assertEquals(R.drawable.tile_blank, checkerBoard.getTileAt(i / 7, i % 7).getBackground());
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoard.getTileAt(i / 7, i % 7).getBackground());
         }
     }
 
@@ -110,33 +110,33 @@ public class CheckerBoardAndTileTest {
         for (int i = 0; i < checkerBoardManager.BOARD_SIZE; i+= 2){
             assertEquals(R.drawable.tile_checkers_red, checkerBoardManager.getBoard().
                     getTileAt(0, i).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(0, i+1).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(1, i).getBackground());
             assertEquals(R.drawable.tile_checkers_red, checkerBoardManager.getBoard().
                     getTileAt(1, i+1).getBackground());
             assertEquals(R.drawable.tile_checkers_red, checkerBoardManager.getBoard().
                     getTileAt(2, i).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(2, i+1).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(3, i).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(3, i+1).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(4, i).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(4, i+1).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(5, i).getBackground());
             assertEquals(R.drawable.tile_checkers_black, checkerBoardManager.getBoard().
                     getTileAt(5, i+1).getBackground());
             assertEquals(R.drawable.tile_checkers_black, checkerBoardManager.getBoard().
                     getTileAt(6, i).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(6, i+1).getBackground());
-            assertEquals(R.drawable.tile_blank, checkerBoardManager.getBoard().
+            assertEquals(R.drawable.tile_checkers_blank, checkerBoardManager.getBoard().
                     getTileAt(7, i).getBackground());
             assertEquals(R.drawable.tile_checkers_black, checkerBoardManager.getBoard().
                     getTileAt(7, i+1).getBackground());
@@ -192,7 +192,7 @@ public class CheckerBoardAndTileTest {
         assertEquals(checkerBoardManager.getBoard().getTileAt(32/8, 32%8).getBackground(),
                 R.drawable.tile_checkers_black);
         assertEquals(checkerBoardManager.getBoard().getTileAt(41/8, 41%8).getBackground(),
-                R.drawable.tile_blank);
+                R.drawable.tile_checkers_blank);
         assertTrue(checkerBoardManager.getUndoStack().remove().
                 equals(new Move(32/8, 32%8, 41/8, 41%8)));
         assertFalse(checkerBoardManager.getUndoStack().removeKinged());
@@ -211,7 +211,7 @@ public class CheckerBoardAndTileTest {
         assertEquals(checkerBoardManager.getBoard().getTileAt(36/8, 36%8).getBackground(),
                 R.drawable.tile_checkers_black_king);
         assertEquals(checkerBoardManager.getBoard().getTileAt(27/8, 27%8).getBackground(),
-                R.drawable.tile_blank);
+                R.drawable.tile_checkers_blank);
         assertTrue(checkerBoardManager.getUndoStack().remove().
                 equals(new Move(36/8, 36%8, 27/8, 27%8)));
         assertFalse(checkerBoardManager.getUndoStack().removeKinged());
@@ -230,9 +230,9 @@ public class CheckerBoardAndTileTest {
         checkerBoardManager.touchMove(0);
         assertEquals(R.drawable.tile_checkers_black_king,
                 checkerBoardManager.getBoard().getTileAt(0,0).getBackground());
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(1,1).getBackground());
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(2,2).getBackground());
         assertTrue(checkerBoardManager.getUndoStack().remove().
                 equals(new Move(0/8, 0%8, 18/8, 18%8)));
@@ -252,9 +252,9 @@ public class CheckerBoardAndTileTest {
         checkerBoardManager.touchMove(36);
         assertEquals(R.drawable.tile_checkers_black,
                 checkerBoardManager.getBoard().getTileAt(4,4).getBackground());
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(5,3).getBackground());
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(6,2).getBackground());
         assertTrue(checkerBoardManager.getUndoStack().remove().
                 equals(new Move(36/8, 36%8, 50/8, 50%8)));
@@ -269,9 +269,9 @@ public class CheckerBoardAndTileTest {
         checkerBoardManager.touchMove(22);
         assertEquals(R.drawable.tile_checkers_black,
                 checkerBoardManager.getBoard().getTileAt(2,6).getBackground());
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(3,5).getBackground());
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(4,4).getBackground());
         assertTrue(checkerBoardManager.getUndoStack().remove().
                 equals(new Move(22/8, 22%8, 36/8, 36%8)));
@@ -294,7 +294,7 @@ public class CheckerBoardAndTileTest {
         assertEquals(checkerBoardManager.getBoard().getTileAt(41/8, 41%8).getBackground(),
                 R.drawable.tile_checkers_black);
         assertEquals(checkerBoardManager.getBoard().getTileAt(32/8, 32%8).getBackground(),
-                R.drawable.tile_blank);
+                R.drawable.tile_checkers_blank);
         assertTrue(checkerBoardManager.getMovePhase1());
         assertEquals(checkerBoardManager.getTurnColour(), 1);
     }
@@ -306,7 +306,7 @@ public class CheckerBoardAndTileTest {
         checkerBoardManager.touchMove(18);
         checkerBoardManager.touchMove(0);
         checkerBoardManager.undo();
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(0,0).getBackground());
         assertEquals(R.drawable.tile_checkers_red,
                 checkerBoardManager.getBoard().getTileAt(1,1).getBackground());
@@ -324,11 +324,11 @@ public class CheckerBoardAndTileTest {
         checkerBoardManager.touchMove(36);
         checkerBoardManager.touchMove(22);
         checkerBoardManager.undo();
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(2,6).getBackground());
         assertEquals(R.drawable.tile_checkers_red,
                 checkerBoardManager.getBoard().getTileAt(3,5).getBackground());
-        assertEquals(R.drawable.tile_blank,
+        assertEquals(R.drawable.tile_checkers_blank,
                 checkerBoardManager.getBoard().getTileAt(4,4).getBackground());
         assertEquals(R.drawable.tile_checkers_red,
                 checkerBoardManager.getBoard().getTileAt(5,3).getBackground());
