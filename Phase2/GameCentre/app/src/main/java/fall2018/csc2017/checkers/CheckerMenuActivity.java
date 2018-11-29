@@ -43,7 +43,9 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
         //I moved Checker_save_file to menuActivity. It is necessary here.
         CHECKER_SAVE_FILE = "checker_save_" + AccountActivity.username + ".ser";
     }
-
+    /**
+     * Create the buttons for Start.
+     */
     private void addStartButtonListener(){
         Button startButton = findViewById(R.id.StartButton);
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +57,18 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
         });
 
     }
-
+    /**
+     * Switch to game activity
+     */
     private void switchToGameActivity() {
         Intent tmp = new Intent(this, CheckerGameActivity.class);
         tempSaveToFile();
         startActivity(tmp);
     }
 
+    /**
+     * Switch Personal Score Activity
+     */
     private void switchToPersonalScoreBoardActivity() {
         Intent tmp = new Intent(this, PersonalScoreBoardActivity.class);
         tmp.putExtra("highToLow", true);
@@ -69,6 +76,9 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
         startActivity(tmp);
     }
 
+    /**
+     * Switching to Scoreboard activity
+     */
     private void switchToScoreBoardActivity() {
         Intent tmp = new Intent(this, ScoreBoardActivity.class);
         tmp.putExtra("highToLow", true);
@@ -76,7 +86,9 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
         startActivity(tmp);
     }
 
-    //TODO check that loading an empty save will prevent you from doing so
+    /**
+     * Create the buttons for Load
+     */
     private void addLoadButtonListener(){
         Button loadButton = findViewById(R.id.LoadButton);
         loadButton.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +112,9 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Create the buttons for HighScore
+     */
     private void addHighScoresButtonListener(){
         Button highScoresButton = findViewById(R.id.HighScoresButton);
         highScoresButton.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +126,9 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
 
     }
 
+    /**
+     * Create the button for personal high scores
+     */
     private void addPersonalScoresButtonListener(){
         Button personalScoresButton = findViewById(R.id.PersonalScoresButton);
         personalScoresButton.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +140,9 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
 
     }
 
+    /**
+     * Create the buttons for teaching rules
+     */
     private void addRulesButtonListener(){
         Button rulesButton = findViewById(R.id.RulesButton);
         rulesButton.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +153,9 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
         });
     }
 
+    /**
+     * Switch to rules activity.
+     */
     private void switchToRulesActivity(){
         Intent tmp = new Intent(this, CheckerRulesActivity.class);
         startActivity(tmp);
@@ -151,6 +175,10 @@ public class CheckerMenuActivity extends AppCompatActivity implements CurrentGam
         }
     }
 
+    /**
+     * Load from said filename
+     * @param filename the name of the file you want to load
+     */
     public void loadFromFile(String filename){
         try {
             InputStream inputStream = this.openFileInput(filename);

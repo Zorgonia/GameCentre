@@ -7,12 +7,14 @@ import fall2018.csc2017.slidingtiles.UndoStack;
 
 public class CheckerUndoStack extends UndoStack implements Serializable {
 
+
+    /**
+     * A list of things to use to keep track of what to undo
+     * isKinged
+     */
     private ArrayList<Boolean> isKinged;
-
     private ArrayList<Integer> positions;
-
     private ArrayList<Integer> ids;
-
     private ArrayList<Boolean> isPrimedCaptures;
 
     public CheckerUndoStack(){

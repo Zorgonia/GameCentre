@@ -103,6 +103,11 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
                 });
     }
 
+    /**
+     * Create the buttons for displaying the tiles.
+     *
+     * @param context the context
+     */
     private void createTileButtons(Context context) {
         CheckerBoard board = checkerBoardManager.getBoard();
         tileButtons = new ArrayList<>();
@@ -129,6 +134,10 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
         }
     }
 
+
+    /**
+     * Activates the Undo button.
+     */
     private void addUndoButtonListener() {
         Button undoButton = findViewById(R.id.UndoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +150,9 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
         });
     }
 
+    /**
+     * Activates the Draw button.
+     */
     private void addDrawButtonListener(){
         Button drawButton = findViewById(R.id.drawButton);
         drawButton.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +202,9 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
         }
     }
 
+    /**
+     * Activates the Undo button.
+     */
     public void deleteSaveFile(String fileName){
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
