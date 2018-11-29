@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2c3545"
     tools:context="fall2018.csc2017.slidingtiles.SlidingTilesMenuActivity">
 
     <TextView
         android:id="@+id/GameText"
-        android:layout_width="wrap_content"
+        android:layout_width="296dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="153dp"
         android:gravity="center"
-        android:text="@string/loadTitle"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        android:text="LOAD MENU"
+        android:textColor="#ff3d3d"
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/LoadButton1"
@@ -49,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="177dp"
+        android:layout_marginBottom="169dp"
         android:text="@string/loadFour" />
 
 </RelativeLayout>
