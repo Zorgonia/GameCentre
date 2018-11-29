@@ -80,6 +80,10 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
             saveToFile("save_auto" + "2048" + AccountActivity.username + ".ser");
         } else if (boardManager.gameFinished()){
             account.updateHighScores("2048",boardManager.getBoardScore());
+            account.increaseExperience(125);
+            writeAccountFile();
+        } else if (boardManager.gameOver()){
+            account.increaseExperience(50);
             writeAccountFile();
         }
         // }
