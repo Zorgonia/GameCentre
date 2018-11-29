@@ -3,7 +3,6 @@ package fall2018.csc2017.twentyfortyeight;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import fall2018.csc2017.Interfaces.TappableManager;
 import fall2018.csc2017.Score;
 
@@ -52,7 +51,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
      *
      * @param activeStatus true => playable, false => disabled
      */
-    public void setActiveStatus(boolean activeStatus) {
+    private void setActiveStatus(boolean activeStatus) {
         this.activeStatus = activeStatus;
     }
 
@@ -60,7 +59,8 @@ public class BoardManager2048 implements Serializable, TappableManager {
      * Changes the current board to a new 2048 game
      */
     public void refreshBoard() {
-        // To implement complexity pass in row and column in the method header
+        // To implement complexity pass in row and column in the method header and change the next
+        // 2 lines accordingly
         int numRows = 4;
         int numCols = 4;
         List<Tile2048> tiles = new ArrayList<>();
@@ -73,8 +73,6 @@ public class BoardManager2048 implements Serializable, TappableManager {
         score = new Score(0);
     }
 
-    // TODO: maybe combine gameFinished and gameOver
-
     /**
      * Returns true if game is won : highest tile possible achieved
      *
@@ -82,7 +80,8 @@ public class BoardManager2048 implements Serializable, TappableManager {
      */
     public boolean gameFinished() {
         for (int x = 0; x < 16; x++) {
-            if (board.getTileAt(x / 4, x % 4).getId() == 2048) {
+            if (board.getTileAt(x / board.getNumRows(),
+                    x % board.getNumRows()).getId() == 2048) {
                 setActiveStatus(false);
                 return true;
             }
@@ -95,7 +94,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
      *
      * @return true or false indicating loss
      */
-    public boolean gameOver() {
+     boolean gameOver() {
         for (int dir = 0; dir < 4; dir++) {
             if (isValidTap(dir)) {
 
@@ -122,14 +121,16 @@ public class BoardManager2048 implements Serializable, TappableManager {
 
     /**
      * Returns the Score of the current board
-     *
      * @return the Score of the current board
      */
     public Score getBoardScore() {
         return score;
     }
 
-    // TODO: return false when game is finished, true otherwise
+    /**
+     * returns true if board is playable, false if game is not playable (finished or over)
+     * @return board's active status
+     */
     public boolean getBoardStatus() {
         return activeStatus;
     }

@@ -3,16 +3,11 @@ package fall2018.csc2017.twentyfortyeight;
 import android.content.Context;
 import android.widget.Toast;
 
-import java.util.Locale;
-
-//import fall2018.csc2017.slidingtiles.BoardManager;
-
-
 public class MovementController2048 {
 
     private BoardManager2048 boardManager = null;
 
-    public MovementController2048() {
+    MovementController2048() {
     }
 
     public void setBoardManager(BoardManager2048 boardManager) {
@@ -42,10 +37,10 @@ public class MovementController2048 {
             } else if (boardManager.gameOver()) {
                 Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, String.format(Locale.CANADA, "%d : 1= up, 2=right, 3 = down, 4= left", move), Toast.LENGTH_SHORT).show();
+                int a = 0; // TODO: remove
             }
         } else {
-            Toast.makeText(context, "I can't let you do that starfox", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Invalid Move", Toast.LENGTH_SHORT).show();
         }
     }
 }
