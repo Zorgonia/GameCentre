@@ -1,8 +1,10 @@
 package fall2018.csc2017;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +62,8 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomVi
         public CustomViewHolder(final View view) {
             super(view);
             myTextView = view.findViewById(R.id.myText);
+            myTextView.setTextColor(Color.WHITE);
+            myTextView.setGravity(Gravity.CENTER);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
