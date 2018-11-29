@@ -36,8 +36,7 @@ public class PersonalScoreBoardActivity extends AppCompatActivity implements Acc
 
         topScores = new StringBuilder();
         fillTopScores();
-        String displayText = account.getUsername() + ": " +
-                "level: " + account.getLevel() + " " +
+        String displayText = "Level: " + account.getLevel() + "    " +
                 "XP: " + account.getExperience();
 
         // displaying the values
@@ -86,7 +85,7 @@ public class PersonalScoreBoardActivity extends AppCompatActivity implements Acc
             topScores.append(nextTopScore);
         }
         for (int j = limit; j < SCORE_BOARD_SIZE; j++) {
-            String nextTopScore = " ---"
+            String nextTopScore = ""
                     + System.lineSeparator();
             topScores.append(nextTopScore);
         }
