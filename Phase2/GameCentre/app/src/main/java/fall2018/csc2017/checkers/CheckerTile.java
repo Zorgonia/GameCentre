@@ -23,9 +23,10 @@ public class CheckerTile extends ParentTile implements Comparable<ParentTile>, S
      */
     public CheckerTile(int backgroundId){
         super(backgroundId);
-        Integer[] tileIds = {R.drawable.tile_blank, R.drawable.tile_checkers_black,
-                R.drawable.tile_checkers_red, R.drawable.tile_checkers_black_king,
-                R.drawable.tile_checkers_red_king, R.drawable.tile_checkers_highlight}; //May not require king images since checkers never start as kings
+        // remove 2 from each name to use the other set of checkers images
+        Integer[] tileIds = {R.drawable.tile_checkers_blank2, R.drawable.tile_checkers_black2,
+                R.drawable.tile_checkers_red2, R.drawable.tile_checkers_black_king2,
+                R.drawable.tile_checkers_red_king2, R.drawable.tile_checkers_highlight2}; //May not require king images since checkers never start as kings
         background = tileIds[backgroundId];
     }
 

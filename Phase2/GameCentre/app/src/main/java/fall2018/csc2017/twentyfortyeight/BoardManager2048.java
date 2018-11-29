@@ -105,18 +105,6 @@ public class BoardManager2048 implements Serializable, TappableManager {
         setActiveStatus(false);
         return true;
     }
-//            tempClone.adjustBoardBy(dir);
-//            for (int row = 0; row < board.getNumRows(); row++){
-//                for (int col = 0; col < board.getNumCols(); col++){
-//                    if (tempClone.getTileAt(row,col).getId() != tempClone.getTileAt(row,col).getId()){
-//                        return false;
-//                    }
-//                }
-//            }
-//        }
-//        return true;
-//    }
-
 
     @Override
     public boolean isValidTap(int instruction) {
@@ -125,25 +113,12 @@ public class BoardManager2048 implements Serializable, TappableManager {
         for (int row = 0; row < board.getNumRows(); row++) {
             for (int col = 0; col < board.getNumCols(); col++) {
                 if (tempClone.getTileAt(row, col).getId() != board.getTileAt(row, col).getId()) {
-                    return true; // if a change is found in the clone then its a valid tap
+                    return true;
                 }
             }
         }
         return false;
     }
-
-//        for (int dir = 0; dir < 4; dir++){
-//            tempClone.adjustBoardBy(dir);
-//            for (int row = 0; row < board.getNumRows(); row++){
-//                for (int col = 0; col < board.getNumCols(); col++){
-//                    if (tempClone.getTileAt(row,col).getId() != tempClone.getTileAt(row,col).getId()){
-//                        return false;
-//                    }
-//                }
-//            }
-//        }
-//        return true;
-//    }
 
     /**
      * Returns the Score of the current board
