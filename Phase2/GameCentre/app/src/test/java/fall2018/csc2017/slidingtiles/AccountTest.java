@@ -3,11 +3,12 @@ package fall2018.csc2017.slidingtiles;
 import org.junit.Test;
 
 import fall2018.csc2017.Account;
+import fall2018.csc2017.Interfaces.CurrentGameConstants;
 import fall2018.csc2017.Score;
 
 import static org.junit.Assert.*;
 
-public class AccountTest {
+public class AccountTest implements CurrentGameConstants {
 
     private Account a = new Account("user", "pass");
 
@@ -34,9 +35,9 @@ public class AccountTest {
         a.updateHighScores("Sliding Tiles",new Score(50));
         a2.updateHighScores("Sliding Tiles",new Score(50));
         a2.updateHighScores("Sliding Tiles",new Score(100));
-        assertEquals(0, a.compareTo(a2));
+        assertEquals(0, a.getTopScore(SLIDING_TILES).equals(a2.getTopScore(SLIDING_TILES)));
         a.updateHighScores("Sliding Tiles",new Score(49));
-        assertEquals(-1, a.compareTo(a2));
+        assertEquals(-1,  a.getTopScore(SLIDING_TILES).equals(a2.getTopScore(SLIDING_TILES)));
     }
 
     /**
@@ -44,19 +45,19 @@ public class AccountTest {
      */
     @Test
     public void testScoreUpdate(){
-        assertEquals(0, a.getTopScore().getScoreValue());
+        assertEquals(0, a.getTopScore(SLIDING_TILES).getScoreValue());
         Score s = new Score(300);
         a.updateHighScores("Sliding Tiles",s);
         a.updateHighScores("Sliding Tiles",new Score(150));
-        assertEquals(150, a.getTopScore().getScoreValue());
+        assertEquals(150, a.getTopScore(SLIDING_TILES).getScoreValue());
         a.updateHighScores("Sliding Tiles",new Score(180));
         a.updateHighScores("Sliding Tiles",new Score(200));
         a.updateHighScores("Sliding Tiles",new Score(250));
-        assertEquals(5, a.getHighScores().size());
-        assertTrue(a.getHighScores().contains(s));
+        assertEquals(5, a.getHighScores(SLIDING_TILES).size());
+        assertTrue(a.getHighScores(SLIDING_TILES).contains(s));
         a.updateHighScores("Sliding Tiles",new Score(100));
-        assertEquals(5, a.getHighScores().size());
-        assertFalse(a.getHighScores().contains(s));
+        assertEquals(5, a.getHighScores(SLIDING_TILES).size());
+        assertFalse(a.getHighScores(SLIDING_TILES).contains(s));
     }
 
     /**
