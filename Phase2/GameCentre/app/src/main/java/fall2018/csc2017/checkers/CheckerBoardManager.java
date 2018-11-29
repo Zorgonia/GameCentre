@@ -387,7 +387,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
         Move undoMove = undoStack.remove();
         if (undoMove != null){
             if (undoMove.getVerticalDistance() == 2){
-                undoStack.getIsPrimedCapture();
+                undoStack.removeIsPrimedCapture();
                 do{
                     board.swapTiles(undoMove);
                     int[] captureData = undoStack.removeCapture();
@@ -395,7 +395,7 @@ public class CheckerBoardManager implements Serializable, TappableManager {
                             captureData[0] % board.getNumRows(), captureData[1]);
                     processUndoKing(undoMove.getRow2(), undoMove.getCol2(), undoStack.removeKinged());
                     undoMove = undoStack.remove();
-                } while(undoStack.getIsPrimedCapture());
+                } while(undoStack.removeIsPrimedCapture());
                 undoStack.addIsPrimedCapture(false);
                 undoStack.add(undoMove);
             } else {
@@ -428,5 +428,53 @@ public class CheckerBoardManager implements Serializable, TappableManager {
      */
     public void setBoardToInactive() {
         activeStatus = false;
+    }
+
+    /**
+     * Return the value of primedCapture
+     * @return the value of primedCapture
+     */
+    public boolean getPrimedCapture(){
+        return primedCapture;
+    }
+
+    /**
+     * Set primedCapture equal to newPrimedCapture
+     * @param newPrimedCapture new value for primedCapture
+     */
+    public void setPrimedCapture(boolean newPrimedCapture){
+        primedCapture = newPrimedCapture;
+    }
+
+    /**
+     * Return the value of availableCapture
+     * @return the value of availableapture
+     */
+    public boolean getAvailableCapture(){
+        return availableCapture;
+    }
+
+    /**
+     * Set availableCapture equal to newAvailableCapture
+     * @param newAvailableCapture new value for availableCapture
+     */
+    public void setAvailableCapture(boolean newAvailableCapture){
+        availableCapture = newAvailableCapture;
+    }
+
+    /**
+     * Return the value of movePhase1
+     * @return the value of movePhase1
+     */
+    public boolean getMovePhase1(){
+        return movePhase1;
+    }
+
+    public void setMovePhase1(boolean newMovePhase1){
+        movePhase1 = newMovePhase1;
+    }
+
+    public CheckerUndoStack getUndoStack(){
+        return undoStack;
     }
 }

@@ -55,7 +55,7 @@ public class CheckerUndoStack extends UndoStack implements Serializable {
         return null;
     }
 
-    public boolean getIsPrimedCapture(){
+    public boolean removeIsPrimedCapture(){
         if (isPrimedCaptures.size() > 0){
             return isPrimedCaptures.remove(isPrimedCaptures.size() - 1);
         }

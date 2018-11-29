@@ -86,4 +86,16 @@ public class Move implements Serializable {
                 "(" + row2 + "," + col2 + ")";
     }
 
+    /**
+     * Return true if this equals other
+     * @param other the Move to compare to
+     * @return true is this and other are equal
+     */
+    public boolean equals(Move other){
+        return this.row1 == other.getRow1() &&
+                this.row2 == other.getRow2() &&
+                this.col1 == other.getCol1() &&
+                this.col2 == other.getCol2();
+    }
+
 }
