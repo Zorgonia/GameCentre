@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="153dp"
         android:gravity="center"
-        android:text="SAVE MENU"
+        android:text="@string/saveTitle"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#71da2b"
         android:textSize="50sp"

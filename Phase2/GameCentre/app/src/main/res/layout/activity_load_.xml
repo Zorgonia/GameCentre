@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="153dp"
         android:gravity="center"
-        android:text="LOAD MENU"
+        android:text="@string/loadTitle"
         android:textColor="#ff3d3d"
         android:textSize="50sp"
         android:textStyle="bold" />
