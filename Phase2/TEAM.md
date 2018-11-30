@@ -47,10 +47,13 @@ Account and score relations - Andries/Jimbo
 
 ##Phase 2:
 Done:
+The making of board being abstract for implementation in other games (Tanvir)
+The making of BoardManager to interface (Jimbo and Alex)
+Making tile abstract (Andries)
 General implementations of 2048 (Tanvir and Kevin) and Checkers (Jimbo and Alex) are complete
 Unit tests for sliding tiles board and tile generally complete (Andries)
-ScoreBoard implementation over multiple games (Jimbo)
+ScoreBoard implementation over multiple games (Jimbo and Tanvir)
 Autosaves work both for checkers and 2048, general saves also implemented in 2048. (Kevin 2048, Jimbo checkers)
 Undo works for checkers, as well as a "draw" button (Alex)
-Most of the UI looks nice (Tanvir)
-Unit tests for 2048 (Kevin), checkers (Alex),
+Most of the UI elements (Tanvir)
+Unit tests for 2048 (Kevin), checkers (Alex).
