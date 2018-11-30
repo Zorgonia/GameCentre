@@ -417,5 +417,11 @@ public class CheckerBoardAndTileTest {
         assertFalse(checkerBoardManager.getBoardStatus());
     }
 
+    @Test
+    public void testGetBoardScore(){
+        checkerBoardManager = new CheckerBoardManager();
+        assertNull(checkerBoardManager.getBoardScore());
+    }
+
 
 }
