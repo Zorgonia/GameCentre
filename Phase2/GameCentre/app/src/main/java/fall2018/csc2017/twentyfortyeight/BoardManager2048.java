@@ -98,7 +98,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
      *
      * @return true or false indicating loss
      */
-    boolean gameOver() {
+    boolean gameLost() {
         for (int dir = 0; dir < 4; dir++) {
             if (isValidTap(dir)) {
 
@@ -143,7 +143,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
 
     /**
      * Processes a slide movement by adjusting and combining tiles in the game board
-     * Precondition: gameOver() and gameFinished() needs to be false
+     * Precondition: gameLost() and gameFinished() needs to be false
      *
      * @param direction the direction of the slide
      */

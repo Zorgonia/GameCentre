@@ -195,7 +195,7 @@ class Board2048 extends GameBoard<Tile2048> implements Serializable, Iterable<Ti
 
     /**
      * Processes a slide movement by adjusting and combining tiles in the game board
-     * Precondition: gameOver() or gameFinished() needs to be false
+     * Precondition: gameLost() or gameFinished() needs to be false
      * @param direction the direction of the slide
      */
     void adjustBoardBy(int direction) {

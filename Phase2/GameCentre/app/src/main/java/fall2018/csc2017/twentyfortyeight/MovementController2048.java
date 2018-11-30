@@ -39,7 +39,7 @@ public class MovementController2048 {
             boardManager.touchMove(move);
             if (boardManager.gameFinished()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-            } else if (boardManager.gameOver()) {
+            } else if (boardManager.gameLost()) {
                 Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
             }
         } else {

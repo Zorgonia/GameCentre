@@ -109,11 +109,11 @@ public class Board2048Test {
     @Test
     public void testLosing() {
         makeAlmostLost();
-        assertEquals(boardManager.gameOver(), false);
+        assertEquals(boardManager.gameLost(), false);
         assertEquals(boardManager.getBoardStatus(), true);
         boardManager.touchMove(3);
         assertEquals(boardManager.gameFinished(), false);
-        assertEquals(boardManager.gameOver(), true);
+        assertEquals(boardManager.gameLost(), true);
         assertEquals(boardManager.getBoardStatus(), false);
     }
 

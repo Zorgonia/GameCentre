@@ -71,14 +71,14 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
                 String.valueOf(boardManager.getBoardScore().getScoreValue())));
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
 
-        if(!boardManager.gameFinished() &&! boardManager.gameOver()) {
+        if(!boardManager.gameFinished() &&! boardManager.gameLost()) {
             saveToFile(MenuActivity2048.TEMP_SAVE_FILENAME);
             saveToFile("save_auto" + Integer.toString(TWENTYFORTYEIGHT) + AccountActivity.username + ".ser");
         } else if (boardManager.gameFinished()){
             account.updateHighScores("2048",boardManager.getBoardScore());
             account.increaseExperience(125);
             writeAccountFile();
-        } else if (boardManager.gameOver()){
+        } else if (boardManager.gameLost()){
             account.increaseExperience(50);
             writeAccountFile();
         }
