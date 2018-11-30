@@ -29,9 +29,7 @@ import fall2018.csc2017.LoadActivity;
 import fall2018.csc2017.SaveActivity;
 
 /**
- * The game activity.
- * TODO: If you repeatedly load saves inside the game screen, pressing the built in back button
- * will alternate you between the game screen and the load screen (add a back button m
+ * The game activity for sliding tiles
  */
 public class GameActivity extends AppCompatActivity implements Observer, AccountConstants, CurrentGameConstants {
 

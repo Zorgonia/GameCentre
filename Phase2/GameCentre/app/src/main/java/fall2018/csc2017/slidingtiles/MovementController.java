@@ -6,18 +6,36 @@ import android.widget.Toast;
 import fall2018.csc2017.Interfaces.TappableManager;
 
 
+/**
+ * A movement controller for sliding tiles and checkers
+ */
 public class MovementController {
 
+    /**
+     * Which BoardManager to send moves to
+     */
     private TappableManager boardManager = null;
 
+    /**
+     * A default constructor
+     */
     public MovementController() {
     }
 
+    /**
+     * Setter for the board manager
+     * @param boardManager the board manager to set to
+     */
     public void setBoardManager(TappableManager boardManager) {
         this.boardManager = boardManager;
     }
 
-    public void processTapMovement(Context context, int position, boolean display) {
+    /**
+     * Takes a move from the gesture detector and if it's valid gives the move to the boardmanager
+     * @param context the context to draw things on (ie for toasts)
+     * @param position position of the move
+     */
+    public void processTapMovement(Context context, int position) {
         if (boardManager.isValidTap(position)) {
             boardManager.touchMove(position);
             if (boardManager.gameFinished()) {

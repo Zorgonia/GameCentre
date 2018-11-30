@@ -17,16 +17,33 @@ import android.widget.GridView;
 
 import fall2018.csc2017.Interfaces.TappableManager;
 
+/**
+ * A GridView that detects gestures, heavily adapted from the above link.
+ */
 public class GestureDetectGridView extends GridView {
+    /**
+     * Variables for swiping distance thresholds
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
     public static final int SWIPE_MAX_OFF_PATH = 100;
     public static final int SWIPE_THRESHOLD_VELOCITY = 100;
+    /**
+     * A gesture detector to use for the gridview
+     */
     private GestureDetector gDetector;
+    /**
+     * A movement controller to send moves to
+     */
     private MovementController mController;
+    /**
+     * A variable for confirming flings
+     */
     private boolean mFlingConfirmed = false;
+    /**
+     * Touched x and y positions
+     */
     private float mTouchX;
     private float mTouchY;
-    private TappableManager boardManager;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -50,6 +67,10 @@ public class GestureDetectGridView extends GridView {
         init(context);
     }
 
+    /**
+     * Method called when initialzing the grid view
+     * @param context the context to act on
+     */
     private void init(final Context context) {
         mController = new MovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -59,7 +80,7 @@ public class GestureDetectGridView extends GridView {
                 int position = GestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processTapMovement(context, position, true);
+                mController.processTapMovement(context, position);
                 return true;
             }
 
@@ -103,8 +124,11 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Setter for the board manager
+     * @param boardManager board manager to set to
+     */
     public void setBoardManager(TappableManager boardManager) {
-        this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
     }
 }

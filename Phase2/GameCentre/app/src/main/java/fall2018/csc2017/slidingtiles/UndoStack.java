@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import fall2018.csc2017.Move;
 
+/**
+ * An undo stack that's used in sliding tiles
+ */
 public class UndoStack implements Serializable {
     /**
      * Number of moves that will be saved on the stack at a time

@@ -4,8 +4,6 @@ package fall2018.csc2017.slidingtiles;
 Taken from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/CustomAdapter.java
 
-This Class is an overwrite of the Base Adapter class
-It is designed to aid setting the button sizes and positions in the GridView
  */
 
 
@@ -16,10 +14,25 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter to aid setting the button sizes and positions in the gridview
+ */
 public class CustomAdapter extends BaseAdapter {
+    /**
+     * An arraylist of buttons to use
+     */
     private ArrayList<Button> mButtons;
+    /**
+     * Column width and height for said buttons
+     */
     private int mColumnWidth, mColumnHeight;
 
+    /**
+     * A constructor that sets the button arraylist and height and width
+     * @param buttons button array list
+     * @param columnWidth the columnwidth
+     * @param columnHeight the columnheight
+     */
     public CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;

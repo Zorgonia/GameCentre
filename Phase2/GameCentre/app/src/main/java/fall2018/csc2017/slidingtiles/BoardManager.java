@@ -243,18 +243,4 @@ class BoardManager implements TappableManager, Serializable {
         return activeStatus;
     }
 
-//    /**
-//     * sets board activeStatus to false
-//     */
-//    void setBoardToInactive(){
-//        activeStatus = false;
-//    }
-//
-//    /**
-//     * returns the board's active status
-//     * @return activeStatus: boolean
-//     */
-//    boolean getBoardStatus(){
-//        return activeStatus;
-//    }
 }

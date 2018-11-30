@@ -48,7 +48,6 @@ public class SlidingTilesMenuActivity extends AppCompatActivity implements Curre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        boardManager = new BoardManager();
         tempSaveToFile();
 
         setContentView(R.layout.activity_sliding_menu);
@@ -99,7 +98,6 @@ public class SlidingTilesMenuActivity extends AppCompatActivity implements Curre
             @Override
             public void onClick(View v) {
                 boardManager = new BoardManager(move);
-//                boardManager.setComplexity(move);
                 boardManager.incrementUndo(undoLimitChange);
                 boardManager.setLimited(undoLimited);
                 boardManager.refreshBoard();

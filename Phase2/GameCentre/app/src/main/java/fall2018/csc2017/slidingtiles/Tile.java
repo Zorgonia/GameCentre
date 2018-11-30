@@ -5,7 +5,7 @@ import fall2018.csc2017.ParentClasses.ParentTile;
 import java.io.Serializable;
 
 /**
- * A Tile in a sliding tiles puzzle.
+ * A Tile in a sliding tiles puzzle. Child of ParentTile
  */
 public class Tile extends ParentTile implements Comparable<ParentTile>, Serializable {
 
