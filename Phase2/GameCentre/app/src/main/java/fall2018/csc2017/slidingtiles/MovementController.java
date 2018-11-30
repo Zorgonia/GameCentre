@@ -3,7 +3,7 @@ package fall2018.csc2017.slidingtiles;
 import android.content.Context;
 import android.widget.Toast;
 
-import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.Interfaces.ManagerInterface;
 
 
 /**
@@ -14,7 +14,7 @@ public class MovementController {
     /**
      * Which BoardManager to send moves to
      */
-    private TappableManager boardManager = null;
+    private ManagerInterface boardManager = null;
 
     /**
      * A default constructor
@@ -26,7 +26,7 @@ public class MovementController {
      * Setter for the board manager
      * @param boardManager the board manager to set to
      */
-    public void setBoardManager(TappableManager boardManager) {
+    public void setBoardManager(ManagerInterface boardManager) {
         this.boardManager = boardManager;
     }
 

@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.Interfaces.ManagerInterface;
 import fall2018.csc2017.Score;
 
 /**
  * A board manager for the 2048 board. Controls moves.
  */
-public class BoardManager2048 implements Serializable, TappableManager {
+public class BoardManager2048 implements Serializable, ManagerInterface {
 
     /**
      * The board being managed.

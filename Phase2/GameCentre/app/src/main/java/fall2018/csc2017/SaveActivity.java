@@ -13,9 +13,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.CurrentGameConstants;
-import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.Interfaces.ManagerInterface;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTilesMenuActivity;
 import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
@@ -37,7 +36,7 @@ public class SaveActivity extends AppCompatActivity implements CurrentGameConsta
     /**
      * The board manager.
      */
-    private TappableManager boardManager;
+    private ManagerInterface boardManager;
     /**
      * The current game by CurrentGameConstants
      */
@@ -103,7 +102,7 @@ public class SaveActivity extends AppCompatActivity implements CurrentGameConsta
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (TappableManager) input.readObject();
+                boardManager = (ManagerInterface) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

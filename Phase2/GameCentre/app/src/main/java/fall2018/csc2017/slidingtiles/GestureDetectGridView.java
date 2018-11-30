@@ -15,7 +15,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
-import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.Interfaces.ManagerInterface;
 
 /**
  * A GridView that detects gestures, heavily adapted from the above link.
@@ -128,7 +128,7 @@ public class GestureDetectGridView extends GridView {
      * Setter for the board manager
      * @param boardManager board manager to set to
      */
-    public void setBoardManager(TappableManager boardManager) {
+    public void setBoardManager(ManagerInterface boardManager) {
         mController.setBoardManager(boardManager);
     }
 }

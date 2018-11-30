@@ -3,7 +3,10 @@ package fall2018.csc2017.Interfaces;
 import fall2018.csc2017.ParentClasses.GameBoard;
 import fall2018.csc2017.Score;
 
-public interface TappableManager {
+/**
+ * An interface that must be implemented by all board managers
+ */
+public interface ManagerInterface {
     /**
      * Return the current board.
      */

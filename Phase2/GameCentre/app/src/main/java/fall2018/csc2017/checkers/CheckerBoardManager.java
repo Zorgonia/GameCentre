@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.Interfaces.TappableManager;
+import fall2018.csc2017.Interfaces.ManagerInterface;
 import fall2018.csc2017.Move;
 import fall2018.csc2017.Score;
 
 
-public class CheckerBoardManager implements Serializable, TappableManager {
+public class CheckerBoardManager implements Serializable, ManagerInterface {
 
     /**
      * the Board being managed
