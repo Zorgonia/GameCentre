@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import fall2018.csc2017.Account;
 import fall2018.csc2017.Interfaces.AccountConstants;
+import fall2018.csc2017.slidingtiles.R;
 
 import static fall2018.csc2017.AccountActivity.findAccount;
 

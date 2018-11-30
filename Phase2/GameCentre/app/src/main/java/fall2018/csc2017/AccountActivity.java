@@ -18,9 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import fall2018.csc2017.Interfaces.AccountConstants;
-import fall2018.csc2017.slidingtiles.ForgetActivity;
 import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.slidingtiles.SignUpActivity;
 
 public class AccountActivity extends AppCompatActivity implements Serializable, AccountConstants {
     /**
