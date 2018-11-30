@@ -32,9 +32,9 @@ Team Contract:
 ## Notes:
 - The commit names refer to the following utorids: Jimbo is xiejiab1, MD Tanvir Hyder is hydermd1, hartand4 is hartand4, Alexandre Nunes is nunesale, and Zorgonia is yangke16 (will be yangke16 on lab computers)
 
-##Current contributions
+## Current contributions
 
-##Phase 1:
+## Phase 1:
 Account (sign up, sign in) - Andries/Jimbo
 Save/Load - Jimbo/Kevin
 Autosave- Jimbo
@@ -45,7 +45,8 @@ Complexity - Kevin
 Scoreboard finish up - Tanvir (maybe other people if required)
 Account and score relations - Andries/Jimbo
 
-##Phase 2:
+## Phase 2:
+### This list is ordered by feature
 Done:
 The making of board into generic class GameBoard implementation for other games (Tanvir)
 The making of BoardManager to interface (Jimbo and Alex)
@@ -57,3 +58,14 @@ Autosaves work both for checkers and 2048, general saves also implemented in 204
 Undo works for checkers, as well as a "draw" button (Alex)
 Most of the UI elements (Tanvir)
 Unit tests for 2048 (Kevin), checkers (Alex).
+
+### This list is ordered by team member
+Tanvir Hyder: Designed 2048 game along with Kevin. Designed most of the UI. Score and Level. Designed score board and
+personal score board along with Jimbo. Implemented GameBoard generic class. Implemented feature level and xp.
+Kevin Yang: Implemented the 2048 along with Tanvir, and have it be acceptable by interfaces and parent classes.
+Added ability to save/load for 2048. Implemented lots of game screens. Implemented hashmaps for account info.
+Alex: Along with Jimbo, Implemented Checkers. Was responsible for lots of its logic and design, such as design in
+Checker’s Manager, Gameactivity, Undo.
+Jimbo: Along with Alex, implemented Checkers. Was responsible for CheckerBoard and filling in some methods,
+such as making of the board, autosave. Made Scoreboard, parent classes, and interfaces to be acceptable by all games.
+Andries: Made sliding tiles always solvable. Implemented unittests for silding tiles. Made tile abstract.
