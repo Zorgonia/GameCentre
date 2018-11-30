@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,9 +15,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import fall2018.csc2017.Account;
-import fall2018.csc2017.AccountActivity;
 import fall2018.csc2017.Interfaces.AccountConstants;
+import fall2018.csc2017.slidingtiles.R;
 
 /**
  * The activity for forgot password.

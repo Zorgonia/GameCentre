@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">SlidingTiles</string>
-    <string name="saveTitle">Save Games Inc</string>
+    <string name="app_name">Game Centre</string>
+    <string name="saveTitle">Save Menu</string>
     <string name="save">Save</string>
     <string name="saveOne">Save 1</string>
     <string name="saveTwo">Save 2</string>
     <string name="saveThree">Save 3</string>
-    <string name="loadTitle">Load Games Inc</string>
+    <string name="loadTitle">Load Menu</string>
     <string name="loadOne">Load 1</string>
     <string name="load">Load</string>
     <string name="loadTwo">Load 2</string>
@@ -18,17 +18,17 @@
     <string name="passwordField">Password</string>
     <string name="newUsernameField">New Username</string>
     <string name="newPasswordField">New Password</string>
-    <string name="welcomeText">Welcome to the Game Centre!</string>
+    <string name="welcomeText">Game Centre</string>
     <string name="complexity">Complexity</string>
     <string name="newGame">New Game</string>
     <string name="loadGame">Load Saved Game</string>
-    <string name="personalScore">== PERSONAL BESTS ==</string>
-    <string name="allTimeScore">== LEADERBOARDS ==</string>
+    <string name="personalScore">PERSONAL BESTS</string>
+    <string name="allTimeScore">LEADERBOARD</string>
     <string name="gameText">Welcome To Sliding Tiles \n A Puzzle Game where you must arrange the numbers in the correct order</string>
     <string name="saveGame">Save Game</string>
     <string name="defaultComplex">Complexity will be : 3 x 3</string>
-    <string name="subtract">Subtract</string>
-    <string name="add">Add</string>
+    <string name="subtract">-</string>
+    <string name="add">+</string>
     <string name="defaultUndoNum">Undo limit will be: 3</string>
     <string name="toggleUndoLimit">Toggle Limit</string>
     <string name="UndoUnlimited">Undo limit will be: unlimited</string>
@@ -37,8 +37,6 @@
     <string name="checkersTitle">CHECKERS!</string>
     <string name="checkersNewGame">NEW GAME</string>
     <string name="checkersLoadGame">LOAD GAME</string>
-    <string name="checkersLeaderboard">==LEADERBOARDS==</string>
-    <string name="checkersPersonalBests">==PERSONAL BESTS==</string>
     <string name="title2048">2048</string>
     <string name="newAccount">Create An Account</string>
     <string name="signUpText">Click here to sign up</string>
@@ -57,4 +55,15 @@
         declare a draw.</string>
     <string name="rules6">Press the back button to return to the menu</string>
     <string name="drawButton">Draw</string>
+    <string name="rules_2048">Combine identical tiles by swiping to reach the the 2048 tile.
+        Get the 2048 tile in the fewest moves as possible to achieve the best score.</string>
+    <string name="forgetPassText">Enter your current username and level as verification with your new password</string>
+    <string name="level">Level</string>
+    <string name="forgotPass">Reset Password</string>
+    <string name="changePass">Change Password</string>
+    <string name="forgot">Forgot Password?</string>
+    <string name="player">PLAYER</string>
+    <string name="topS">TOP SCORE</string>
+    <string name="sliding_tiles">Sliding Tiles</string>
+    <string name="main_menu">Choose a Game</string>
 </resources>
