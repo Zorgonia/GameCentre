@@ -6,6 +6,7 @@ import java.util.List;
 
 import fall2018.csc2017.Interfaces.ManagerInterface;
 import fall2018.csc2017.Move;
+import fall2018.csc2017.Score;
 
 
 public class CheckerBoardManager implements Serializable, ManagerInterface {
@@ -240,6 +241,14 @@ public class CheckerBoardManager implements Serializable, ManagerInterface {
         } else{
             return 1;
         }
+    }
+
+    /**
+     * Get score of the board in terms of number of moves of player 1
+     * @return score of the board
+     */
+    public Score getBoardScore(){
+        return null;
     }
 
     /**

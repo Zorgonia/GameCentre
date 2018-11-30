@@ -18,6 +18,13 @@ public interface ManagerInterface {
     void refreshBoard();
 
     /**
+     * Get score of the board
+     *
+     * @return the Score of the board
+     */
+    Score getBoardScore();
+
+    /**
      * Return whether the tiles are in row-major order.
      *
      * @return whether the tiles are in row-major order
