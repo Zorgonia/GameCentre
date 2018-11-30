@@ -27,12 +27,17 @@ Phase 2:
 Done:
 General implementations of 2048 (Tanvir and Kevin) and Checkers (Jimbo and Alex) are complete
 Unit tests for sliding tiles board and tile generally complete (Andries)
+ScoreBoard implementation over multiple games (Jimbo)
+Autosaves work both for checkers and 2048, general saves also implemented in 2048. (Kevin 2048, Jimbo checkers)
+Undo works for checkers, as well as a "draw" button (Alex)
+Most of the UI looks nice (Tanvir)
+Unit tests for 2048 (Kevin), checkers (Alex),
+
 
 To work on currently:
 - Do unit tests/provide code coverage for many of the testable classes
     - Currently Andries working on the Unit testing for sliding tiles
     - Move towards testing 2048 and checkers since complete
-- Saving/Loading? maybe
 - Make use of interfaces and abstract classes for the implementation fo 2048 and checkers
     - Everyone contributing to this
 - Make use of more design patterns if possible
