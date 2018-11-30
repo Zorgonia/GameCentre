@@ -141,7 +141,7 @@ class BoardManager implements ManagerInterface, Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    public boolean isValidTap(int position) {
+    public boolean isValidMove(int position) {
 
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();

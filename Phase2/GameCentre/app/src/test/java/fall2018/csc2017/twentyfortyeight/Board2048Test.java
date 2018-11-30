@@ -101,9 +101,9 @@ public class Board2048Test {
     @Test
     public void testIsValidMove() {
         makeAlmostLost();
-        assertEquals(boardManager.isValidTap(4),false);
-        assertEquals(boardManager.isValidTap(1), false);
-        assertEquals(boardManager.isValidTap(2),true );
+        assertEquals(boardManager.isValidMove(4),false);
+        assertEquals(boardManager.isValidMove(1), false);
+        assertEquals(boardManager.isValidMove(2),true );
     }
 
     @Test

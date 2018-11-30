@@ -159,33 +159,33 @@ public class CheckerBoardAndTileTest {
     @Test
     public void testIsValidTap(){
         checkerBoardManager = new CheckerBoardManager();
-        assertFalse(checkerBoardManager.isValidTap(6));
+        assertFalse(checkerBoardManager.isValidMove(6));
         assertFalse(checkerBoardManager.getAvailableCapture());
 
-        assertTrue(checkerBoardManager.isValidTap(41));
+        assertTrue(checkerBoardManager.isValidMove(41));
         assertFalse(checkerBoardManager.getAvailableCapture());
 
         checkerBoardManager.getBoard().swapTiles(new Move(5, 1, 0, 0));
-        assertFalse(checkerBoardManager.isValidTap(43));
+        assertFalse(checkerBoardManager.isValidMove(43));
         assertTrue(checkerBoardManager.getAvailableCapture());
 
-        assertTrue(checkerBoardManager.isValidTap(50));
+        assertTrue(checkerBoardManager.isValidMove(50));
         assertTrue(checkerBoardManager.getAvailableCapture());
 
         checkerBoardManager.setMovePhase1(false);
-        assertTrue(checkerBoardManager.isValidTap(34));
+        assertTrue(checkerBoardManager.isValidMove(34));
 
         checkerBoardManager.setPrimedCapture(true);
-        assertFalse(checkerBoardManager.isValidTap(50));
+        assertFalse(checkerBoardManager.isValidMove(50));
 
         ArrayList<Integer> highlight = new ArrayList<>();
         highlight.add(50);
         checkerBoardManager.getBoard().highlight(highlight);
-        assertTrue(checkerBoardManager.isValidTap(50));
-        assertFalse(checkerBoardManager.isValidTap(34));
+        assertTrue(checkerBoardManager.isValidMove(50));
+        assertFalse(checkerBoardManager.isValidMove(34));
 
         checkerBoardManager.setBoardToInactive();
-        assertFalse(checkerBoardManager.isValidTap(50));
+        assertFalse(checkerBoardManager.isValidMove(50));
     }
 
     @Test

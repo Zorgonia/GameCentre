@@ -135,9 +135,9 @@ public class BoardAndTileTest {
     @Test
     public void testIsValidTap() {
         setUpCorrect4();
-        assertTrue(boardManager.isValidTap(11));
-        assertFalse(boardManager.isValidTap(15));
-        assertFalse(boardManager.isValidTap(10));
+        assertTrue(boardManager.isValidMove(11));
+        assertFalse(boardManager.isValidMove(15));
+        assertFalse(boardManager.isValidMove(10));
     }
 
     /**

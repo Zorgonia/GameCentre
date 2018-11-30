@@ -131,7 +131,7 @@ public class CheckerBoardManager implements Serializable, ManagerInterface {
      * @param position the tile to check
      * @return true if tap is valid, false otherwise
      */
-    public boolean isValidTap(int position){
+    public boolean isValidMove(int position){
         int row = position / board.getNumRows();
         int col = position % board.getNumCols();
         if (!activeStatus){

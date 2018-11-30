@@ -37,7 +37,7 @@ public interface ManagerInterface {
      * @param position position tapped by the user
      * @return true if tap is valid
      */
-    boolean isValidTap(int position);
+    boolean isValidMove(int position);
 
     /**
      * Perform the correct move or function according to the position tapped by the user

@@ -100,7 +100,7 @@ public class BoardManager2048 implements Serializable, ManagerInterface {
      */
     boolean gameLost() {
         for (int dir = 0; dir < 4; dir++) {
-            if (isValidTap(dir)) {
+            if (isValidMove(dir)) {
 
                 return false;
             }
@@ -110,7 +110,7 @@ public class BoardManager2048 implements Serializable, ManagerInterface {
     }
 
     @Override
-    public boolean isValidTap(int instruction) {
+    public boolean isValidMove(int instruction) {
         Board2048 tempClone = board.getClone();
         tempClone.adjustBoardBy(instruction);
         for (int row = 0; row < board.getNumRows(); row++) {
