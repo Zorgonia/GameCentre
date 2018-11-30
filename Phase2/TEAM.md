@@ -47,7 +47,7 @@ Account and score relations - Andries/Jimbo
 
 ##Phase 2:
 Done:
-The making of board being abstract for implementation in other games (Tanvir)
+The making of board into generic class GameBoard implementation for other games (Tanvir)
 The making of BoardManager to interface (Jimbo and Alex)
 Making tile abstract (Andries)
 General implementations of 2048 (Tanvir and Kevin) and Checkers (Jimbo and Alex) are complete

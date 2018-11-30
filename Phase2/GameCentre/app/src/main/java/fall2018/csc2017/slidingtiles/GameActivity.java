@@ -55,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Account
      * Constants for exp on move and on finishing the game.
      */
     private static final int MOVE_EXP = 5;
-    private static final int FINISH_EXP = 50;
+    private static final int FINISH_EXP = 150;
 
     /**
      * Set up the background image for each button based on the master list

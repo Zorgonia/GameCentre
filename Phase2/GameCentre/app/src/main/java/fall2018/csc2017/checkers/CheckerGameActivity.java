@@ -60,6 +60,7 @@ public class CheckerGameActivity extends AppCompatActivity implements Observer, 
                 }
                 else {
                     turnDisplay.setText(String.format("Black Wins!"));
+                    account.increaseExperience(200);
                 }
                 account.getCheckersScore().increaseScore();
                 writeAccountFile();
