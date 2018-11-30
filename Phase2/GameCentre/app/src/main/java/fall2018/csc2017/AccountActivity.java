@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.slidingtiles.R;
 
+/**
+ * The login activity.
+ */
 public class AccountActivity extends AppCompatActivity implements Serializable, AccountConstants {
     /**
      * A static ArrayList of all accounts, and its save file.
@@ -61,6 +64,9 @@ public class AccountActivity extends AppCompatActivity implements Serializable, 
         startActivity(tmp);
     }
 
+    /**
+     * Add a forget password button listener
+     */
     private void addForgetButtonListener(){
         Button forget = findViewById(R.id.forgetButton);
         forget.setOnClickListener(new View.OnClickListener() {
@@ -71,11 +77,17 @@ public class AccountActivity extends AppCompatActivity implements Serializable, 
         });
     }
 
+    /**
+     * Switch to the forget password activity
+     */
     private void switchToForgetPassword() {
         Intent tmp = new Intent(this, ForgetActivity.class);
         startActivity(tmp);
     }
 
+    /**
+     * Add a sign in button listener
+     */
     private void addSignInButtonListener() {
         Button saveButton = findViewById(R.id.SignInButton);
         final EditText Username = findViewById(R.id.LoginName);
@@ -91,6 +103,12 @@ public class AccountActivity extends AppCompatActivity implements Serializable, 
         });
     }
 
+    /**
+     * A method for checking whether a sign in is successful
+     * @param user the username inputted
+     * @param pass password inputted
+     * @param allA all accounts file
+     */
     public void signIn(String user, String pass, ArrayList<Account> allA){
         Account a = findAccount(user, allA);
         if (user.equals("") ||
@@ -104,7 +122,7 @@ public class AccountActivity extends AppCompatActivity implements Serializable, 
             else {
                 saveSignedInAccount(a, SINGLE_ACC_FILE);
                 makeToast("Successfully Signed In");
-                switchToStartingActivity();
+                switchToGameSelectActivity();
             }
         }else{
             makeToast("Invalid Account!");
@@ -129,7 +147,10 @@ public class AccountActivity extends AppCompatActivity implements Serializable, 
         readAllAccountFile(ACCOUNT_FILENAME);
     }
 
-    private void switchToStartingActivity() {
+    /**
+     * Switch to the game select activity
+     */
+    private void switchToGameSelectActivity() {
         Intent tmp = new Intent(this, GameSelectActivity.class);
         startActivity(tmp);
     }

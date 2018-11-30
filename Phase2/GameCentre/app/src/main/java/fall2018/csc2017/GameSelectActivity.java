@@ -21,6 +21,7 @@ import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
  * Using much code from https://developer.android.com/guide/topics/ui/layout/recyclerview#java
  */
 public class GameSelectActivity extends AppCompatActivity implements CurrentGameConstants {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +32,10 @@ public class GameSelectActivity extends AppCompatActivity implements CurrentGame
         gameList.add("Checkers");
         gameList.add("twenty forty eight");
         RecyclerView rv = findViewById(R.id.RecyclerGame);
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL );
-        rv.addItemDecoration(itemDecoration);
         final RecycleAdapter adapter = new RecycleAdapter(gameList);
         adapter.setOnItemClickListener(new RecycleAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                //Toast.makeText(GameSelectActivity.this,String.format(Locale.CANADA,"%s",adapter.dataSet.get(position)) ,Toast.LENGTH_SHORT).show();
                 switchToGame(position);
             }
         });
@@ -48,6 +46,7 @@ public class GameSelectActivity extends AppCompatActivity implements CurrentGame
     /**
      * A method that switches the current screen to a game home screen
      * currentGame is updated to match the package name of said game
+     *
      * @param position the position of the click on the recycler view
      */
     public void switchToGame(int position) {

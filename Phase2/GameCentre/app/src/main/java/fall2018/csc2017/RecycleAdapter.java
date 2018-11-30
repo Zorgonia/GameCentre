@@ -24,7 +24,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomVi
     /**
      * Data to be displayed on recycler view
      */
-    public List<String> dataSet;
+    private List<String> dataSet;
 
     /**
      * An onclick listener
@@ -42,7 +42,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomVi
      * Method that sets the onclick listener
      * @param listener the listener to bind it to
      */
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    void setOnItemClickListener(OnItemClickListener listener) {
         this.clickListener = listener;
     }
 
@@ -53,13 +53,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomVi
         /**
          * The text view component to use
          */
-        public TextView myTextView;
+        TextView myTextView;
 
         /**
          * The constructor
          * @param view the view for the view holder
          */
-        public CustomViewHolder(final View view) {
+        CustomViewHolder(final View view) {
             super(view);
             myTextView = view.findViewById(R.id.myText);
             myTextView.setTextColor(Color.WHITE);
@@ -80,10 +80,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomVi
 
         @Override
         public void onClick(View view) {
-//            int position = getAdapterPosition();
-//            if (position != RecyclerView.NO_POSITION) {
-//                Toast.makeText(context, dataSet.get(position), Toast.LENGTH_SHORT).show();
-//            }
         }
     }
 
@@ -91,7 +87,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomVi
      * The constructor for the adapter
      * @param dataSet the data to adapt
      */
-    public RecycleAdapter(List<String> dataSet) {
+    RecycleAdapter(List<String> dataSet) {
         this.dataSet = dataSet;
     }
 
@@ -110,7 +106,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.CustomVi
     public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int position) {
         String gameName = dataSet.get(position);
         viewHolder.myTextView.setText(gameName);
-        //viewHolder.myButton.setEnabled(true);
     }
 
     @Override

@@ -16,13 +16,31 @@ import java.util.Collections;
 import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.slidingtiles.R;
 
+/**
+ * An activity for the personal score board
+ */
 public class PersonalScoreBoardActivity extends AppCompatActivity implements AccountConstants {
 
+    /**
+     * Account to display data
+     */
     private static Account account;
+    /**
+     * The way to display the top scores
+     */
     private StringBuilder topScores;
+    /**
+     * Whether to have them high to low or low to high
+     */
     private boolean highToLow = false;
+    /**
+     * What the current game is referenced by CurrentGameConstants
+     */
     private int currentGame = -1;
 
+    /**
+     * Number of personals to display
+     */
     private static final int SCORE_BOARD_SIZE = 5;
 
     @Override

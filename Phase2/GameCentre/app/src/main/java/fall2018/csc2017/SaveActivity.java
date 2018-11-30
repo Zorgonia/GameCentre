@@ -20,6 +20,9 @@ import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTilesMenuActivity;
 import fall2018.csc2017.twentyfortyeight.MenuActivity2048;
 
+/**
+ * A save activity
+ */
 public class SaveActivity extends AppCompatActivity implements CurrentGameConstants {
 
 
@@ -35,6 +38,9 @@ public class SaveActivity extends AppCompatActivity implements CurrentGameConsta
      * The board manager.
      */
     private TappableManager boardManager;
+    /**
+     * The current game by CurrentGameConstants
+     */
     private int currentGame;
 
     @Override
@@ -54,7 +60,6 @@ public class SaveActivity extends AppCompatActivity implements CurrentGameConsta
 
     /**
      * Loads the right game file corresponding to the current game.
-     * //TODO put some error checking in.
      */
     private void loadGameBoard() {
         if (currentGame == SLIDING_TILES) {

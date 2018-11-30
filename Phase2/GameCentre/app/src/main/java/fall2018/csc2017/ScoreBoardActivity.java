@@ -16,9 +16,18 @@ import java.util.Comparator;
 import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.slidingtiles.R;
 
+/**
+ * An activity for the all time leaderboard (one score per user)
+ */
 public class ScoreBoardActivity extends AppCompatActivity implements AccountConstants {
+    /**
+     * Number of scores to display (ie number of unique users)
+     */
     private static final int SCORE_BOARD_SIZE = 10;
 
+    /**
+     * StringBuilders for the top players and scores
+     */
     private StringBuilder topScores;
     private StringBuilder topPlayers;
 
@@ -101,12 +110,8 @@ public class ScoreBoardActivity extends AppCompatActivity implements AccountCons
     /**
      * updates topScores and topPlayers from allAccounts
      */
-    // TODO: have scoreboard do it for specific games, not only sliding tiles
     private void fillDisplayValues(){
         ArrayList<Account> alteredAllAccounts = getScoreBoardAccounts();
-//        if (highToLow){
-//            Collections.reverse(alteredAllAccounts);
-//        }
         int limit = Math.min(alteredAllAccounts.size(), SCORE_BOARD_SIZE);
         for (int i = 0; i < limit; i++) {
             String nextTopPlayer = alteredAllAccounts.get(i).getUsername()

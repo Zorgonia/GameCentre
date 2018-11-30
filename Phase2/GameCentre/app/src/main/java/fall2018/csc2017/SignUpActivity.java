@@ -16,12 +16,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import fall2018.csc2017.Account;
 import fall2018.csc2017.Interfaces.AccountConstants;
 import fall2018.csc2017.slidingtiles.R;
 
 import static fall2018.csc2017.AccountActivity.findAccount;
 
+/**
+ * An activity for the sign up page
+ */
 public class SignUpActivity extends AppCompatActivity implements Serializable, AccountConstants {
 
     /**
@@ -37,6 +39,9 @@ public class SignUpActivity extends AppCompatActivity implements Serializable, A
         addSignUpButtonListener();
     }
 
+    /**
+     * A sign up button listener
+     */
     private void addSignUpButtonListener() {
         Button saveButton = findViewById(R.id.signUpButton);
         final EditText Username = findViewById(R.id.signUpName);
@@ -46,12 +51,17 @@ public class SignUpActivity extends AppCompatActivity implements Serializable, A
             public void onClick(View v) {
                 String user = Username.getText().toString();
                 String pass = Password.getText().toString();
-                signIn(user, pass);
+                signUp(user, pass);
             }
         });
     }
 
-    public void signIn(String user, String pass){
+    /**
+     * The method run when the "sign up" button is pressed to confirm is a valid account
+     * @param user the username to check
+     * @param pass the password to check
+     */
+    public void signUp(String user, String pass){
         if (user.equals("") || pass.equals("")) {
             makeToast("Credentials Incomplete!");
         } else if (findAccount(user, allAccounts) == null) {

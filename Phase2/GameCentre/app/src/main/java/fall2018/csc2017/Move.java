@@ -71,6 +71,10 @@ public class Move implements Serializable {
         return col2;
     }
 
+    /**
+     * Gets the vertical distance between the two tiles to swap
+     * @return the vertical distance
+     */
     public int getVerticalDistance(){
         return Math.abs(row2 - row1);
     }

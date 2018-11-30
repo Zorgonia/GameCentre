@@ -122,6 +122,11 @@ public class ForgetActivity extends AppCompatActivity implements AccountConstant
         saveAccFile(file, allA);
     }
 
+    /**
+     * A method for saving the account to a file with all account data
+     * @param file the file to save to
+     * @param allA the array list of all accounts
+     */
         private void saveAccFile(String file, ArrayList<Account> allA){
         try {
             ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(

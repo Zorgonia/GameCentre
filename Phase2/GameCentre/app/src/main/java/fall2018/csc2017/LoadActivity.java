@@ -83,10 +83,6 @@ public class LoadActivity extends AppCompatActivity implements CurrentGameConsta
                 if (boardManager != null) {
                     saveToFile(TEMP_SAVE_FILENAME);
                     makeToast("Successfully Loaded Game");
-                    //TODO: I commented this out because it didn't work fluidly with 2048 but I noticed something while doing that
-                    //Not sure if this exactly was the cause, but saves wouldn't work properly if you closed the app
-                    //Saves currently work as intended (as in they carry on if you turn off the device) needs more testing
-//                    GameActivity.instance.finish();
                     finish();
                     switchToGame();
                 } else {
