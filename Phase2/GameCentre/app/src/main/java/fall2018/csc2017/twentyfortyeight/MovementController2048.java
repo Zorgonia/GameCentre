@@ -3,32 +3,36 @@ package fall2018.csc2017.twentyfortyeight;
 import android.content.Context;
 import android.widget.Toast;
 
+/**
+ * A movement controller class that takes movements from the gesture detector and sends them to boardManager
+ */
 public class MovementController2048 {
 
+    /**
+     * Board manager to interact with
+     */
     private BoardManager2048 boardManager = null;
 
+    /**
+     * A default constructor
+     */
     MovementController2048() {
     }
 
-    // TODO: edit the class to get rid of unused lines or params
+    /**
+     * Setter for boardManager
+     * @param boardManager board manager to set to
+     */
     public void setBoardManager(BoardManager2048 boardManager) {
         this.boardManager = boardManager;
     }
 
-    //    public void processTapMovement(Context context, int instruction, boolean display) {
-//        if (boardManager.isValidMove(instruction)) {
-//            boardManager.touchMove(instruction);
-//            if (boardManager.gameFinished()) {
-//                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-//            }
-//        } else if (!this.boardManager.getBoardStatus()){
-//            Toast.makeText(context, "Press back button to exit", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-    void processSwipeMovement(Context context, int move, boolean display) {
+    /**
+     * A method that takes in a swipe to send to board if it's a valid move
+     * @param context the context to display things to if needed (like a toast)
+     * @param move the move that it was given
+     */
+    void processSwipeMovement(Context context, int move) {
         if (!boardManager.getBoardStatus()) {
             Toast.makeText(context, "The game is over, press back to return to the main menu", Toast.LENGTH_SHORT).show();
         } else if (boardManager.isValidTap(move)) {
@@ -37,8 +41,6 @@ public class MovementController2048 {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
             } else if (boardManager.gameOver()) {
                 Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
-            } else {
-                int a = 0; // TODO: remove
             }
         } else {
             Toast.makeText(context, "Invalid Move", Toast.LENGTH_SHORT).show();

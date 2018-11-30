@@ -3,9 +3,13 @@ package fall2018.csc2017.twentyfortyeight;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import fall2018.csc2017.Interfaces.TappableManager;
 import fall2018.csc2017.Score;
 
+/**
+ * A board manager for the 2048 board. Controls moves.
+ */
 public class BoardManager2048 implements Serializable, TappableManager {
 
     /**
@@ -94,7 +98,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
      *
      * @return true or false indicating loss
      */
-     boolean gameOver() {
+    boolean gameOver() {
         for (int dir = 0; dir < 4; dir++) {
             if (isValidTap(dir)) {
 
@@ -121,6 +125,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
 
     /**
      * Returns the Score of the current board
+     *
      * @return the Score of the current board
      */
     public Score getBoardScore() {
@@ -129,6 +134,7 @@ public class BoardManager2048 implements Serializable, TappableManager {
 
     /**
      * returns true if board is playable, false if game is not playable (finished or over)
+     *
      * @return board's active status
      */
     public boolean getBoardStatus() {

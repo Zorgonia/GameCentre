@@ -64,18 +64,13 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
      * The method that updates the display
      */
     public void display() {
-        //  if (boardManager.getBoardStatus()) {
-        //boardManager.getBoardScore().increaseScore();
         updateTileButtons();
 
-        // makeToastFinishedText();
         TextView scoreDisplay = findViewById(R.id.score2048);
         scoreDisplay.setText(String.format("Score: %s",
                 String.valueOf(boardManager.getBoardScore().getScoreValue())));
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-        //saveFinalScore();
-        //account.increaseExperience(MOVE_EXP);
-        //
+
         if(!boardManager.gameFinished() &&! boardManager.gameOver()) {
             saveToFile(MenuActivity2048.TEMP_SAVE_FILENAME);
             saveToFile("save_auto" + Integer.toString(TWENTYFORTYEIGHT) + AccountActivity.username + ".ser");
@@ -87,7 +82,6 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
             account.increaseExperience(50);
             writeAccountFile();
         }
-        // }
     }
 
 
@@ -206,6 +200,7 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
     private void switchToLoadActivity() {
         Intent tmp = new Intent(this, LoadActivity.class);
         tmp.putExtra("currentGame",TWENTYFORTYEIGHT);
+        finish();
         startActivity(tmp);
     }
     /**
@@ -230,6 +225,10 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
         }
     }
 
+    /**
+     * Saves to a file with name fileName
+     * @param fileName the file to save to
+     */
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -274,6 +273,9 @@ public class GameActivity2048 extends AppCompatActivity implements Observer, Acc
         allAccounts.add(account);
     }
 
+    /**
+     * Reads the files for accounts
+     */
     private void readFiles() {
         try {
             InputStream inputStream1 = this.openFileInput(SINGLE_ACC_FILE);

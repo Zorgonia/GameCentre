@@ -16,7 +16,7 @@ import android.view.MotionEvent;
 import android.widget.GridView;
 
 //import fall2018.csc2017.slidingtiles.BoardManager;
-import fall2018.csc2017.slidingtiles.MovementController;
+
 
 /**
  * A grid view that detects flings.
@@ -80,16 +80,6 @@ public class GestureDetectGridView2048 extends GridView {
         mController = new MovementController2048();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
-//            @Override
-//            public boolean onSingleTapConfirmed(MotionEvent event) {
-//                int position = GestureDetectGridView2048.this.pointToPosition
-//                        (Math.round(event.getX()), Math.round(event.getY()));
-//
-//                mController.processTapMovement(context, position, true);
-//                return true;
-//            }
-
-
             @Override
             public boolean onDown(MotionEvent event) {
                 return true;
@@ -101,18 +91,17 @@ public class GestureDetectGridView2048 extends GridView {
              * @param e2 move motion event that caused on fling
              * @param velocityX velocity in pixels per second in x direction
              * @param velocityY velocity in pixels per second in y direction
-             * @return
+             * @return returns whether the event was consumed
              */
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                    float velocityY) {
-                final int position = GestureDetectGridView2048.this.pointToPosition
-                        (Math.round(e1.getX()), Math.round(e1.getY()));
 
                 /*
                  * Note that directions are like this:    1
                  *                                    4       2
                  *                                        3
+                 * 1 = up, 2 = right, 3 = down, 4 = left
                  */
                 if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
                     if (Math.abs(e1.getX() - e2.getX()) > SWIPE_MAX_OFF_PATH
@@ -120,18 +109,18 @@ public class GestureDetectGridView2048 extends GridView {
                         return false;
                     }
                     if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
-                        mController.processSwipeMovement(context, 1, true);
+                        mController.processSwipeMovement(context, 1);
                     } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
-                        mController.processSwipeMovement(context, 3, true);
+                        mController.processSwipeMovement(context, 3);
                     }
                 } else {
                     if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
                         return false;
                     }
                     if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-                        mController.processSwipeMovement(context, 4, true);
+                        mController.processSwipeMovement(context, 4);
                     } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
-                        mController.processSwipeMovement(context, 2, true);
+                        mController.processSwipeMovement(context, 2);
                     }
                 }
 
@@ -142,11 +131,6 @@ public class GestureDetectGridView2048 extends GridView {
 
     }
 
-    /**
-     * What to do on when a touch is interceted
-     * @param ev
-     * @return
-     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -185,12 +169,11 @@ public class GestureDetectGridView2048 extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Sets the current boardManager for the movement controller
+     * @param boardManager the boardManager to set to
+     */
     public void setBoardManager(BoardManager2048 boardManager) {
-        /*
-      Board Manager to give to
-     */ /**
-         * Board Manager to give to
-         */BoardManager2048 boardManager1 = boardManager;
         mController.setBoardManager(boardManager);
     }
 }

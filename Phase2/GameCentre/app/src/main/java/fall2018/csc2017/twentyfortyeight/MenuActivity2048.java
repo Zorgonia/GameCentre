@@ -20,12 +20,18 @@ import fall2018.csc2017.PersonalScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.ScoreBoardActivity;
 
+/**
+ * The main menu activity for 2048
+ */
 public class MenuActivity2048 extends AppCompatActivity implements CurrentGameConstants {
     /**
      * A temporary save file.
      */
     public static final String TEMP_SAVE_FILENAME = "save_file_tmp_2048.ser";
 
+    /**
+     * The boardManager to use when new game is pressed
+     */
     private BoardManager2048 boardManager = null;
 
     @Override
@@ -37,18 +43,6 @@ public class MenuActivity2048 extends AppCompatActivity implements CurrentGameCo
         listenAndLoadGame();
         addScoreButtonListener();
         addPersonalScoreButtonListener();
-    }
-
-    //TODO: this method is not being used right now.
-    void addButtonListener(int id, Class c) {
-        Button button = findViewById(id);
-        final Class switchTo = c;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToActivity(switchTo);
-            }
-        });
     }
 
     /**
@@ -86,7 +80,6 @@ public class MenuActivity2048 extends AppCompatActivity implements CurrentGameCo
      * Add a listener for the load button and call switchToActivity on LoadActivity.class
      */
     void listenAndLoadGame() {
-        // final String temp = fileName;
         Button loadButton = findViewById(R.id.loadButton2048);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,24 +129,4 @@ public class MenuActivity2048 extends AppCompatActivity implements CurrentGameCo
         }
     }
 
-//    /**
-//     * Load the board manager from the temp save fileName.
-//     */
-//    private void tempLoadFromFile() {
-//
-//        try {
-//            InputStream inputStream = this.openFileInput(MenuActivity2048.TEMP_SAVE_FILENAME);
-//            if (inputStream != null) {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                boardManager = (BoardManager2048) input.readObject();
-//                inputStream.close();
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e("login activity", "File not found: " + e.toString());
-//        } catch (IOException e) {
-//            Log.e("login activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
 }
