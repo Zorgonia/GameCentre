@@ -15,6 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.Interfaces.CurrentGameConstants;
+import fall2018.csc2017.LoadActivity;
 import fall2018.csc2017.PersonalScoreBoardActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.ScoreBoardActivity;
@@ -50,19 +51,28 @@ public class MenuActivity2048 extends AppCompatActivity implements CurrentGameCo
         });
     }
 
+    /**
+     * Switches to activity with class c
+     * @param c the class of the activity to switch to
+     */
     private void switchToActivity(Class c) {
         Intent tmp = new Intent(this, c);
         tempSaveToFile();
-        if(c == PersonalScoreBoardActivity.class || c ==  ScoreBoardActivity.class){
-        tmp.putExtra("highToLow", false);
-        tmp.putExtra("currentGame", TWENTYFORTYEIGHT);
+        if (c == PersonalScoreBoardActivity.class || c == ScoreBoardActivity.class) {
+            tmp.putExtra("highToLow", false);
+            tmp.putExtra("currentGame", TWENTYFORTYEIGHT);
+        } else if(c == LoadActivity.class) {
+            tmp.putExtra("currentGame",TWENTYFORTYEIGHT);
         }
         startActivity(tmp);
     }
 
+    /**
+     * Add the new button listener and call the switchToActivity method on GameActivity2048
+     */
     void listenAndSwitchNewGame() {
         Button button = findViewById(R.id.newButton2048);
-        button.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -72,27 +82,24 @@ public class MenuActivity2048 extends AppCompatActivity implements CurrentGameCo
         });
     }
 
+    /**
+     * Add a listener for the load button and call switchToActivity on LoadActivity.class
+     */
     void listenAndLoadGame() {
-       // final String temp = fileName;
+        // final String temp = fileName;
         Button loadButton = findViewById(R.id.loadButton2048);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tempLoadFromFile();
-                if (boardManager != null) {
-                    tempSaveToFile();
-                    makeToast("Successfully Loaded Game");
-                    //GameActivity.instance.finish();
-                    //finish();
-                    switchToActivity(GameActivity2048.class);
-                } else {
-                    makeToast("Empty Load! Save something first");
-                }
+                switchToActivity(LoadActivity.class);
             }
         });
     }
 
-    void addScoreButtonListener(){
+    /**
+     * Add a scoreboard (general) button listener
+     */
+    void addScoreButtonListener() {
         Button leadButton = findViewById(R.id.leaderBoard);
         leadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +109,10 @@ public class MenuActivity2048 extends AppCompatActivity implements CurrentGameCo
         });
     }
 
-    void addPersonalScoreButtonListener(){
+    /**
+     * Add a personal scoreboard button listener
+     */
+    void addPersonalScoreButtonListener() {
         Button leadButton = findViewById(R.id.personalLeader);
         leadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,10 +120,6 @@ public class MenuActivity2048 extends AppCompatActivity implements CurrentGameCo
                 switchToActivity(PersonalScoreBoardActivity.class);
             }
         });
-    }
-
-    private void makeToast(String s) {
-        Toast.makeText(this,s ,Toast.LENGTH_SHORT ).show();
     }
 
     /**
@@ -130,24 +136,24 @@ public class MenuActivity2048 extends AppCompatActivity implements CurrentGameCo
         }
     }
 
-    /**
-     * Load the board manager from the temp save fileName.
-     */
-    private void tempLoadFromFile() {
-
-        try {
-            InputStream inputStream = this.openFileInput(MenuActivity2048.TEMP_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager2048) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
+//    /**
+//     * Load the board manager from the temp save fileName.
+//     */
+//    private void tempLoadFromFile() {
+//
+//        try {
+//            InputStream inputStream = this.openFileInput(MenuActivity2048.TEMP_SAVE_FILENAME);
+//            if (inputStream != null) {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                boardManager = (BoardManager2048) input.readObject();
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            Log.e("login activity", "File not found: " + e.toString());
+//        } catch (IOException e) {
+//            Log.e("login activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
 }
